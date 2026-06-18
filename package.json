@@ -4,7 +4,7 @@
   "description": "1:1 TypeScript MVC replica of landcaller.manus.space (Node.js + Express + EJS)",
   "type": "module",
   "engines": {
-    "node": ">=18"
+    "node": "20.x"
   },
   "scripts": {
     "clean": "rimraf dist",
@@ -12,6 +12,7 @@
     "copy:views": "node scripts/copy-views.mjs",
     "build:client": "esbuild src/client/main.ts --bundle --minify --format=iife --outfile=public/assets/js/main.js",
     "build": "npm run clean && npm run build:server && npm run copy:views && npm run build:client",
+    "vercel-build": "npm run build",
     "dev:client": "esbuild src/client/main.ts --bundle --format=iife --sourcemap --outfile=public/assets/js/main.js --watch",
     "dev:server": "tsx watch src/server.ts",
     "dev": "npm run build:client && tsx watch src/server.ts",

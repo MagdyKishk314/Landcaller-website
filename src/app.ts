@@ -10,10 +10,14 @@ const projectRoot = path.resolve(__dirname, "..");
 export function createApp(): Application {
   const app = express();
 
+  app.set("trust proxy", 1);
   app.set("view engine", "ejs");
   app.set("views", path.join(__dirname, "views"));
 
-  app.use(compression());
+  // Vercel edge/CDN already compresses responses.
+  if (!process.env.VERCEL) {
+    app.use(compression());
+  }
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
