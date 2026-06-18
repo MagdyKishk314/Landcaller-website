@@ -1,0 +1,68 @@
+<section id="packages" class="py-24 lg:py-32 bg-[#0D0D0D] border-y border-white/5">
+  <div class="container">
+    <div class="text-center mb-14">
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4">Acquisition Packages</h2>
+      <p class="text-white/50 text-lg">Choose your weapon. Scale at your pace.</p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <% packages.forEach(function(pkg){ const pop = !!pkg.mostPopular; %>
+      <div class="<%= pop ? 'relative bg-[#141414] rounded-xl border-2 border-[#E8523A] p-7 lg:p-8' : 'bg-[#141414] rounded-xl border border-white/10 p-7 lg:p-8' %>">
+        <% if (pop) { %>
+        <div class="absolute -top-3 left-8 bg-[#E8523A] text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">Most Popular</div>
+        <% } %>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-lg <%= pop ? 'bg-[#E8523A]/10' : 'bg-white/5' %> flex items-center justify-center">
+            <%- include('_icons', { name: pkg.icon, cls: pop ? 'h-5 w-5 text-[#E8523A]' : 'h-5 w-5 text-white/70' }) %>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white"><%= pkg.name %></h3>
+            <p class="text-xs text-white/50"><%= pkg.tagline %></p>
+          </div>
+        </div>
+        <% pkg.blurbs.forEach(function(blurb, bi){ %>
+        <p class="text-sm text-white/60 <%= bi === 0 ? 'mb-2' : 'mb-5' %> leading-relaxed"><%- blurb %></p>
+        <% }); %>
+        <div class="border-t border-white/10 pt-4 mb-4">
+          <% pkg.features.forEach(function(feature){ %>
+          <div class="border-b border-white/5 last:border-b-0" data-accordion-item>
+            <button type="button" class="flex items-center gap-3 py-3 w-full text-left group" data-accordion-trigger aria-expanded="false">
+              <div class="w-5 h-5 rounded-full bg-[#E8523A]/15 flex items-center justify-center shrink-0">
+                <%- include('_icons', { name: 'check', cls: 'h-3 w-3 text-[#E8523A]' }) %>
+              </div>
+              <span class="text-sm text-white/80 font-medium flex-1"><%= feature.label %></span>
+              <%- include('_icons', { name: 'chevron-down', cls: 'h-4 w-4 text-white/30 group-hover:text-[#E8523A] transition-all duration-200 ' }) %>
+            </button>
+            <div class="pl-8 pb-3 -mt-1" data-accordion-panel hidden>
+              <p class="text-xs text-white/50 leading-relaxed"><%= feature.detail %></p>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+        <div class="bg-[#0A0A0A] rounded-lg p-4 border <%= pop ? 'border-[#E8523A]/20' : 'border-white/5' %>">
+          <p class="text-xs font-bold text-white mb-2"><%= pkg.highlightTitle %></p>
+          <div class="grid grid-cols-2 gap-1.5">
+            <% pkg.highlights.forEach(function(h){ %>
+            <div class="flex items-center gap-1.5">
+              <%- include('_icons', { name: 'check', cls: pop ? 'h-2.5 w-2.5 text-[#E8523A] shrink-0' : 'h-2.5 w-2.5 text-white/50 shrink-0' }) %>
+              <span class="text-xs text-white/60"><%= h.label %></span>
+            </div>
+            <% }); %>
+          </div>
+        </div>
+        <% if (pkg.ctas) { %>
+        <div class="flex flex-wrap gap-3 mt-5">
+          <% pkg.ctas.forEach(function(cta){ %>
+          <% if (cta.primary) { %>
+          <a href="<%= cta.href %>" data-slot="button" class="inline-flex items-center justify-center whitespace-nowrap text-sm disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-8 gap-1.5 has-[>svg]:px-2.5 bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full px-5 transition-all duration-200 active:scale-[0.97]"><%= cta.label %></a>
+          <% } else { %>
+          <a href="<%= cta.href %>" data-slot="button" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-8 gap-1.5 has-[>svg]:px-2.5 border-[2px] border-[#E8523A] text-white hover:bg-[#E8523A]/10 bg-transparent rounded-full px-5 transition-all duration-200 active:scale-[0.97]"><%= cta.label %></a>
+          <% } %>
+          <% }); %>
+        </div>
+        <% } %>
+      </div>
+      <% }); %>
+    </div>
+    <p class="text-xs text-white/30 mt-8 max-w-3xl mx-auto text-center"><%= packagesDisclaimer %></p>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+<section class="py-24 lg:py-32 bg-[#0A0A0A]">
+  <div class="container">
+    <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-6"><%= whatSetsApart.heading %></h2>
+    <div class="max-w-3xl mb-16">
+      <h3 class="text-xl font-bold text-[#E8523A] mb-4"><%= whatSetsApart.ecosystemTitle %></h3>
+      <p class="text-white/60 leading-relaxed mb-6"><%= whatSetsApart.ecosystemBody %></p>
+      <a href="#features" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-9 px-4 py-2 has-[>svg]:px-3 border-[2px] border-[#E8523A] text-white hover:bg-[#E8523A]/10 bg-transparent rounded-full transition-all duration-200 active:scale-[0.97]">Explore the Platform <%- include('_icons', { name: 'arrow-right', cls: 'ml-2 h-4 w-4' }) %></a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-10">
+      <% whatSetsApart.items.forEach(function(item){ %>
+      <div class="group flex items-start gap-5 border-l-2 border-[#E8523A]/40 pl-6 hover:border-[#E8523A] transition-colors duration-300">
+        <span class="font-display text-3xl text-[#E8523A]/60 group-hover:text-[#E8523A] transition-colors shrink-0 leading-none"><%= item.number %></span>
+        <div>
+          <h4 class="text-base font-semibold text-white mb-1.5"><%= item.title %></h4>
+          <p class="text-sm text-white/50 leading-relaxed"><%= item.body %></p>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+</section>

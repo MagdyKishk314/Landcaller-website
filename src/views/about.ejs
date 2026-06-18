@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+  <%- include('partials/_head', { pageTitle: 'About Us - Land Caller', pageDescription: 'Meet the team behind Land Caller - the enterprise-grade cold calling system purpose-built for land investors.', canonical: 'https://landcaller.manus.space/about' }) %>
+
+  <body>
+    <div id="root">
+      <div class="min-h-screen flex flex-col bg-background">
+        <%- include('partials/header') %>
+        <main>
+          <section class="py-24 lg:py-32 bg-[#0A0A0A] border-b border-white/5">
+            <div class="container">
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white text-center mb-6"><%= about.heading %></h2>
+              <p class="text-white/60 leading-relaxed max-w-3xl mx-auto text-center"><%- about.lede %></p>
+            </div>
+          </section>
+
+          <section class="py-24 lg:py-32 bg-[#0D0D0D] border-y border-white/5">
+            <div class="container">
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white text-center mb-12"><%= about.storyHeading %></h2>
+              <div class="max-w-3xl mx-auto space-y-6">
+                <% about.story.forEach(function(paragraph){ %>
+                <p class="text-white/60 leading-relaxed"><%= paragraph %></p>
+                <% }); %>
+              </div>
+            </div>
+          </section>
+
+          <section class="py-24 lg:py-32 bg-[#0A0A0A]">
+            <div class="container">
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white text-center mb-4"><%= about.teamHeading %></h2>
+              <p class="text-white/50 text-center mb-14 text-lg"><%= about.teamSubtext %></p>
+              <div class="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+                <% team.forEach(function(member){ %>
+                <div class="group bg-[#141414] rounded-xl p-8 border border-white/5 hover:border-[#E8523A]/30 transition-all duration-300 hover:translate-y-[-2px] flex flex-col">
+                  <div class="team-avatar w-32 h-32 rounded-2xl overflow-hidden shrink-0 mb-5 mx-auto">
+                    <img src="<%= member.image %>" alt="<%= member.name %>" class="w-full h-full object-cover" loading="lazy" width="128" height="128">
+                  </div>
+                  <h3 class="text-lg font-semibold text-white text-center"><%= member.name %></h3>
+                  <div class="text-[#E8523A]/70 text-xs font-semibold uppercase tracking-wider mt-1 mb-4 text-center"><%= member.role %></div>
+                  <p class="text-sm text-white/60 leading-relaxed"><%= member.bio %></p>
+                </div>
+                <% }); %>
+              </div>
+            </div>
+          </section>
+
+          <section class="py-24 lg:py-32 bg-[#0D0D0D] border-y border-white/5">
+            <div class="container">
+              <div class="max-w-3xl mx-auto text-center">
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-8 leading-tight"><%= about.ctaHeading %></h2>
+                <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-10 has-[>svg]:px-4 bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full px-10 py-6 text-base transition-all duration-200 active:scale-[0.97] shadow-lg">Book A Call</a>
+              </div>
+            </div>
+          </section>
+        </main>
+        <%- include('partials/footer') %>
+      </div>
+    </div>
+    <div id="toast-region" class="lc-toaster" aria-live="polite" aria-atomic="false"></div>
+  </body>
+
+</html>

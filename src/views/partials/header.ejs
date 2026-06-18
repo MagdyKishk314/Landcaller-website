@@ -1,0 +1,37 @@
+<%
+const btnBase = "inline-flex items-center justify-center whitespace-nowrap text-sm transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-8 gap-1.5 has-[>svg]:px-2.5";
+const outline = "bg-transparent hover:bg-[#E8523A]/10 text-white font-semibold border-[2px] border-[#E8523A] rounded-full";
+const primary = "bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full";
+const onHome = (typeof isHome === 'undefined') ? true : isHome;
+const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? '' : h)) : h;
+%>
+<header id="site-header" class="top-0 z-50 transition-all duration-300 bg-transparent" style="position: sticky; top: 0;">
+  <div class="container flex items-center justify-between h-16 lg:h-20 gap-6">
+    <a href="<%= resolve('#') %>" class="flex items-center shrink-0">
+      <img alt="Land Caller" class="h-10 lg:h-12 w-auto" src="<%= site.logo %>">
+    </a>
+    <nav class="hidden lg:flex items-center gap-7">
+      <% navLinks.forEach(function(link){ %>
+      <a href="<%= resolve(link.href) %>" class="text-sm font-medium text-white/70 hover:text-[#E8523A] transition-colors duration-200 whitespace-nowrap"><%= link.label %></a>
+      <% }); %>
+    </nav>
+    <div class="hidden lg:flex items-center gap-3">
+      <a href="<%= site.externalLinks.crmLogin %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="<%= btnBase %> <%= outline %> px-6">CRM + Data Login</a>
+      <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="<%= btnBase %> <%= primary %> px-6">Book A Call</a>
+    </div>
+    <button type="button" id="mobile-menu-toggle" class="lg:hidden p-2 text-white" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+      <%- include('_icons', { name: 'menu', cls: '' }) %>
+    </button>
+  </div>
+  <div id="mobile-menu" class="lg:hidden bg-[#0A0A0A] border-t border-white/10" hidden>
+    <nav class="container py-4 flex flex-col gap-3">
+      <% navLinks.forEach(function(link){ %>
+      <a href="<%= resolve(link.href) %>" class="text-sm font-medium text-white/80 hover:text-[#E8523A] py-2" data-mobile-link><%= link.label %></a>
+      <% }); %>
+      <div class="flex flex-col gap-2 pt-3 border-t border-white/10">
+        <a href="<%= site.externalLinks.crmLogin %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="<%= btnBase %> <%= outline %>">CRM + Data Login</a>
+        <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="<%= btnBase %> <%= primary %>">Book A Call</a>
+      </div>
+    </nav>
+  </div>
+</header>

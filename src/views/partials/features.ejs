@@ -1,0 +1,42 @@
+<section id="features" class="py-24 lg:py-32 bg-[#111111] border-y border-white/5">
+  <div class="container">
+    <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-3 text-center">Key Features Comparison</h2>
+    <h3 class="text-xl text-white/70 mb-14 text-center">What's In It For You?</h3>
+    <div class="max-w-3xl mx-auto bg-[#141414] rounded-xl border border-white/10 overflow-hidden shadow-lg shadow-black/20">
+      <div class="grid grid-cols-[1fr_100px_100px] sm:grid-cols-[1fr_140px_140px] border-b-2 border-[#E8523A]">
+        <div class="p-4 lg:p-5 text-sm font-semibold text-white/70 bg-[#0A0A0A]">Feature</div>
+        <div class="p-4 lg:p-5 text-center bg-[#0A0A0A]">
+          <div class="text-sm font-bold text-[#E8523A]">Enterprise</div>
+          <div class="text-[10px] text-white/40 uppercase tracking-wider">(Contract)</div>
+        </div>
+        <div class="p-4 lg:p-5 text-center bg-[#0A0A0A]">
+          <div class="text-sm font-bold text-white/80">Basic</div>
+          <div class="text-[10px] text-white/40 uppercase tracking-wider">(No Contract)</div>
+        </div>
+      </div>
+      <% featureMatrix.forEach(function(row, idx){
+           const last = idx === featureMatrix.length - 1;
+           const rowBg = idx % 2 === 0 ? 'bg-[#141414]' : 'bg-[#0F0F0F]';
+           const borderCls = last ? '' : 'border-b border-white/5 '; %>
+      <div class="grid grid-cols-[1fr_100px_100px] sm:grid-cols-[1fr_140px_140px] <%= borderCls %><%= rowBg %>">
+        <div class="p-3 lg:p-4 text-sm text-white/70 flex items-center"><%= row.feature %></div>
+        <div class="p-3 lg:p-4 flex items-center justify-center">
+          <div class="w-6 h-6 rounded-full bg-[#E8523A]/15 flex items-center justify-center">
+            <%- include('_icons', { name: 'check', cls: 'h-3.5 w-3.5 text-[#E8523A]' }) %>
+          </div>
+        </div>
+        <div class="p-3 lg:p-4 flex items-center justify-center">
+          <% if (row.basic) { %>
+          <div class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center">
+            <%- include('_icons', { name: 'check', cls: 'h-3.5 w-3.5 text-white/70' }) %>
+          </div>
+          <% } else { %>
+          <%- include('_icons', { name: 'minus', cls: 'h-4 w-4 text-white/20' }) %>
+          <% } %>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+    <p class="text-xs text-white/40 mt-6 max-w-3xl mx-auto text-center"><%= featureMatrixDisclaimer %></p>
+  </div>
+</section>

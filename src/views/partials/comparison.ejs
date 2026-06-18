@@ -1,0 +1,50 @@
+<section class="py-24 lg:py-32 bg-[#0A0A0A]">
+  <div class="container">
+    <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4">Why Land Caller Wins</h2>
+    <p class="text-white/50 mb-12 text-lg">See how we stack up against everyone else.</p>
+    <div class="overflow-x-auto rounded-xl border border-white/10 bg-[#111111] shadow-lg shadow-black/20">
+      <div class="min-w-[600px]">
+        <div class="grid grid-cols-[1fr_1fr_1fr] border-b border-white/10">
+          <div class="p-4 lg:p-6 flex items-center">
+            <span class="text-[#E8523A] font-bold">Feature</span>
+          </div>
+          <div class="p-4 lg:p-6 text-center bg-[#E8523A]/10 border-x border-white/5">
+            <div class="flex items-center justify-center gap-2">
+              <img alt="LC" class="h-5 w-auto" src="<%= site.logo %>">
+              <span class="font-semibold text-[#E8523A] text-sm">Land Caller</span>
+            </div>
+          </div>
+          <div class="p-4 lg:p-6 text-center">
+            <span class="text-sm font-medium text-white/40">Everyone Else</span>
+          </div>
+        </div>
+        <% comparisonRows.forEach(function(row, idx){ const last = idx === comparisonRows.length - 1; %>
+        <div class="grid grid-cols-[1fr_1fr_1fr] <%= last ? '' : 'border-b border-white/5' %>">
+          <div class="p-4 lg:p-5 flex items-center">
+            <span class="text-sm text-white/70 font-medium"><%= row.feature %></span>
+          </div>
+          <div class="p-4 lg:p-5 bg-[#E8523A]/5 border-x border-white/5 flex items-center">
+            <div class="flex items-start gap-2">
+              <div class="w-5 h-5 rounded-full bg-[#E8523A]/20 flex items-center justify-center shrink-0 mt-0.5">
+                <%- include('_icons', { name: 'check', cls: 'h-3 w-3 text-[#E8523A]' }) %>
+              </div>
+              <span class="text-sm font-medium text-[#E8523A]"><%= row.landCaller %></span>
+            </div>
+          </div>
+          <div class="p-4 lg:p-5 flex items-center">
+            <div class="flex items-start gap-2">
+              <div class="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
+                <%- include('_icons', { name: 'x', cls: 'h-3 w-3 text-white/30' }) %>
+              </div>
+              <span class="text-sm text-white/40"><%= row.everyoneElse %></span>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+    <div class="mt-10">
+      <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-10 has-[>svg]:px-4 bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full px-8 transition-all duration-200 active:scale-[0.97]">Book A Call</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+<section id="affiliate" class="py-24 lg:py-32 bg-[#0D0D0D] border-y border-white/5">
+  <div class="container">
+    <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4">Earn While You Refer</h2>
+    <h3 class="text-xl font-semibold text-white/80 mb-4">Three tiers. Your choice.</h3>
+    <p class="text-white/60 leading-relaxed max-w-2xl mb-4"><strong class="text-white">We pay you for every investor you send our way.</strong> Three affiliate tiers designed to match your reach and maximize your earnings.</p>
+    <p class="text-white/60 leading-relaxed max-w-2xl mb-10">Individual, coach, or organization - there's a tier built for you.</p>
+    <div class="grid md:grid-cols-3 gap-6 lg:gap-8 mb-10">
+      <% affiliateTiers.forEach(function(tier){ %>
+      <div class="bg-[#141414] rounded-xl border p-8 transition-all duration-300 hover:translate-y-[-3px] <%= tier.featured ? 'border-[#E8523A] hover:border-[#E8523A]' : 'border-white/5 hover:border-[#E8523A]/30' %>">
+        <div class="w-10 h-10 rounded-lg bg-[#E8523A]/10 flex items-center justify-center mb-4">
+          <%- include('_icons', { name: tier.icon, cls: 'h-5 w-5 text-[#E8523A]' }) %>
+        </div>
+        <div class="text-xs font-bold text-[#E8523A] uppercase tracking-[0.15em] mb-1"><%= tier.tier %></div>
+        <h3 class="text-lg font-bold text-white mb-2"><%= tier.name %></h3>
+        <p class="text-xs text-white/50 mb-6"><%= tier.tagline %></p>
+        <div class="space-y-2.5">
+          <% tier.perks.forEach(function(perk){ %>
+          <div class="flex items-start gap-2.5">
+            <div class="w-4 h-4 rounded-full bg-[#E8523A]/15 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="text-[8px] font-bold text-[#E8523A]">✓</span>
+            </div>
+            <span class="text-sm text-white/70"><%= perk %></span>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+    <a href="#" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-10 has-[>svg]:px-4 bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full px-8 transition-all duration-200 active:scale-[0.97]">Become An Affiliate <%- include('_icons', { name: 'arrow-right', cls: 'ml-2 h-4 w-4' }) %></a>
+  </div>
+</section>

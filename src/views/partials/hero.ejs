@@ -1,0 +1,26 @@
+<%
+const heroBtn = "inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-10 has-[>svg]:px-4";
+%>
+<section class="relative min-h-screen flex items-center bg-[#0A0A0A] overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-[#0A0A0A]/80 via-[#0D0D0D]/70 to-[#111111]/60"></div>
+  <div class="container relative z-10 pt-24 pb-16 lg:pt-32 lg:pb-24">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div class="lg:col-span-6 space-y-7">
+        <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase"><%= hero.eyebrow %></p>
+        <h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl text-white leading-[1.1] font-bold tracking-tight"><%= hero.headingLines[0] %><br><%= hero.headingLines[1] %></h1>
+        <p class="text-white/70 text-lg leading-relaxed max-w-lg"><%= hero.subtext %></p>
+        <div class="flex flex-wrap gap-5 pt-2">
+          <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="<%= heroBtn %> bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full px-10 py-6 text-base transition-all duration-200 active:scale-[0.97] shadow-lg">Book A Call</a>
+          <a href="#packages" data-slot="button" class="<%= heroBtn %> bg-transparent hover:bg-[#E8523A]/10 text-white font-semibold border-[2px] border-[#E8523A] rounded-full px-10 py-6 text-base transition-all duration-200 active:scale-[0.97]">View Pricing</a>
+        </div>
+        <p class="text-white/50 text-sm leading-relaxed max-w-lg pt-2"><%= hero.note %></p>
+      </div>
+      <div class="lg:col-span-6">
+        <div class="relative">
+          <img alt="Land Caller CRM Dashboard" class="w-full h-auto" src="<%= hero.image %>" style="mask-image: radial-gradient(85% 80%, black 50%, transparent 100%);">
+          <div class="absolute -inset-4 bg-[#E8523A]/5 rounded-2xl blur-3xl -z-10"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
