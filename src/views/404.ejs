@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+  <%- include('partials/_head') %>
+
+  <body>
+    <div id="root">
+      <div class="min-h-screen flex flex-col bg-background">
+        <%- include('partials/header') %>
+        <main class="flex-1 flex items-center justify-center">
+          <section class="py-32 lg:py-40 bg-[#0A0A0A] w-full">
+            <div class="container max-w-2xl text-center">
+              <p class="font-display text-7xl lg:text-8xl text-[#E8523A] font-bold mb-4">404</p>
+              <h1 class="font-display text-3xl sm:text-4xl text-white font-bold mb-5">This page couldn't be found</h1>
+              <p class="text-white/60 leading-relaxed text-lg mb-10">The page you're looking for doesn't exist or has moved. Let's get you back to generating land seller leads.</p>
+              <div class="flex flex-wrap gap-5 justify-center">
+                <a href="/" class="inline-flex items-center justify-center gap-2 bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full px-10 py-4 text-base transition-all duration-200 active:scale-[0.97] shadow-lg">Back to Home</a>
+                <a href="/land-investor-cold-calling" class="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-[#E8523A]/10 text-white font-semibold border-[2px] border-[#E8523A] rounded-full px-10 py-4 text-base transition-all duration-200 active:scale-[0.97]">Our Cold Calling Service</a>
+              </div>
+            </div>
+          </section>
+        </main>
+        <%- include('partials/footer') %>
+      </div>
+    </div>
+    <div id="toast-region" class="lc-toaster" aria-live="polite" aria-atomic="false"></div>
+  </body>
+
+</html>

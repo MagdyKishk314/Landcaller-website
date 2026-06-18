@@ -1,14 +1,23 @@
 import type { SiteConfig, NavLink } from "../models/types.js";
 
+/**
+ * Production base URL. Overridable per-environment via SITE_URL so canonical
+ * and Open Graph tags always point at the live domain (never a preview host).
+ */
+const BASE_URL = (process.env.SITE_URL ?? "https://landcaller.com").replace(/\/+$/, "");
+
 export const site: SiteConfig = {
-  title: "Land Caller - Enterprise Cold Calling for Land Investors",
+  name: "Land Caller",
+  url: BASE_URL,
+  // Primary keyword up front; brand second. Targets the hire-intent buyer.
+  title: "Land Lead Generation & Cold Calling for Land Investors | Land Caller",
   description:
-    "The only enterprise-grade cold calling system purpose-built for land acquisitions. One platform. Unlimited dials. Consistent deal flow.",
-  canonical: "https://landcaller.manus.space/",
+    "Land Caller is the only done-for-you cold calling service built exclusively for vacant land investors. We deliver warm, off-market land seller leads straight to your CRM. Book a call.",
+  canonical: `${BASE_URL}/`,
   faviconUrl: "/assets/images/lc-logo-transparent.png",
   logo: "/assets/images/lc-logo-transparent.png",
-  ogImage:
-    "https://files.manuscdn.com/webdev_screenshots/2026/06/16/JKd8ZeJfxyUWwLszUtNFM8.png?x-oss-process=image/resize,w_1200/crop,h_630,x_0,y_0",
+  ogImage: `${BASE_URL}/assets/images/og-image.png`,
+  twitterHandle: "@Land_Caller",
   externalLinks: {
     bookACall: "https://calendly.com/landcaller",
     crmLogin: "https://my.landcaller.com/",
@@ -19,16 +28,17 @@ export const site: SiteConfig = {
 
 export const navLinks: NavLink[] = [
   { label: "Home", href: "#" },
-  { label: "About", href: "/about" },
+  { label: "Services", href: "/land-investor-cold-calling" },
   { label: "Pricing", href: "#packages" },
-  { label: "Resources", href: "#faq" },
-  { label: "CRM + Data", href: "#features" },
+  { label: "About", href: "/about" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 
 export const footerLinks: NavLink[] = [
+  { label: "Land Cold Calling Service", href: "/land-investor-cold-calling" },
+  { label: "Cold Calling vs Direct Mail", href: "/cold-calling-vs-direct-mail" },
   { label: "About Us", href: "/about" },
-  { label: "FAQ's", href: "#faq" },
-  { label: "CRM + Data", href: "#features" },
+  { label: "FAQs", href: "#faq" },
   { label: "Become An Affiliate", href: "#affiliate" },
 ];

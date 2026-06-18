@@ -1,8 +1,9 @@
-import express, { type Application, type Request, type Response } from "express";
+import express, { type Application } from "express";
 import compression from "compression";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import routes from "./routes/index.js";
+import { renderNotFound } from "./controllers/seoController.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
@@ -34,10 +35,8 @@ export function createApp(): Application {
 
   app.use("/", routes);
 
-  // 404 fallback renders the home layout shell to mirror the SPA catch-all.
-  app.use((_req: Request, res: Response) => {
-    res.status(404).redirect("/");
-  });
+  // Real 404: render a Not Found page with a 404 status (no soft-redirect).
+  app.use(renderNotFound);
 
   return app;
 }

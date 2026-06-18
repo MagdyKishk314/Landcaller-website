@@ -20,7 +20,7 @@ test("home route renders the full landing page", async () => {
     const html = await res.text();
     // Every major section is present.
     for (const needle of [
-      "Stop Buying Leads.",
+      "Warm Land Seller Leads.",
       "Who We Are",
       "What Sets Land Caller Apart?",
       "Don't Take Our Word For It",
@@ -91,6 +91,71 @@ test("contact endpoint returns JSON success without persistence", async () => {
     const data = await res.json();
     assert.equal(data.success, true);
     assert.match(data.message, /Message sent/);
+  } finally {
+    server.close();
+  }
+});
+
+test("SEO landing pages render with one H1 each", async () => {
+  const app = createApp();
+  const server = await listen(app);
+  const { port } = server.address();
+  try {
+    for (const [path, needle] of [
+      ["/land-investor-cold-calling", "Done-For-You Cold Calling Lead Generation for Land Investors"],
+      ["/cold-calling-vs-direct-mail", "Cold Calling vs Direct Mail for Land Investors"],
+    ]) {
+      const res = await fetch(`http://127.0.0.1:${port}${path}`);
+      assert.equal(res.status, 200, `page failed: ${path}`);
+      const html = await res.text();
+      assert.ok(html.includes(needle), `missing H1 on ${path}`);
+      assert.equal((html.match(/<h1/g) || []).length, 1, `${path} should have exactly one <h1>`);
+    }
+  } finally {
+    server.close();
+  }
+});
+
+test("structured data (JSON-LD) is emitted with FAQPage on home", async () => {
+  const app = createApp();
+  const server = await listen(app);
+  const { port } = server.address();
+  try {
+    const html = await (await fetch(`http://127.0.0.1:${port}/`)).text();
+    const m = html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s);
+    assert.ok(m, "no JSON-LD block found");
+    const data = JSON.parse(m[1]);
+    const types = data["@graph"].map((g) => g["@type"]);
+    for (const t of ["Organization", "WebSite", "Service", "FAQPage"]) {
+      assert.ok(types.includes(t), `schema missing ${t}`);
+    }
+  } finally {
+    server.close();
+  }
+});
+
+test("sitemap.xml lists canonical URLs", async () => {
+  const app = createApp();
+  const server = await listen(app);
+  const { port } = server.address();
+  try {
+    const res = await fetch(`http://127.0.0.1:${port}/sitemap.xml`);
+    assert.equal(res.status, 200);
+    const xml = await res.text();
+    assert.match(res.headers.get("content-type") || "", /xml/);
+    assert.ok(xml.includes("/land-investor-cold-calling"));
+  } finally {
+    server.close();
+  }
+});
+
+test("unknown route returns a real 404 (no soft redirect)", async () => {
+  const app = createApp();
+  const server = await listen(app);
+  const { port } = server.address();
+  try {
+    const res = await fetch(`http://127.0.0.1:${port}/this-page-does-not-exist`, { redirect: "manual" });
+    assert.equal(res.status, 404);
   } finally {
     server.close();
   }

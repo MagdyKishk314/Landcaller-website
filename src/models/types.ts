@@ -27,12 +27,18 @@ export interface NavLink {
 }
 
 export interface SiteConfig {
+  /** Brand / organization name (used in metadata and schema). */
+  name: string;
+  /** Absolute production base URL, no trailing slash (e.g. https://landcaller.com). */
+  url: string;
   title: string;
   description: string;
   canonical: string;
   faviconUrl: string;
   logo: string;
   ogImage: string;
+  /** Twitter/X handle including the leading @. */
+  twitterHandle: string;
   externalLinks: {
     bookACall: string;
     crmLogin: string;

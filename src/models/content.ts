@@ -11,12 +11,12 @@ import type {
 } from "./types.js";
 
 export const hero = {
-  eyebrow: "Built By Land Investors. For Land Investors.",
-  headingLines: ["Stop Buying Leads.", "Start Building a Pipeline."],
+  eyebrow: "Cold Calling Lead Generation for Land Investors",
+  headingLines: ["Warm Land Seller Leads.", "Done For You."],
   subtext:
-    "The only enterprise-grade cold calling system purpose-built for land acquisitions. One platform. Unlimited dials. Consistent deal flow.",
+    "Land Caller is the only done-for-you cold calling service built exclusively for vacant land investors. We dial off-market owners and deliver warm, qualified seller leads straight to your CRM - so you close more land deals.",
   note:
-    'Land Caller is retiring the "Agency" model - unifying data, dialing, and deal management under one command center.',
+    "One dedicated caller. Unlimited dials. Consistent off-market deal flow - without building your own call center.",
   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663203678839/mbp6FanYgpwBS3kCCTBiLV/laptop-mockup-square-nZPXFkERsr4aHb9ywUKqvj.webp",
 };
 

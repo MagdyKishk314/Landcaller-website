@@ -35,3 +35,7 @@ coverage/
 
 # Vercel local CLI metadata
 .vercel
+
+# PDFs
+*.pdf
+SEO-Report.md

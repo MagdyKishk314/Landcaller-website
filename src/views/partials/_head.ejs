@@ -2,31 +2,44 @@
 const _title = (typeof pageTitle !== 'undefined') ? pageTitle : site.title;
 const _desc = (typeof pageDescription !== 'undefined') ? pageDescription : site.description;
 const _canonical = (typeof canonical !== 'undefined') ? canonical : site.canonical;
+const _ogImageAlt = (typeof ogImageAlt !== 'undefined') ? ogImageAlt : 'Land Caller - cold calling lead generation for land investors';
 %>
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= _title %></title>
     <meta name="description" content="<%= _desc %>" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0A0A0A" />
     <link rel="icon" type="image/png" href="<%= site.faviconUrl %>" />
+    <link rel="canonical" href="<%= _canonical %>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="/assets/css/app.css">
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="<%= site.name %>">
+    <meta property="og:locale" content="en_US">
     <meta property="og:url" content="<%= _canonical %>">
     <meta property="og:title" content="<%= _title %>">
+    <meta property="og:description" content="<%= _desc %>">
     <meta property="og:image" content="<%= site.ogImage %>">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="<%= _ogImageAlt %>">
+
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="<%= site.twitterHandle %>">
+    <meta name="twitter:creator" content="<%= site.twitterHandle %>">
     <meta name="twitter:title" content="<%= _title %>">
+    <meta name="twitter:description" content="<%= _desc %>">
     <meta name="twitter:image" content="<%= site.ogImage %>">
-    <meta name="twitter:image:width" content="1200">
-    <meta name="twitter:image:height" content="630">
-    <link rel="canonical" href="<%= _canonical %>" />
+    <meta name="twitter:image:alt" content="<%= _ogImageAlt %>">
+
+    <%- include('_schema') %>
     <script defer src="/assets/js/main.js"></script>
   </head>

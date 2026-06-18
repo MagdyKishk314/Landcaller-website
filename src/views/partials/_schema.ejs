@@ -1,0 +1,94 @@
+<%
+/* Structured data (JSON-LD). Emits a schema.org @graph tailored to the page.
+   Guards on optional locals so each route only outputs relevant entities. */
+const base = site.url;
+const orgId = base + "/#organization";
+const stripTags = (s) => String(s).replace(/<[^>]*>/g, "").trim();
+
+const graph = [];
+
+// Organization (every page)
+graph.push({
+  "@type": "Organization",
+  "@id": orgId,
+  name: site.name,
+  url: base + "/",
+  logo: base + site.logo,
+  image: site.ogImage,
+  description: site.description,
+  sameAs: [site.externalLinks.facebook, site.externalLinks.twitter],
+});
+
+// WebSite (every page)
+graph.push({
+  "@type": "WebSite",
+  "@id": base + "/#website",
+  url: base + "/",
+  name: site.name,
+  publisher: { "@id": orgId },
+  inLanguage: "en-US",
+});
+
+// Service (every page) - the core hire-intent entity
+const service = {
+  "@type": "Service",
+  "@id": base + "/#service",
+  name: "Land Investor Cold Calling Lead Generation",
+  serviceType: "Cold calling lead generation for vacant land investors",
+  provider: { "@id": orgId },
+  areaServed: { "@type": "Country", name: "United States" },
+  description:
+    "Done-for-you cold calling built exclusively for vacant land investors. Land Caller delivers warm, off-market land seller leads directly to your CRM.",
+  url: base + "/land-investor-cold-calling",
+};
+
+// Aggregate rating + reviews from testimonials (when present)
+if (typeof testimonials !== "undefined" && testimonials.length) {
+  const ratings = testimonials.map((t) => t.rating || 5);
+  const avg = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+  service.aggregateRating = {
+    "@type": "AggregateRating",
+    ratingValue: avg.toFixed(1),
+    reviewCount: testimonials.length,
+    bestRating: 5,
+    worstRating: 1,
+  };
+  service.review = testimonials.map((t) => ({
+    "@type": "Review",
+    author: { "@type": "Person", name: t.name },
+    reviewRating: { "@type": "Rating", ratingValue: t.rating || 5, bestRating: 5 },
+    reviewBody: t.quote,
+    ...(t.company ? { publisher: { "@type": "Organization", name: t.company } } : {}),
+  }));
+}
+graph.push(service);
+
+// FAQPage (when a page provides faqs)
+if (typeof faqs !== "undefined" && faqs.length) {
+  graph.push({
+    "@type": "FAQPage",
+    "@id": (typeof canonical !== "undefined" ? canonical : base + "/") + "#faq",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: stripTags(f.question),
+      acceptedAnswer: { "@type": "Answer", text: stripTags(f.answer) },
+    })),
+  });
+}
+
+// BreadcrumbList (when a page provides breadcrumbs: [{name, path}])
+if (typeof breadcrumbs !== "undefined" && breadcrumbs.length) {
+  graph.push({
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: b.name,
+      item: base + b.path,
+    })),
+  });
+}
+
+const ld = { "@context": "https://schema.org", "@graph": graph };
+%>
+    <script type="application/ld+json"><%- JSON.stringify(ld) %></script>

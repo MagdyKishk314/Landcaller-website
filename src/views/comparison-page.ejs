@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+  <%- include('partials/_head') %>
+
+  <body>
+    <div id="root">
+      <div class="min-h-screen flex flex-col bg-background">
+        <%- include('partials/header') %>
+        <main>
+          <!-- Hero -->
+          <section class="py-24 lg:py-32 bg-[#0A0A0A] border-b border-white/5">
+            <div class="container max-w-4xl">
+              <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase mb-4"><%= page.eyebrow %></p>
+              <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] font-bold tracking-tight mb-6"><%= page.h1 %></h1>
+              <p class="text-white/70 text-lg leading-relaxed max-w-3xl"><%= page.lede %></p>
+            </div>
+          </section>
+
+          <!-- Intro -->
+          <section class="py-20 lg:py-28 bg-[#0D0D0D] border-b border-white/5">
+            <div class="container max-w-3xl space-y-6">
+              <% page.intro.forEach(function(paragraph){ %>
+              <p class="text-white/60 leading-relaxed text-lg"><%= paragraph %></p>
+              <% }); %>
+            </div>
+          </section>
+
+          <!-- Comparison table -->
+          <section class="py-24 lg:py-32 bg-[#0A0A0A]">
+            <div class="container max-w-5xl">
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white text-center mb-14"><%= page.rowsHeading %></h2>
+              <div class="overflow-hidden rounded-xl border border-white/10">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-[#141414]">
+                      <th class="p-4 text-sm font-bold text-white/70 uppercase tracking-wider">Factor</th>
+                      <th class="p-4 text-sm font-bold text-[#E8523A] uppercase tracking-wider">Cold Calling (Land Caller)</th>
+                      <th class="p-4 text-sm font-bold text-white/50 uppercase tracking-wider">Direct Mail</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% page.rows.forEach(function(row, idx){ %>
+                    <tr class="<%= idx % 2 === 0 ? 'bg-[#0D0D0D]' : 'bg-[#111111]' %> border-t border-white/5">
+                      <td class="p-4 text-sm font-semibold text-white align-top"><%= row.factor %></td>
+                      <td class="p-4 text-sm text-white/70 align-top"><%= row.coldCalling %></td>
+                      <td class="p-4 text-sm text-white/50 align-top"><%= row.directMail %></td>
+                    </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Layering -->
+          <section class="py-24 lg:py-32 bg-[#0D0D0D] border-y border-white/5">
+            <div class="container max-w-3xl text-center">
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-6"><%= page.layeringHeading %></h2>
+              <p class="text-white/60 leading-relaxed text-lg"><%= page.layeringBody %></p>
+            </div>
+          </section>
+
+          <!-- CTA -->
+          <section class="py-24 lg:py-32 bg-[#0A0A0A]">
+            <div class="container max-w-3xl text-center">
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-5 leading-tight"><%= page.ctaHeading %></h2>
+              <p class="text-white/60 leading-relaxed text-lg mb-8"><%= page.ctaSub %></p>
+              <div class="flex flex-wrap gap-5 justify-center">
+                <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full px-10 py-4 text-base transition-all duration-200 active:scale-[0.97] shadow-lg">Book a Call</a>
+                <a href="/land-investor-cold-calling" class="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-[#E8523A]/10 text-white font-semibold border-[2px] border-[#E8523A] rounded-full px-10 py-4 text-base transition-all duration-200 active:scale-[0.97]">See How Our Service Works</a>
+              </div>
+            </div>
+          </section>
+        </main>
+        <%- include('partials/footer') %>
+      </div>
+    </div>
+    <div id="toast-region" class="lc-toaster" aria-live="polite" aria-atomic="false"></div>
+  </body>
+
+</html>
