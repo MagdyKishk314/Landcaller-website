@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+  <%- include('partials/_head') %>
+
+  <body>
+    <div id="root">
+      <div class="min-h-screen flex flex-col bg-background">
+        <%- include('partials/header') %>
+        <main>
+          <!-- Hero -->
+          <section class="py-24 lg:py-32 bg-[#0A0A0A] border-b border-white/5">
+            <div class="container max-w-4xl text-center">
+              <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase mb-4"><%= page.eyebrow %></p>
+              <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] font-bold tracking-tight mb-6"><%= page.h1 %></h1>
+              <p class="text-white/70 text-lg leading-relaxed max-w-3xl mx-auto"><%= page.lede %></p>
+            </div>
+          </section>
+
+          <!-- Posts -->
+          <section class="py-24 lg:py-32 bg-[#0D0D0D]">
+            <div class="container">
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+                <% blogPosts.forEach(function(post){
+                     const dateLabel = new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); %>
+                <a href="/blog/<%= post.slug %>" class="group flex flex-col bg-[#141414] border border-white/5 rounded-xl overflow-hidden hover:border-[#E8523A]/40 hover:bg-[#1A1A1A] transition-all duration-300 hover:translate-y-[-2px]">
+                  <div class="aspect-video overflow-hidden bg-[#0A0A0A]">
+                    <img src="<%= post.image %>" alt="<%= post.title %>" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" loading="lazy">
+                  </div>
+                  <div class="flex flex-col flex-1 p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-[#E8523A] bg-[#E8523A]/10 px-2.5 py-1 rounded-full"><%= post.category %></span>
+                      <span class="text-xs text-white/40"><%= post.readingTime %></span>
+                    </div>
+                    <h2 class="text-lg font-semibold text-white leading-snug mb-2 group-hover:text-[#E8523A] transition-colors duration-200"><%= post.title %></h2>
+                    <p class="text-sm text-white/60 leading-relaxed mb-5 flex-1"><%= post.excerpt %></p>
+                    <div class="flex items-center justify-between mt-auto border-t border-white/10 pt-4">
+                      <span class="text-xs text-white/40"><%= dateLabel %></span>
+                      <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E8523A]">Read article <%- include('partials/_icons', { name: 'arrow-right', cls: 'h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5' }) %></span>
+                    </div>
+                  </div>
+                </a>
+                <% }); %>
+              </div>
+            </div>
+          </section>
+
+          <!-- CTA -->
+          <section class="py-24 lg:py-32 bg-[#0A0A0A] border-t border-white/5">
+            <div class="container max-w-3xl text-center">
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-5 leading-tight">Ready to put it into practice?</h2>
+              <p class="text-white/60 leading-relaxed text-lg mb-8">Skip the trial and error. Book a call and we'll build the cold calling campaign for you.</p>
+              <%- include('partials/_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'lg', external: true }) %>
+            </div>
+          </section>
+        </main>
+        <%- include('partials/footer') %>
+      </div>
+    </div>
+    <div id="toast-region" class="lc-toaster" aria-live="polite" aria-atomic="false"></div>
+  </body>
+
+</html>

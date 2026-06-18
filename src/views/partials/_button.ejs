@@ -1,0 +1,28 @@
+<%
+/* Reusable button. Renders an <a> when `href` is given, otherwise a <button>.
+   Params:
+     label         (string, required)
+     href          (string)            -> renders an anchor
+     type          ('submit'|'button') -> renders a button (default 'button')
+     variant       ('primary'|'outline'|'ghost', default 'primary')
+     size          ('sm'|'md'|'lg', default 'md')
+     icon          (IconName)          -> optional leading/trailing icon
+     iconPosition  ('left'|'right', default 'right')
+     external      (bool)              -> opens in a new tab (target/rel)
+     block         (bool)              -> full width
+     extra         (string)            -> extra classes (e.g. 'mt-auto')
+     attrs         (string)            -> raw extra attributes (e.g. aria-label="...") */
+const _variant = (typeof variant === 'string') ? variant : 'primary';
+const _size = (typeof size === 'string') ? size : 'md';
+const _iconPos = (typeof iconPosition === 'string') ? iconPosition : 'right';
+const _icon = (typeof icon === 'string' && icon) ? icon : null;
+const _extra = (typeof extra === 'string' && extra) ? ' ' + extra : '';
+const _block = (typeof block !== 'undefined' && block) ? ' lc-btn--block' : '';
+const _attrs = (typeof attrs === 'string') ? ' ' + attrs : '';
+const _cls = `lc-btn lc-btn--${_variant} lc-btn--${_size}${_block}${_extra}`;
+const _isLink = (typeof href === 'string' && href);
+const _tag = _isLink ? 'a' : 'button';
+const _open = _isLink
+  ? `<a href="${href}"` + ((typeof external !== 'undefined' && external) ? ' target="_blank" rel="noopener noreferrer"' : '')
+  : `<button type="${(typeof type === 'string') ? type : 'button'}"`;
+%><%- _open %> class="<%= _cls %>"<%- _attrs %>><% if (_icon && _iconPos === 'left') { %><%- include('_icons', { name: _icon, cls: '' }) %><% } %><%= label %><% if (_icon && _iconPos === 'right') { %><%- include('_icons', { name: _icon, cls: '' }) %><% } %></<%- _tag %>>

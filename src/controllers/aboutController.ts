@@ -12,7 +12,7 @@ export function renderAbout(_req: Request, res: Response): void {
     team,
     pageTitle: "About Land Caller | Land Investor Cold Calling Company",
     pageDescription:
-      "Meet the team behind Land Caller, the first and only cold calling lead generation company built exclusively for vacant land investors. Veteran-founded and land-focused.",
+      "Land Caller is the first-ever cold calling lead generation company built for vacant land investors - veteran-founded by a land flipper who pioneered cold calling in an industry dominated by direct mail.",
     canonical: `${site.url}/about`,
     breadcrumbs: [
       { name: "Home", path: "/" },

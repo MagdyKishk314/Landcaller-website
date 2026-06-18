@@ -4,17 +4,17 @@ import type { TeamMember } from "./types.js";
 export const about = {
   eyebrow: "About Us",
   heading: "About Land Caller",
-  lede:
-    '<strong class="text-white">"Ad Majorem Dei Gloriam"</strong> - Latin for "To God Be the Glory." Our faith underlies everything we do in life, including building a business which provides excellent service and outstanding results for our clients, and fair pay and great opportunities for our people.',
-  storyHeading: "Our Story",
+  lede: "The first-ever cold calling company built for land investors.",
+  storyHeading: "Who We Are",
+  // Founder story, sourced from the legacy/reference About page. Trusted markup
+  // (rendered with <%- %>) so the motto can be emphasized.
   story: [
-    "Our story goes back to when our founder, Joe Roberts, first got involved in buying vacant land after years of investing in Single and Multifamily real estate. Like most land investors, his primary lead generation method for years was using direct mail, but after seeing some market saturation with his direct mail campaigns and in search of a way to increase his lead flow, Joe hit upon cold-calling. Cold-calling is a rarely used method in an industry dominated by mailers. He leveraged the interpersonal soft skills developed during his time spent as a trainer and instructor in the US Marine Corps to develop cold-call leads and saw immediate results in his land business.",
-    "Convinced of the untapped potential, Joe knew he needed someone familiar with the inner-workings of a real estate company to help him bring the company to life. He approached John about partnering to form a company which would hyper-focus on cold-call lead generation for land investors. With Joe's niche specific experience and John's background in real estate finance, management, and accounting, the partnership was formed and Land Caller was born.",
+    "Our story goes back to when our founder, Joe Roberts, a US Marine Corps veteran and land flipper, started searching for a new lead generation method for his growing land flipping business.",
+    "His primary lead generation method for years was direct mail, but after seeing market saturation with his campaigns and searching for a way to increase his lead flow, Joe hit upon cold calling - a rarely used method in an industry dominated by mailers. He leveraged the interpersonal soft skills he developed as a trainer and instructor in the US Marine Corps to generate cold-call leads, and saw immediate results in his land business.",
+    "Convinced of the untapped potential, Land Caller was launched as the first-ever cold-calling company for land investors. Although copycats have sprung up over the years, Land Caller has remained the biggest and best lead generation company for land investors. Our unique industry insights, absolute dedication to quality control, and outstanding customer service continue to set us apart from the competition.",
+    'Our motto in business, as it is in life, is <strong class="text-white">"Ad Majorem Dei Gloriam"</strong> - Latin for "To God Be the Glory." Our faith underlies everything we do, including building a business that provides excellent service and outstanding results for our clients, and fair pay and great opportunities for our people.',
   ],
-  teamHeading: "Our Team",
-  teamSubtext: "The people behind Land Caller.",
-  ctaHeading:
-    "Start growing your land investing business today with Land Caller's lead generation services.",
+  ctaHeading: "Start Growing Your Land Investing Business Today",
 };
 
 export const team: TeamMember[] = [

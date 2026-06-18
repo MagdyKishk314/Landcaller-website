@@ -25,3 +25,255 @@
   .lg\:pb-24 { padding-bottom: 6rem; }
   .lg\:text-6xl { font-size: 3.75rem; line-height: 1; }
 }
+
+/* ---------------------------------------------------------------------------
+ * Story-funnel rebuild: utilities used by the new home sections and the
+ * /pricing and /blog pages that were not in the original purged build.
+ * ------------------------------------------------------------------------- */
+html { scroll-behavior: smooth; }
+
+/* Fixed/parallax banner background (e.g. About hero). Mobile keeps `scroll`
+ * because iOS Safari renders `fixed` backgrounds unreliably. */
+.lc-banner-fixed { background-attachment: scroll; }
+@media (min-width: 1024px) {
+  .lc-banner-fixed { background-attachment: fixed; }
+}
+
+.max-w-xl { max-width: 36rem; }
+.max-w-6xl { max-width: 72rem; }
+.max-w-\[12rem\] { max-width: 12rem; }
+.scroll-mt-20 { scroll-margin-top: 5rem; }
+.py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+.py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+.gap-x-6 { column-gap: 1.5rem; }
+.gap-y-2 { row-gap: 0.5rem; }
+.opacity-80 { opacity: 0.8; }
+.top-9 { top: 2.25rem; }
+.-right-4 { right: -1rem; }
+.h-11 { height: 2.75rem; }
+.w-11 { width: 2.75rem; }
+
+.group:hover .group-hover\:opacity-100 { opacity: 1; }
+.group:hover .group-hover\:translate-x-0\.5 { transform: translateX(0.125rem); }
+
+@media (min-width: 640px) {
+  .sm\:hidden { display: none; }
+  .sm\:items-end { align-items: flex-end; }
+  .sm\:justify-between { justify-content: space-between; }
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .lg\:py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+  .lg\:py-24 { padding-top: 6rem; padding-bottom: 6rem; }
+  .lg\:py-28 { padding-top: 7rem; padding-bottom: 7rem; }
+  /* 7/5 split for the "Who We Are" guide teaser (col-span-6 already exists). */
+  .lg\:col-span-7 { grid-column: span 7 / span 7; }
+  .lg\:col-span-5 { grid-column: span 5 / span 5; }
+}
+
+/* ---------------------------------------------------------------------------
+ * Buttons - single source of truth (see partials/_button.ejs).
+ * Self-contained CSS so a button can never break from a missing purged
+ * Tailwind utility (e.g. the px-7 bug). Variants: primary / outline / ghost.
+ * Sizes: sm / md / lg. Modifiers: --block. Rendered as <a> or <button>.
+ * ------------------------------------------------------------------------- */
+.lc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    transform 0.1s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.lc-btn:focus-visible { outline: 2px solid #e8523a; outline-offset: 2px; }
+.lc-btn:active { transform: scale(0.97); }
+.lc-btn:disabled,
+.lc-btn[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
+.lc-btn > svg { width: 1em; height: 1em; flex: 0 0 auto; }
+
+/* Sizes */
+.lc-btn--sm { height: 2.25rem; padding: 0 1.25rem; font-size: 0.875rem; }
+.lc-btn--md { height: 2.75rem; padding: 0 2rem; font-size: 0.9375rem; }
+.lc-btn--lg { height: 3.25rem; padding: 0 2.5rem; font-size: 1rem; }
+
+/* Variants */
+.lc-btn--primary {
+  background-color: #e8523a;
+  color: #fff;
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.45);
+}
+.lc-btn--primary:hover { background-color: #d8462f; }
+.lc-btn--outline {
+  background-color: transparent;
+  color: #fff;
+  border-color: #e8523a;
+}
+.lc-btn--outline:hover { background-color: rgba(232, 82, 58, 0.1); }
+.lc-btn--ghost {
+  background-color: transparent;
+  color: #fff;
+}
+.lc-btn--ghost:hover { background-color: rgba(255, 255, 255, 0.06); }
+
+/* Modifiers */
+.lc-btn--block { width: 100%; }
+
+/* Circular play badge used inside the hero's secondary button. */
+.lc-btn__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background-color: #e8523a;
+  color: #fff;
+  flex: 0 0 auto;
+}
+.lc-btn__badge > svg { width: 0.75rem; height: 0.75rem; }
+
+/* ---------------------------------------------------------------------------
+ * Audio player (custom controls over native <audio>) - call-samples section.
+ * ------------------------------------------------------------------------- */
+.lc-audio {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.lc-audio__btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: #e8523a;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.lc-audio__btn:hover { background: #d8462f; }
+.lc-audio__btn:active { transform: scale(0.95); }
+.lc-audio__btn:focus-visible { outline: 2px solid #e8523a; outline-offset: 2px; }
+.lc-audio__main { flex: 1 1 auto; min-width: 0; }
+.lc-audio__track {
+  position: relative;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  overflow: hidden;
+}
+.lc-audio__track:focus-visible { outline: 2px solid #e8523a; outline-offset: 3px; }
+.lc-audio__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  border-radius: 9999px;
+  background: #e8523a;
+  transition: width 0.1s linear;
+}
+.lc-audio__time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------------------------------------------------------------------------
+ * Calendly inline embed - booking section.
+ * ------------------------------------------------------------------------- */
+.lc-calendly {
+  position: relative;
+  min-height: 700px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.lc-calendly__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  padding: 24px;
+}
+.lc-calendly__spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  border: 3px solid rgba(232, 82, 58, 0.25);
+  border-top-color: #e8523a;
+  animation: lc-spin 0.8s linear infinite;
+}
+@keyframes lc-spin { to { transform: rotate(360deg); } }
+
+/* ---------------------------------------------------------------------------
+ * Slider / carousel (testimonials) - shows 1/2/3 cards, moves one at a time.
+ * Translation is computed in px (handles the gap) in main.ts.
+ * ------------------------------------------------------------------------- */
+.lc-slider { position: relative; }
+.lc-slider__viewport { overflow: hidden; }
+.lc-slider__track {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.lc-slider__slide { flex: 0 0 100%; min-width: 0; } /* 1 per view (mobile) */
+@media (min-width: 640px) { .lc-slider__slide { flex-basis: calc((100% - 1.5rem) / 2); } } /* 2 */
+@media (min-width: 1024px) { .lc-slider__slide { flex-basis: calc((100% - 3rem) / 3); } } /* 3 */
+
+.lc-slider__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.lc-slider__btn:hover { background: #1a1a1a; border-color: rgba(232, 82, 58, 0.5); color: #e8523a; }
+.lc-slider__btn:focus-visible { outline: 2px solid #e8523a; outline-offset: 2px; }
+.lc-slider__btn--prev { left: -0.5rem; }
+.lc-slider__btn--next { right: -0.5rem; }
+@media (min-width: 1024px) {
+  .lc-slider__btn--prev { left: -1.25rem; }
+  .lc-slider__btn--next { right: -1.25rem; }
+}
+@media (prefers-reduced-motion: reduce) { .lc-slider__track { transition: none; } }

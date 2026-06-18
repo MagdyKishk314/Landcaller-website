@@ -1,0 +1,62 @@
+<section id="call-samples" class="py-24 lg:py-32 bg-[#111111] border-y border-white/5 overflow-hidden">
+  <div class="container">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <p class="text-[#E8523A] text-sm font-semibold tracking-wide uppercase mb-4">Hear It For Yourself</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight">Stop imagining a warm lead. Hear one.</h2>
+      <p class="text-white/60 leading-relaxed text-lg">These are the kinds of real seller conversations our callers have every day. Press play and listen to what lands in your pipeline.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+      <% callSamples.forEach(function(sample, i){ %>
+      <figure class="flex flex-col bg-[#141414] border border-white/10 rounded-xl p-7 hover:border-[#E8523A]/40 transition-all duration-300">
+        <figcaption class="flex items-start justify-between gap-4 mb-5">
+          <div>
+            <h3 class="text-lg font-semibold text-white leading-snug"><%= sample.title %></h3>
+            <div class="flex items-center gap-1.5 text-white/50 text-sm mt-1.5">
+              <%- include('_icons', { name: 'map-pin', cls: 'h-4 w-4 text-[#E8523A]/70' }) %><%= sample.market %>
+            </div>
+          </div>
+          <span class="flex items-center gap-1.5 text-xs font-medium text-white/40 bg-[#0A0A0A] border border-white/10 rounded-full px-3 py-1 shrink-0">
+            <%- include('_icons', { name: 'clock', cls: 'h-3.5 w-3.5' }) %><%= sample.durationLabel %>
+          </span>
+        </figcaption>
+
+        <!-- Audio player (custom controls over native <audio>; wired in main.ts) -->
+        <div class="lc-audio" data-audio-player>
+          <audio preload="metadata" data-audio-el>
+            <source src="<%= sample.src %>" type="audio/mpeg">
+          </audio>
+          <button type="button" class="lc-audio__btn" data-audio-toggle aria-pressed="false" aria-label="Play call sample: <%= sample.title %>">
+            <span data-audio-icon="play" class="flex"><%- include('_icons', { name: 'play', cls: 'h-5 w-5 fill-current translate-x-px' }) %></span>
+            <span data-audio-icon="pause" class="hidden"><%- include('_icons', { name: 'pause', cls: 'h-5 w-5 fill-current' }) %></span>
+          </button>
+          <div class="lc-audio__main">
+            <div class="lc-audio__track" data-audio-track role="slider" tabindex="0" aria-label="Seek call sample <%= i + 1 %>" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="lc-audio__fill" data-audio-fill></div>
+            </div>
+            <div class="lc-audio__time">
+              <span data-audio-current>0:00</span>
+              <span class="text-white/30">/</span>
+              <span data-audio-duration><%= sample.durationLabel %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-5 border-t border-white/10 space-y-2">
+          <div class="flex items-start gap-2 text-sm">
+            <%- include('_icons', { name: 'target', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %>
+            <span class="text-white/60"><span class="text-white/80 font-medium">Motivation:</span> <%= sample.motivation %></span>
+          </div>
+          <div class="flex items-start gap-2 text-sm">
+            <%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %>
+            <span class="text-white/60"><span class="text-white/80 font-medium">Outcome:</span> <%= sample.outcome %></span>
+          </div>
+        </div>
+      </figure>
+      <% }); %>
+    </div>
+    <p class="text-center text-white/30 text-xs mt-8 max-w-xl mx-auto">Sample recordings shared with consent; identifying details redacted for owner privacy.</p>
+    <div class="text-center mt-8">
+      <%- include('_button', { label: 'Get leads like these', href: '#book', variant: 'primary', icon: 'arrow-right' }) %>
+    </div>
+  </div>
+</section>

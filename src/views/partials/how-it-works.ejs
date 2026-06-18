@@ -1,0 +1,25 @@
+<section class="py-24 lg:py-32 bg-[#0A0A0A]">
+  <div class="container">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <p class="text-[#E8523A] text-sm font-semibold tracking-wide uppercase mb-4"><%= howItWorks.eyebrow %></p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight"><%= howItWorks.heading %></h2>
+      <p class="text-white/60 leading-relaxed text-lg"><%= howItWorks.subtext %></p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-6xl mx-auto">
+      <% howItWorks.steps.forEach(function(step, idx){ const last = idx === howItWorks.steps.length - 1; %>
+      <div class="relative bg-[#141414] rounded-xl p-7 border border-white/5 hover:border-[#E8523A]/30 transition-all duration-300">
+        <span class="font-display text-4xl text-[#E8523A]/30 leading-none"><%= step.number %></span>
+        <h3 class="text-lg font-semibold text-white mt-4 mb-2"><%= step.title %></h3>
+        <p class="text-sm text-white/55 leading-relaxed"><%= step.body %></p>
+        <% if (!last) { %>
+        <span class="hidden lg:flex absolute top-9 -right-4 z-10 text-[#E8523A]/40"><%- include('_icons', { name: 'arrow-right', cls: 'h-5 w-5' }) %></span>
+        <% } %>
+      </div>
+      <% }); %>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-5 mt-12">
+      <%- include('_button', { label: 'Book A Call', href: '#book', variant: 'primary' }) %>
+      <%- include('_section-link', { label: 'See how our service works', href: '/land-investor-cold-calling' }) %>
+    </div>
+  </div>
+</section>

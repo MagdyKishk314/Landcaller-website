@@ -1,13 +1,21 @@
 import type { Request, Response } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
-import { servicePage, comparisonPage } from "../models/pages.js";
+import { servicePage, comparisonPage, pricingPage, blogPage } from "../models/pages.js";
+import { blogPosts } from "../models/blog.js";
 
 /** Canonical, crawlable URLs for the XML sitemap. */
 const ROUTES: { path: string; changefreq: string; priority: string }[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: servicePage.path, changefreq: "monthly", priority: "0.9" },
+  { path: pricingPage.path, changefreq: "monthly", priority: "0.8" },
   { path: comparisonPage.path, changefreq: "monthly", priority: "0.8" },
+  { path: blogPage.path, changefreq: "weekly", priority: "0.7" },
   { path: "/about", changefreq: "monthly", priority: "0.6" },
+  ...blogPosts.map((p) => ({
+    path: `${blogPage.path}/${p.slug}`,
+    changefreq: "monthly",
+    priority: "0.5",
+  })),
 ];
 
 /** GET /sitemap.xml - generated from the canonical route list. */

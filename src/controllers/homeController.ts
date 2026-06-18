@@ -2,23 +2,25 @@ import type { Request, Response } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
 import {
   hero,
-  whoWeAre,
+  problem,
+  guide,
+  callSamples,
+  howItWorks,
+  resultsStats,
   whatSetsApart,
   testimonials,
   comparisonRows,
-  packages,
-  packagesDisclaimer,
-  featureMatrix,
-  featureMatrixDisclaimer,
   faqs,
-  affiliateTiers,
   contactFields,
 } from "../models/content.js";
+import { enterprisePlan, basicPlan } from "../models/pricing.js";
+import { blogPosts } from "../models/blog.js";
 
 /**
- * Builds the home page view model and renders the single-page layout.
- * The source site is a one-page app; every section is composed from
- * reusable partials fed by the content model.
+ * Builds the home page view model and renders the story-driven funnel.
+ * Sections are composed from reusable partials fed by the content model;
+ * "teaser" sections (guide, packages, blog) link out to dedicated pages.
+ * `faqs` and `testimonials` are passed so the FAQPage/Review JSON-LD emits.
  */
 export function renderHome(_req: Request, res: Response): void {
   res.render("home", {
@@ -26,17 +28,23 @@ export function renderHome(_req: Request, res: Response): void {
     navLinks,
     footerLinks,
     hero,
-    whoWeAre,
+    problem,
+    guide,
+    callSamples,
+    howItWorks,
+    resultsStats,
     whatSetsApart,
     testimonials,
-    comparisonRows,
-    packages,
-    packagesDisclaimer,
-    featureMatrix,
-    featureMatrixDisclaimer,
-    faqs,
-    affiliateTiers,
+    // Condensed "us vs everyone else" mini-table; full set lives on /cold-calling-vs-direct-mail.
+    comparisonRows: comparisonRows.slice(0, 4),
+    enterprise: enterprisePlan,
+    basic: basicPlan,
+    // Latest 3 posts for the blog teaser; full list on /blog.
+    blogPosts: blogPosts.slice(0, 3),
+    faqs: faqs.slice(0, 5),
     contactFields,
+    // Inline scheduler URL for the booking climax (themed to the dark site).
+    calendlyUrl: site.externalLinks.bookACall,
     isHome: true,
     year: new Date().getFullYear(),
   });

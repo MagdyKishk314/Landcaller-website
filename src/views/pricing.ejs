@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+  <%- include('partials/_head') %>
+
+  <body>
+    <div id="root">
+      <div class="min-h-screen flex flex-col bg-background">
+        <%- include('partials/header') %>
+        <main>
+          <!-- Hero -->
+          <section class="py-24 lg:py-32 bg-[#0A0A0A] border-b border-white/5">
+            <div class="container max-w-4xl text-center">
+              <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase mb-4"><%= page.eyebrow %></p>
+              <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] font-bold tracking-tight mb-6"><%= page.h1 %></h1>
+              <p class="text-white/70 text-lg leading-relaxed max-w-3xl mx-auto mb-8"><%= page.lede %></p>
+              <%- include('partials/_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'lg', external: true }) %>
+            </div>
+          </section>
+
+          <!-- Feature comparison (shown first for an at-a-glance overview) -->
+          <%- include('partials/features') %>
+
+          <!-- Enterprise -->
+          <section class="py-24 lg:py-32 bg-[#0D0D0D] border-b border-white/5">
+            <div class="container">
+              <%- include('partials/_pricing-plan', { plan: enterprise, dataCosts: dataCostsNote }) %>
+            </div>
+          </section>
+
+          <!-- Basic -->
+          <section class="py-24 lg:py-32 bg-[#0A0A0A] border-b border-white/5">
+            <div class="container">
+              <%- include('partials/_pricing-plan', { plan: basic }) %>
+            </div>
+          </section>
+
+          <!-- CTA -->
+          <section class="py-24 lg:py-32 bg-[#0A0A0A]">
+            <div class="container max-w-3xl text-center">
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-5 leading-tight">Not sure which package fits?</h2>
+              <p class="text-white/60 leading-relaxed text-lg mb-8">Book a free strategy call and we'll map a campaign - and a price - to your target markets.</p>
+              <%- include('partials/_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'lg', external: true }) %>
+            </div>
+          </section>
+        </main>
+        <%- include('partials/footer') %>
+      </div>
+    </div>
+    <div id="toast-region" class="lc-toaster" aria-live="polite" aria-atomic="false"></div>
+  </body>
+
+</html>

@@ -1,0 +1,6 @@
+<%
+/* Inline "Read more ->" text link that funnels to a deeper page.
+   For pill buttons use _button.ejs instead.
+   Params: label (string), href (string). */
+%>
+<a href="<%= href %>" class="group inline-flex items-center gap-1.5 text-sm font-semibold text-[#E8523A] hover:text-[#E8523A]/80 transition-colors"><%= label %> <%- include('_icons', { name: 'arrow-right', cls: 'h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5' }) %></a>

@@ -8,49 +8,34 @@
       <div class="min-h-screen flex flex-col bg-background">
         <%- include('partials/header') %>
         <main>
-          <section class="py-24 lg:py-32 bg-[#0A0A0A] border-b border-white/5">
-            <div class="container">
-              <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white text-center mb-6"><%= about.heading %></h1>
-              <p class="text-white/60 leading-relaxed max-w-3xl mx-auto text-center"><%- about.lede %></p>
+          <!-- Hero banner: background image + dark overlay + centered text -->
+          <section class="relative border-b border-white/5 overflow-hidden bg-[#0A0A0A] flex items-center" style="min-height:clamp(440px,68vh,720px);">
+            <div class="absolute inset-0 lc-banner-fixed" style="background-image:url('/assets/images/about-banner.jpg');background-size:cover;background-position:center;" role="img" aria-label="Aerial view of a vacant land parcel outlined with a boundary and marked by a location pin"></div>
+            <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(10,10,10,0.6), rgba(10,10,10,0.45) 45%, rgba(10,10,10,0.85));"></div>
+            <div class="container relative z-10 py-20 max-w-4xl text-center" style="text-shadow:0 2px 16px rgba(0,0,0,0.5);">
+              <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase mb-4"><%= about.eyebrow %></p>
+              <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] font-bold tracking-tight mb-6"><%= about.heading %></h1>
+              <p class="text-white/85 text-lg leading-relaxed max-w-2xl mx-auto"><%= about.lede %></p>
             </div>
           </section>
 
-          <section class="py-24 lg:py-32 bg-[#0D0D0D] border-y border-white/5">
+          <!-- Who We Are -->
+          <section class="py-24 lg:py-32 bg-[#0D0D0D] border-b border-white/5">
             <div class="container">
               <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white text-center mb-12"><%= about.storyHeading %></h2>
               <div class="max-w-3xl mx-auto space-y-6">
                 <% about.story.forEach(function(paragraph){ %>
-                <p class="text-white/60 leading-relaxed"><%= paragraph %></p>
+                <p class="text-white/70 leading-relaxed text-lg"><%- paragraph %></p>
                 <% }); %>
               </div>
             </div>
           </section>
 
+          <!-- CTA -->
           <section class="py-24 lg:py-32 bg-[#0A0A0A]">
-            <div class="container">
-              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white text-center mb-4"><%= about.teamHeading %></h2>
-              <p class="text-white/50 text-center mb-14 text-lg"><%= about.teamSubtext %></p>
-              <div class="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
-                <% team.forEach(function(member){ %>
-                <div class="group bg-[#141414] rounded-xl p-8 border border-white/5 hover:border-[#E8523A]/30 transition-all duration-300 hover:translate-y-[-2px] flex flex-col">
-                  <div class="team-avatar w-32 h-32 rounded-2xl overflow-hidden shrink-0 mb-5 mx-auto">
-                    <img src="<%= member.image %>" alt="<%= member.name %>" class="w-full h-full object-cover" loading="lazy" width="128" height="128">
-                  </div>
-                  <h3 class="text-lg font-semibold text-white text-center"><%= member.name %></h3>
-                  <div class="text-[#E8523A]/70 text-xs font-semibold uppercase tracking-wider mt-1 mb-4 text-center"><%= member.role %></div>
-                  <p class="text-sm text-white/60 leading-relaxed"><%= member.bio %></p>
-                </div>
-                <% }); %>
-              </div>
-            </div>
-          </section>
-
-          <section class="py-24 lg:py-32 bg-[#0D0D0D] border-y border-white/5">
-            <div class="container">
-              <div class="max-w-3xl mx-auto text-center">
-                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-8 leading-tight"><%= about.ctaHeading %></h2>
-                <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-10 has-[>svg]:px-4 bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full px-10 py-6 text-base transition-all duration-200 active:scale-[0.97] shadow-lg">Book A Call</a>
-              </div>
+            <div class="container max-w-3xl text-center">
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-8 leading-tight"><%= about.ctaHeading %></h2>
+              <%- include('partials/_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'lg', external: true }) %>
             </div>
           </section>
         </main>

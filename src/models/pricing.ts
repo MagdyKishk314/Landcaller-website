@@ -1,0 +1,141 @@
+import type { PricingPlan } from "./types.js";
+
+/**
+ * Detailed pricing, sourced from the reference pricing page. Rendered on
+ * /pricing (full plans + tiers) and condensed on the home pricing teaser.
+ */
+
+export const enterprisePlan: PricingPlan = {
+  name: "Enterprise",
+  tagline: "For serious operators ready to scale",
+  whoFor:
+    "Enterprise is built for serious operators. If you're running a full-time land business with a VA or small team in place and want a fully customized acquisition system that drives consistent deal flow, Enterprise is your next step.",
+  note: "Lead fulfillment varies with market saturation, property type, and the quality of your data and skip tracing. Our focus is maximizing performance within those variables - most campaigns generate approximately 45-65 leads per month.",
+  features: [
+    {
+      label: "Custom Script + Dedicated Caller",
+      detail:
+        "Choose from our script options or bring your own, tailored to your exact strategy. Your dedicated caller becomes an extension of your team - not a generic call center rep. *Land Caller may rotate callers, add support callers, or use additional dialing strategies to optimize performance.",
+    },
+    {
+      label: "Advanced CRM Integration",
+      detail:
+        "A fully custom Land Caller CRM with deal-flow management, script modifications, campaign KPIs & reporting, automation, and more - or integrate directly into your existing CRM.",
+    },
+    {
+      label: "Call Disposition Report (Multi-Channel Layering)",
+      detail:
+        "Instantly see every owner who wasn't reached by phone, so you can stack direct mail, SMS, and more.",
+    },
+    {
+      label: "Top 3 Skip-Traced Numbers Dialed",
+      detail:
+        "Instead of one phone number, we target the top three skip-traced numbers per record - mobile, landline, spouse, and more - to boost your contact rate.",
+    },
+    {
+      label: "Done-For-You Compliance & Call Operations",
+      detail:
+        "From caller management to compliance oversight and quality control, we handle the heavy lifting. A fully managed system without the risk, stress, or learning curve.",
+    },
+    {
+      label: "Private Team Access via Slack",
+      detail:
+        "A private Slack channel with direct access to our Operations, QA, and Support teams for real-time communication - best-in-class support.",
+    },
+    {
+      label: "Call Recording Access + Trainer Feedback",
+      detail:
+        "Review recordings for up to 40 leads per month, and schedule a session with a caller trainer to fine-tune performance.",
+    },
+  ],
+  tiers: [
+    { name: "3 Months", term: "12 weeks of calling", price: "$2,850", per: "/ 4 weeks" },
+    { name: "6 Months", term: "24 weeks of calling", price: "$2,595", per: "/ 4 weeks", featured: true },
+    { name: "Annual", term: "48 weeks of calling", price: "$2,350", per: "/ 4 weeks" },
+  ],
+  includes: [
+    "Full-time (40 hrs/week) dedicated professional land cold caller",
+    "Dialer software + phone infrastructure",
+    "Same-day lead delivery, appointment setting, and live transfers",
+    "Land Caller CRM access (or your CRM integration)",
+    "Data Dashboard access at volume waterfall discount rates",
+    "Full script customization & Call Disposition Report",
+    "Dedicated Slack channel for your team",
+  ],
+  footnotes: [
+    "Flat fee for a full-time (40 hrs/week) professional land cold caller on your campaign.",
+    "Volume discount: $100 off/month for every additional agent. Each additional Enterprise agent requires 10,000-12,000 records per 4-week campaign cycle.",
+    "5% discount on monthly prices if paid up-front.",
+  ],
+  startingAt: { price: "$2,350", per: "/ 4 weeks" },
+};
+
+export const basicPlan: PricingPlan = {
+  name: "Basic",
+  tagline: "Start generating leads without overcommitting",
+  whoFor:
+    "Basic Packages are built for solo land investors, newer operators, or anyone who hasn't yet used cold calling as a primary lead source. The ideal starting point for consistent seller conversations - without overcommitting on cost, complexity, or monthly overhead.",
+  features: [
+    {
+      label: "Guaranteed Lead Counts",
+      detail:
+        "Each Basic tier includes guaranteed lead delivery. If we can't fulfill your order with the initial market criteria, we'll add complimentary data so we can.",
+    },
+    {
+      label: "Done-For-You Compliance & Call Operations",
+      detail:
+        "From caller management to compliance oversight and quality control, we handle the heavy lifting - no risk, stress, or learning curve.",
+    },
+    {
+      label: "Built for Every Experience Level",
+      detail:
+        "Smaller, more affordable options for investors with limited time, capital, or deal-flow capacity. Test cold calling without overextending.",
+    },
+    {
+      label: "No Contracts or Long-Term Commitments",
+      detail:
+        "Basic Packages are flat-fee and commitment-free. You're never locked into a long-term agreement.",
+    },
+  ],
+  tiers: [
+    {
+      name: "Tier 1",
+      term: "~2 weeks of calling",
+      price: "$1,100",
+      highlights: [
+        "5,000 records pulled, skipped, scrubbed & dialed",
+        "Guaranteed 20 leads",
+        "Land Caller CRM (Basic Access)",
+      ],
+    },
+    {
+      name: "Tier 2",
+      term: "~3 weeks of calling",
+      price: "$1,890",
+      featured: true,
+      highlights: [
+        "8,000 records pulled, skipped, scrubbed & dialed",
+        "Guaranteed 35 leads",
+        "Land Caller CRM (Basic Access)",
+      ],
+    },
+    {
+      name: "Tier 3",
+      term: "~4 weeks of calling",
+      price: "$2,650",
+      highlights: [
+        "10,000 records pulled, skipped, scrubbed & dialed",
+        "Guaranteed 50 leads",
+        "Land Caller CRM (Basic Access)",
+      ],
+    },
+  ],
+  footnotes: [
+    "Litigator Protection & DNC scrub included on every tier.",
+    "Land Caller CRM full-access upgrades available for expanded automation and multichannel features.",
+  ],
+  startingAt: { price: "$1,100" },
+};
+
+export const dataCostsNote =
+  "Billed at volume waterfall discount rates through the Land Caller Data Dashboard. Client must provide enough geographic coverage.";

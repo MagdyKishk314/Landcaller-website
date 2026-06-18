@@ -1,6 +1,3 @@
-<%
-const heroBtn = "inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-10 has-[>svg]:px-4";
-%>
 <section class="relative min-h-screen flex items-center bg-[#0A0A0A] overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-br from-[#0A0A0A]/80 via-[#0D0D0D]/70 to-[#111111]/60"></div>
   <div class="container relative z-10 pt-24 pb-16 lg:pt-32 lg:pb-24">
@@ -10,10 +7,20 @@ const heroBtn = "inline-flex items-center justify-center gap-2 whitespace-nowrap
         <h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl text-white leading-[1.1] font-bold tracking-tight"><%= hero.headingLines[0] %><br><%= hero.headingLines[1] %></h1>
         <p class="text-white/70 text-lg leading-relaxed max-w-lg"><%= hero.subtext %></p>
         <div class="flex flex-wrap gap-5 pt-2">
-          <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="<%= heroBtn %> bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full px-10 py-6 text-base transition-all duration-200 active:scale-[0.97] shadow-lg">Book A Call</a>
-          <a href="#packages" data-slot="button" class="<%= heroBtn %> bg-transparent hover:bg-[#E8523A]/10 text-white font-semibold border-[2px] border-[#E8523A] rounded-full px-10 py-6 text-base transition-all duration-200 active:scale-[0.97]">View Pricing</a>
+          <%- include('_button', { label: hero.primaryCta.label, href: hero.primaryCta.href, variant: 'primary', size: 'lg' }) %>
+          <a href="<%= hero.secondaryCta.href %>" class="lc-btn lc-btn--outline lc-btn--lg">
+            <span class="lc-btn__badge"><%- include('_icons', { name: 'play', cls: 'fill-current translate-x-px' }) %></span>
+            <%= hero.secondaryCta.label %>
+          </a>
         </div>
-        <p class="text-white/50 text-sm leading-relaxed max-w-lg pt-2"><%= hero.note %></p>
+        <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 pt-2">
+          <% hero.trustBadges.forEach(function(badge){ %>
+          <li class="flex items-center gap-2 text-white/55 text-sm">
+            <%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A]' }) %><%= badge %>
+          </li>
+          <% }); %>
+        </ul>
+        <p class="text-white/50 text-sm leading-relaxed max-w-lg pt-1"><%= hero.note %></p>
       </div>
       <div class="lg:col-span-6">
         <div class="relative">

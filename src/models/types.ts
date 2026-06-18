@@ -9,6 +9,7 @@ export type IconName =
   | "eye"
   | "phone"
   | "arrow-right"
+  | "arrow-up-right"
   | "quote"
   | "star"
   | "check"
@@ -19,7 +20,16 @@ export type IconName =
   | "chevron-down"
   | "users"
   | "award"
-  | "menu";
+  | "menu"
+  | "play"
+  | "pause"
+  | "volume-2"
+  | "book-open"
+  | "calendar-check"
+  | "clock"
+  | "map-pin"
+  | "shield-check"
+  | "trending-up";
 
 export interface NavLink {
   label: string;
@@ -97,6 +107,40 @@ export interface PricingPackage {
   ctas?: { label: string; href: string; primary: boolean }[];
 }
 
+/** A single price tier within a pricing plan. */
+export interface PriceTier {
+  /** e.g. "3 Months" (Enterprise) or "Tier 1" (Basic). */
+  name: string;
+  /** e.g. "12 weeks of calling" / "~2 weeks of calling". */
+  term: string;
+  /** Display price, e.g. "$2,850". */
+  price: string;
+  /** Billing suffix for recurring plans, e.g. "/ 4 weeks". Omitted = flat fee. */
+  per?: string;
+  /** Per-tier bullets (Basic tiers: records, guaranteed leads, CRM access). */
+  highlights?: string[];
+  /** Visually emphasize this tier as the recommended option. */
+  featured?: boolean;
+}
+
+/** A full pricing plan (Enterprise or Basic) rendered on /pricing. */
+export interface PricingPlan {
+  name: string;
+  tagline: string;
+  /** "Who is it for?" lead-in. */
+  whoFor: string;
+  /** Optional lead-fulfillment note shown under the intro. */
+  note?: string;
+  features: PackageFeature[];
+  tiers: PriceTier[];
+  /** "All [plan] packages include" bullets. */
+  includes?: string[];
+  /** Small print under the tiers (discounts, disclaimers). */
+  footnotes?: string[];
+  /** Lowest price, surfaced on the home pricing teaser. */
+  startingAt?: { price: string; per?: string };
+}
+
 export interface FeatureMatrixRow {
   feature: string;
   enterprise: boolean;
@@ -133,4 +177,48 @@ export interface ContactField {
   type: "text" | "email" | "tel";
   required: boolean;
   half: boolean;
+}
+
+/** A single pain point in the "problem / stakes" section. */
+export interface PainPoint {
+  icon: IconName;
+  title: string;
+  body: string;
+}
+
+/** A numbered step in the home "How It Works" plan. */
+export interface ProcessStep {
+  number: string;
+  title: string;
+  body: string;
+}
+
+/** A single hard-number stat in the results band. */
+export interface ResultStat {
+  value: string;
+  label: string;
+}
+
+/**
+ * A real call recording surfaced as social proof. `src` points at an audio
+ * file under /public/assets/audio (placeholder until the real recording lands).
+ */
+export interface CallSample {
+  title: string;
+  market: string;
+  motivation: string;
+  outcome: string;
+  durationLabel: string;
+  src: string;
+}
+
+/** A blog post teaser / index entry. */
+export interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readingTime: string;
+  category: string;
+  image: string;
 }
