@@ -76,6 +76,40 @@ if (typeof faqs !== "undefined" && faqs.length) {
   });
 }
 
+// Blog index (only on /blog, guarded on page.path so the home teaser is excluded)
+if (typeof page !== "undefined" && page && page.path === "/blog" && typeof blogPosts !== "undefined" && blogPosts.length) {
+  graph.push({
+    "@type": "Blog",
+    "@id": base + "/blog#blog",
+    name: site.name + " Blog",
+    url: base + "/blog",
+    publisher: { "@id": orgId },
+    blogPost: blogPosts.map((p) => ({
+      "@type": "BlogPosting",
+      headline: p.title,
+      description: p.excerpt,
+      datePublished: p.date,
+      url: base + "/blog/" + p.slug,
+      image: base + p.image,
+    })),
+  });
+}
+
+// BlogPosting (individual post page)
+if (typeof post !== "undefined" && post) {
+  graph.push({
+    "@type": "BlogPosting",
+    "@id": (typeof canonical !== "undefined" ? canonical : base + "/blog/" + post.slug) + "#article",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    image: base + post.image,
+    author: { "@id": orgId },
+    publisher: { "@id": orgId },
+    mainEntityOfPage: typeof canonical !== "undefined" ? canonical : base + "/blog/" + post.slug,
+  });
+}
+
 // BreadcrumbList (when a page provides breadcrumbs: [{name, path}])
 if (typeof breadcrumbs !== "undefined" && breadcrumbs.length) {
   graph.push({

@@ -1,0 +1,67 @@
+<%
+/* Renders a full pricing plan (Enterprise or Basic). Param: plan (PricingPlan).
+   Relies on `site` from the page locals for the CTA link. */
+const p = plan;
+%>
+<div class="max-w-3xl mx-auto text-center mb-10">
+  <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-2">Land Caller <%= p.name %> Package</h2>
+  <p class="text-[#E8523A] text-sm font-semibold uppercase tracking-wider mb-5"><%= p.tagline %></p>
+  <p class="text-white/65 leading-relaxed"><%= p.whoFor %></p>
+  <% if (p.note) { %><p class="text-white/40 text-sm leading-relaxed mt-4"><%= p.note %></p><% } %>
+</div>
+
+<!-- Price tiers -->
+<div class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+  <% p.tiers.forEach(function(t){ const f = !!t.featured; %>
+  <div class="relative rounded-xl p-6 lg:p-7 flex flex-col <%= f ? 'bg-[#141414] border-2 border-[#E8523A]' : 'bg-[#141414] border border-white/10' %>">
+    <% if (f) { %><div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E8523A] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider whitespace-nowrap">Best Value</div><% } %>
+    <div class="text-center">
+      <h4 class="text-lg font-bold text-white"><%= t.name %></h4>
+      <p class="text-xs text-white/45 mt-0.5 mb-4"><%= t.term %></p>
+      <div class="flex items-end justify-center gap-1">
+        <span class="font-display text-4xl text-white font-bold"><%= t.price %></span>
+        <% if (t.per) { %><span class="text-white/45 text-sm mb-1.5"><%= t.per %></span><% } %>
+      </div>
+    </div>
+    <% if (t.highlights && t.highlights.length) { %>
+    <ul class="space-y-2.5 mt-6 text-left">
+      <% t.highlights.forEach(function(h){ %>
+      <li class="flex items-start gap-2 text-sm text-white/70"><%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %><%= h %></li>
+      <% }); %>
+    </ul>
+    <% } %>
+  </div>
+  <% }); %>
+</div>
+
+<!-- What's included -->
+<% if (p.includes && p.includes.length) { %>
+<div class="max-w-3xl mx-auto mt-10 bg-[#0A0A0A] border border-white/10 rounded-xl p-6 lg:p-7">
+  <p class="text-xs font-bold uppercase tracking-wider text-white mb-4">All <%= p.name %> Packages Include</p>
+  <div class="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
+    <% p.includes.forEach(function(inc){ %>
+    <div class="flex items-start gap-2 text-sm text-white/65"><%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %><%= inc %></div>
+    <% }); %>
+  </div>
+</div>
+<% } %>
+
+<!-- Footnotes -->
+<% if (p.footnotes && p.footnotes.length) { %>
+<div class="max-w-3xl mx-auto mt-6 space-y-1.5">
+  <% p.footnotes.forEach(function(fn){ %>
+  <p class="text-xs text-white/40 leading-relaxed">* <%= fn %></p>
+  <% }); %>
+</div>
+<% } %>
+
+<% if (typeof dataCosts !== 'undefined' && dataCosts) { %>
+<div class="max-w-3xl mx-auto mt-6 bg-[#0A0A0A] border border-white/10 rounded-lg p-5">
+  <p class="text-xs font-bold mb-2"><span class="uppercase tracking-wider text-[#E8523A]">Data Costs</span> <span class="text-white/40">(Enterprise only)</span></p>
+  <p class="text-sm text-white/55 leading-relaxed"><%= dataCosts %></p>
+</div>
+<% } %>
+
+<div class="text-center mt-10">
+  <%- include('_button', { label: 'Get Started', href: site.externalLinks.bookACall, variant: 'primary', size: 'lg', external: true }) %>
+</div>

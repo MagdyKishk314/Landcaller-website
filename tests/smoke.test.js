@@ -18,23 +18,72 @@ test("home route renders the full landing page", async () => {
     const res = await fetch(`http://127.0.0.1:${port}/`);
     assert.equal(res.status, 200);
     const html = await res.text();
-    // Every major section is present.
+    // Every major funnel section is present, in story order.
     for (const needle of [
-      "Warm Land Seller Leads.",
-      "Who We Are",
-      "What Sets Land Caller Apart?",
-      "Don't Take Our Word For It",
-      "Why Land Caller Wins",
-      "Acquisition Packages",
-      "Key Features Comparison",
-      "Got Questions?",
-      "Earn While You Refer",
-      "Let's Talk",
+      "Warm Land Seller Leads.", // hero
+      "The Hard Truth", // problem
+      "Built by land investors", // guide teaser
+      "Stop imagining a warm lead", // call samples
+      "Warm leads in your CRM", // how it works
+      "We proved that we can do it.", // testimonials slider
+      "Why Land Caller Wins", // why us
+      "Choose your weapon", // pricing teaser
+      "From the Blog", // blog teaser
+      "Let's build your deal flow.", // booking climax (FAQ presence asserted via answer text below)
     ]) {
       assert.ok(html.includes(needle), `missing section: ${needle}`);
     }
     // FAQ answer is server-rendered (not just the question).
     assert.ok(html.includes("reliable, consistent pipeline of off-market seller leads"));
+    // Call-sample audio players are rendered and reference the sample files.
+    assert.ok(html.includes("data-audio-player"), "missing audio players");
+    assert.ok(html.includes("sample-warm-lead-1.mp3"), "missing audio source");
+    assert.equal((html.match(/data-audio-player/g) || []).length, 2, "expected 2 audio players");
+    // Inline Calendly booking embed is present.
+    assert.ok(html.includes('id="calendly-embed"'), "missing Calendly embed");
+    assert.ok(html.includes("data-calendly"), "missing Calendly hook");
+    // Exactly one H1 on the home page.
+    assert.equal((html.match(/<h1/g) || []).length, 1, "home should have exactly one <h1>");
+  } finally {
+    server.close();
+  }
+});
+
+test("pricing and blog pages render with one H1 each", async () => {
+  const app = createApp();
+  const server = await listen(app);
+  const { port } = server.address();
+  try {
+    for (const [path, needle] of [
+      ["/pricing", "Land Caller Service Pricing"],
+      ["/blog", "Insights on Cold Calling &amp; Land Acquisition"],
+    ]) {
+      const res = await fetch(`http://127.0.0.1:${port}${path}`);
+      assert.equal(res.status, 200, `page failed: ${path}`);
+      const html = await res.text();
+      assert.ok(html.includes(needle), `missing H1 content on ${path}`);
+      assert.equal((html.match(/<h1/g) || []).length, 1, `${path} should have exactly one <h1>`);
+    }
+    // Pricing renders both plans, real prices, and the feature matrix.
+    const pricing = await (await fetch(`http://127.0.0.1:${port}/pricing`)).text();
+    for (const n of ["Land Caller Enterprise Package", "Land Caller Basic Package", "$2,850", "$1,100", "Key Features Comparison"]) {
+      assert.ok(pricing.includes(n), `pricing missing: ${n}`);
+    }
+  } finally {
+    server.close();
+  }
+});
+
+test("blog post renders for a known slug and 404s for an unknown one", async () => {
+  const app = createApp();
+  const server = await listen(app);
+  const { port } = server.address();
+  try {
+    const ok = await fetch(`http://127.0.0.1:${port}/blog/what-makes-a-warm-land-seller-lead`);
+    assert.equal(ok.status, 200);
+    assert.ok((await ok.text()).includes("What Actually Makes a Land Seller Lead"));
+    const missing = await fetch(`http://127.0.0.1:${port}/blog/not-a-real-post`, { redirect: "manual" });
+    assert.equal(missing.status, 404);
   } finally {
     server.close();
   }
@@ -50,12 +99,11 @@ test("about route renders the new-design about page", async () => {
     const html = await res.text();
     for (const needle of [
       "About Land Caller",
-      "Our Story",
-      "Our Team",
+      "Who We Are",
       "Joe Roberts",
-      "John Lowrey",
-      "Keniqua Vasquez",
+      "first-ever cold-calling company",
       "Ad Majorem Dei Gloriam",
+      "Start Growing Your Land Investing Business Today",
     ]) {
       assert.ok(html.includes(needle), `missing: ${needle}`);
     }
@@ -144,6 +192,8 @@ test("sitemap.xml lists canonical URLs", async () => {
     const xml = await res.text();
     assert.match(res.headers.get("content-type") || "", /xml/);
     assert.ok(xml.includes("/land-investor-cold-calling"));
+    assert.ok(xml.includes("/pricing"), "sitemap missing /pricing");
+    assert.ok(xml.includes("/blog"), "sitemap missing /blog");
   } finally {
     server.close();
   }

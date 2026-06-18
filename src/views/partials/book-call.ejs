@@ -1,0 +1,88 @@
+<%
+const inputCls = "h-10 w-full min-w-0 rounded-md border px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:ring-[3px] bg-[#141414] border-white/10 text-white placeholder:text-white/30 focus:border-[#E8523A] focus:ring-[#E8523A]/20";
+const labelCls = "text-xs font-medium text-white/50 uppercase tracking-wider mb-2 block";
+const calUrl = (typeof calendlyUrl !== 'undefined' ? calendlyUrl : site.externalLinks.bookACall);
+%>
+<section id="book" class="py-24 lg:py-32 bg-[#0D0D0D] relative overflow-hidden scroll-mt-20">
+  <div class="container relative z-10">
+    <!-- Single, centered section header -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <p class="text-[#E8523A] text-sm font-semibold tracking-wide uppercase mb-4">Book Your Call</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight">Let's build your deal flow.</h2>
+      <p class="text-white/60 leading-relaxed text-lg">Tell us a bit about your land business, then pick a time for a <strong class="text-white">free 15-minute strategy call</strong> - no pressure, no obligation.</p>
+      <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-6">
+        <li class="flex items-center gap-2 text-white/55 text-sm"><%- include('_icons', { name: 'calendar-check', cls: 'h-4 w-4 text-[#E8523A]' }) %>Pick a time that works</li>
+        <li class="flex items-center gap-2 text-white/55 text-sm"><%- include('_icons', { name: 'phone', cls: 'h-4 w-4 text-[#E8523A]' }) %>Talk to a real strategist</li>
+        <li class="flex items-center gap-2 text-white/55 text-sm"><%- include('_icons', { name: 'shield-check', cls: 'h-4 w-4 text-[#E8523A]' }) %>No obligation</li>
+      </ul>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
+
+      <!-- LEFT: booking. The form swaps to the inline Calendly scheduler on submit. -->
+      <div data-booking>
+        <!-- Step 1: contact form -->
+        <div class="mt-8" data-booking-form>
+          <form class="space-y-5" method="post" action="/contact" data-contact-form>
+            <% for (let i = 0; i < contactFields.length; i += 2) { %>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <% contactFields.slice(i, i + 2).forEach(function(field){ %>
+              <div>
+                <label class="<%= labelCls %>"><%= field.label %></label>
+                <input data-slot="input" class="<%= inputCls %>" name="<%= field.name %>" placeholder="<%= field.placeholder %>"<% if (field.type !== 'text') { %> type="<%= field.type %>"<% } %><% if (field.required) { %> required<% } %> value="">
+              </div>
+              <% }); %>
+            </div>
+            <% } %>
+            <div>
+              <label class="<%= labelCls %>">Message</label>
+              <textarea data-slot="textarea" class="flex field-sizing-content min-h-16 w-full rounded-md border px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-[#141414] border-white/10 text-white placeholder:text-white/30 focus:border-[#E8523A] focus:ring-[#E8523A]/20 resize-none" name="message" placeholder="Tell us about your land business and goals..." rows="3"></textarea>
+            </div>
+            <%- include('_button', { label: 'Continue to scheduling', type: 'submit', variant: 'primary', size: 'lg', block: true, icon: 'arrow-right' }) %>
+          </form>
+          <p class="text-center text-white/40 text-xs mt-4">Prefer to book directly? <a href="<%= calUrl %>" target="_blank" rel="noopener noreferrer" class="text-[#E8523A] font-semibold hover:underline">Open the scheduler</a></p>
+        </div>
+
+        <!-- Step 2: inline Calendly scheduler (revealed after the form is submitted; loaded in main.ts) -->
+        <div class="mt-8" data-booking-calendly hidden>
+          <div class="flex items-center gap-2 mb-4 text-white font-medium"><%- include('_icons', { name: 'calendar-check', cls: 'h-5 w-5 text-[#E8523A]' }) %>Thanks! Grab a time that works for you.</div>
+          <div
+            id="calendly-embed"
+            class="lc-calendly"
+            data-calendly
+            data-url="<%= calUrl %>?hide_gdpr_banner=1&background_color=0a0a0a&text_color=ffffff&primary_color=e8523a"
+          >
+            <div class="lc-calendly__loading" data-calendly-loading>
+              <span class="lc-calendly__spinner" aria-hidden="true"></span>
+              <span class="text-white/50 text-sm">Loading the scheduler&hellip;</span>
+              <a href="<%= calUrl %>" target="_blank" rel="noopener noreferrer" class="text-[#E8523A] text-sm font-semibold hover:underline">Or open it in a new tab</a>
+            </div>
+          </div>
+        </div>
+
+        <noscript>
+          <div class="mt-6">
+            <%- include('_button', { label: 'Book A Call', href: calUrl, variant: 'primary', size: 'lg', external: true }) %>
+          </div>
+        </noscript>
+      </div>
+
+      <!-- RIGHT: FAQ (header removed; single centered section header above) -->
+      <div id="faq" class="scroll-mt-20">
+        <div data-slot="accordion" class="space-y-3" data-orientation="vertical" data-faq>
+          <% faqs.forEach(function(f, i){ %>
+          <div data-state="closed" data-orientation="vertical" data-slot="accordion-item" class="last:border-b-0 bg-[#141414] border border-white/5 rounded-lg px-6 data-[state=open]:border-[#E8523A]/30 transition-all" data-faq-item>
+            <h3 data-orientation="vertical" data-state="closed" class="flex">
+              <button type="button" aria-controls="faq-content-<%= i %>" aria-expanded="false" data-state="closed" data-orientation="vertical" id="faq-trigger-<%= i %>" data-slot="accordion-trigger" class="focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180 text-left text-sm font-semibold text-white/90 hover:text-[#E8523A] py-5 [&[data-state=open]]:text-[#E8523A]" data-faq-trigger><%= f.question %><%- include('_icons', { name: 'chevron-down', cls: 'text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200' }) %></button>
+            </h3>
+            <div data-state="closed" id="faq-content-<%= i %>" hidden role="region" aria-labelledby="faq-trigger-<%= i %>" data-orientation="vertical" data-slot="accordion-content" class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm" data-faq-panel style="--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width);">
+              <div class="pt-0 pb-4 text-sm text-white/60 leading-relaxed pb-5"><%= f.answer %></div>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

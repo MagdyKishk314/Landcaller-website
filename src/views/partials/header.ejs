@@ -1,11 +1,8 @@
 <%
-const btnBase = "inline-flex items-center justify-center whitespace-nowrap text-sm transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-8 gap-1.5 has-[>svg]:px-2.5";
-const outline = "bg-transparent hover:bg-[#E8523A]/10 text-white font-semibold border-[2px] border-[#E8523A] rounded-full";
-const primary = "bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full";
 const onHome = (typeof isHome === 'undefined') ? true : isHome;
 const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? '' : h)) : h;
 %>
-<header id="site-header" class="top-0 z-50 transition-all duration-300 bg-transparent" style="position: sticky; top: 0;">
+<header id="site-header" class="top-0 z-50 transition-all duration-300 bg-[#0A0A0A]/98 backdrop-blur-md border-b border-white/5" style="position: sticky; top: 0;">
   <div class="container flex items-center justify-between h-16 lg:h-20 gap-6">
     <a href="<%= resolve('#') %>" class="flex items-center shrink-0">
       <img alt="Land Caller - land investor cold calling service" class="h-10 lg:h-12 w-auto" width="586" height="244" src="<%= site.logo %>">
@@ -16,8 +13,8 @@ const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? ''
       <% }); %>
     </nav>
     <div class="hidden lg:flex items-center gap-3">
-      <a href="<%= site.externalLinks.crmLogin %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="<%= btnBase %> <%= outline %> px-6">CRM + Data Login</a>
-      <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="<%= btnBase %> <%= primary %> px-6">Book A Call</a>
+      <%- include('_button', { label: 'CRM + Data Login', href: site.externalLinks.crmLogin, variant: 'outline', size: 'sm', external: true }) %>
+      <%- include('_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'sm', external: true }) %>
     </div>
     <button type="button" id="mobile-menu-toggle" class="lg:hidden p-2 text-white" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
       <%- include('_icons', { name: 'menu', cls: '' }) %>
@@ -29,8 +26,8 @@ const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? ''
       <a href="<%= resolve(link.href) %>" class="text-sm font-medium text-white/80 hover:text-[#E8523A] py-2" data-mobile-link><%= link.label %></a>
       <% }); %>
       <div class="flex flex-col gap-2 pt-3 border-t border-white/10">
-        <a href="<%= site.externalLinks.crmLogin %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="<%= btnBase %> <%= outline %>">CRM + Data Login</a>
-        <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" data-slot="button" class="<%= btnBase %> <%= primary %>">Book A Call</a>
+        <%- include('_button', { label: 'CRM + Data Login', href: site.externalLinks.crmLogin, variant: 'outline', size: 'sm', external: true, block: true }) %>
+        <%- include('_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'sm', external: true, block: true }) %>
       </div>
     </nav>
   </div>

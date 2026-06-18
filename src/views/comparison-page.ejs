@@ -67,8 +67,8 @@
               <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-5 leading-tight"><%= page.ctaHeading %></h2>
               <p class="text-white/60 leading-relaxed text-lg mb-8"><%= page.ctaSub %></p>
               <div class="flex flex-wrap gap-5 justify-center">
-                <a href="<%= site.externalLinks.bookACall %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-[#E8523A] hover:bg-[#E8523A]/85 text-white font-semibold rounded-full px-10 py-4 text-base transition-all duration-200 active:scale-[0.97] shadow-lg">Book a Call</a>
-                <a href="/land-investor-cold-calling" class="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-[#E8523A]/10 text-white font-semibold border-[2px] border-[#E8523A] rounded-full px-10 py-4 text-base transition-all duration-200 active:scale-[0.97]">See How Our Service Works</a>
+                <%- include('partials/_button', { label: 'Book a Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'lg', external: true }) %>
+                <%- include('partials/_button', { label: 'See How Our Service Works', href: '/land-investor-cold-calling', variant: 'outline', size: 'lg' }) %>
               </div>
             </div>
           </section>

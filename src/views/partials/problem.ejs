@@ -1,0 +1,20 @@
+<section class="py-24 lg:py-32 bg-[#0D0D0D] border-y border-white/5">
+  <div class="container">
+    <div class="max-w-2xl mb-14">
+      <p class="text-[#E8523A] text-sm font-semibold tracking-wide uppercase mb-4"><%= problem.eyebrow %></p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-5 leading-tight"><%= problem.heading %></h2>
+      <p class="text-white/60 leading-relaxed text-lg"><%= problem.intro %></p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+      <% problem.painPoints.forEach(function(point){ %>
+      <div class="bg-[#141414] rounded-xl p-7 border border-white/5 hover:border-[#E8523A]/30 transition-all duration-300">
+        <div class="w-12 h-12 rounded-lg bg-[#E8523A]/10 flex items-center justify-center shrink-0 mb-4">
+          <%- include('_icons', { name: point.icon, cls: 'h-5 w-5 text-[#E8523A]' }) %>
+        </div>
+        <h3 class="text-lg font-semibold text-white mb-2"><%= point.title %></h3>
+        <p class="text-sm text-white/60 leading-relaxed"><%= point.body %></p>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
