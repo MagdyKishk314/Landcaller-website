@@ -14,7 +14,7 @@
               <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase mb-4"><%= page.eyebrow %></p>
               <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] font-bold tracking-tight mb-6"><%= page.h1 %></h1>
               <p class="text-white/70 text-lg leading-relaxed max-w-3xl mx-auto mb-8"><%= page.lede %></p>
-              <%- include('partials/_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'lg', external: true }) %>
+              <%- include('partials/_button', { label: 'Book A Call', href: '/#book', variant: 'primary', size: 'lg' }) %>
             </div>
           </section>
 
@@ -40,7 +40,7 @@
             <div class="container max-w-3xl text-center">
               <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-5 leading-tight">Not sure which package fits?</h2>
               <p class="text-white/60 leading-relaxed text-lg mb-8">Book a free strategy call and we'll map a campaign - and a price - to your target markets.</p>
-              <%- include('partials/_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'lg', external: true }) %>
+              <%- include('partials/_button', { label: 'Book A Call', href: '/#book', variant: 'primary', size: 'lg' }) %>
             </div>
           </section>
         </main>

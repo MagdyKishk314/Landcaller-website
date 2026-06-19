@@ -150,8 +150,8 @@ test("SEO landing pages render with one H1 each", async () => {
   const { port } = server.address();
   try {
     for (const [path, needle] of [
-      ["/land-investor-cold-calling", "Done-For-You Cold Calling Lead Generation for Land Investors"],
-      ["/cold-calling-vs-direct-mail", "Cold Calling vs Direct Mail for Land Investors"],
+      ["/pricing", "Land Caller Service Pricing"],
+      ["/blog", "Insights on Cold Calling"],
     ]) {
       const res = await fetch(`http://127.0.0.1:${port}${path}`);
       assert.equal(res.status, 200, `page failed: ${path}`);
@@ -191,7 +191,7 @@ test("sitemap.xml lists canonical URLs", async () => {
     assert.equal(res.status, 200);
     const xml = await res.text();
     assert.match(res.headers.get("content-type") || "", /xml/);
-    assert.ok(xml.includes("/land-investor-cold-calling"));
+    assert.ok(xml.includes("/about"), "sitemap missing /about");
     assert.ok(xml.includes("/pricing"), "sitemap missing /pricing");
     assert.ok(xml.includes("/blog"), "sitemap missing /blog");
   } finally {

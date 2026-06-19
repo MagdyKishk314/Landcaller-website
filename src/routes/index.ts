@@ -3,8 +3,6 @@ import { renderHome } from "../controllers/homeController.js";
 import { renderAbout } from "../controllers/aboutController.js";
 import { submitContact } from "../controllers/contactController.js";
 import {
-  renderService,
-  renderComparison,
   renderPricing,
   renderBlog,
   renderBlogPost,
@@ -15,9 +13,9 @@ const router = Router();
 
 router.get("/", renderHome);
 
-// High-intent SEO landing pages
-router.get("/land-investor-cold-calling", renderService);
-router.get("/cold-calling-vs-direct-mail", renderComparison);
+// Retired service pages - 301 to home to preserve any inbound link equity.
+router.get("/land-investor-cold-calling", (_req, res) => res.redirect(301, "/"));
+router.get("/cold-calling-vs-direct-mail", (_req, res) => res.redirect(301, "/"));
 
 // Funnel spoke pages
 router.get("/pricing", renderPricing);
