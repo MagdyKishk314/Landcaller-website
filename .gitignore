@@ -37,6 +37,9 @@ coverage/
 # Vercel local CLI metadata
 .vercel
 
-# PDFs
+# PDFs (generated; regenerate from docs/*.py)
 *.pdf
 SEO-Report.md
+
+# Temp audit/scrape artifacts
+.verify_tmp/

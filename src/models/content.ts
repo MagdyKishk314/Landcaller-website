@@ -16,7 +16,7 @@ import type {
 
 export const hero = {
   eyebrow: "Cold Calling Lead Generation for Land Investors",
-  headingLines: ["Warm Land Seller Leads.", "Done For You."],
+  headingLines: ["Warm Land Seller Leads.", "Cold Calling, Done For You."],
   subtext:
     "Land Caller is the only done-for-you cold calling service built exclusively for vacant land investors. We dial off-market owners and deliver warm, qualified seller leads straight to your CRM - so you close more land deals.",
   note:

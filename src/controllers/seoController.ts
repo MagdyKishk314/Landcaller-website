@@ -1,24 +1,29 @@
 import type { Request, Response } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
 import { pricingPage, blogPage } from "../models/pages.js";
-import { blogPosts } from "../models/blog.js";
 
-/** Canonical, crawlable URLs for the XML sitemap. */
+/**
+ * Canonical, crawlable URLs for the XML sitemap. Individual blog posts are
+ * intentionally omitted while they hold placeholder content (they're also
+ * marked noindex); add them back once real articles ship.
+ */
 const ROUTES: { path: string; changefreq: string; priority: string }[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: pricingPage.path, changefreq: "monthly", priority: "0.8" },
   { path: blogPage.path, changefreq: "weekly", priority: "0.7" },
   { path: "/about", changefreq: "monthly", priority: "0.6" },
-  ...blogPosts.map((p) => ({
-    path: `${blogPage.path}/${p.slug}`,
-    changefreq: "monthly",
-    priority: "0.5",
-  })),
 ];
+
+/**
+ * Build/deploy date, captured once at module load rather than per request, so
+ * <lastmod> reflects when the site was last shipped instead of a misleadingly
+ * "always today" value. Override with SITE_BUILD_DATE (YYYY-MM-DD) in CI.
+ */
+const LASTMOD = (process.env.SITE_BUILD_DATE || new Date().toISOString().slice(0, 10));
 
 /** GET /sitemap.xml - generated from the canonical route list. */
 export function renderSitemap(_req: Request, res: Response): void {
-  const lastmod = new Date().toISOString().slice(0, 10);
+  const lastmod = LASTMOD;
   const urls = ROUTES.map(
     (r) =>
       `  <url>\n    <loc>${site.url}${r.path}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${r.changefreq}</changefreq>\n    <priority>${r.priority}</priority>\n  </url>`

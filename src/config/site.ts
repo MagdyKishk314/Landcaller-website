@@ -12,7 +12,7 @@ export const site: SiteConfig = {
   // Primary keyword up front; brand second. Targets the hire-intent buyer.
   title: "Land Lead Generation & Cold Calling for Land Investors | Land Caller",
   description:
-    "Land Caller is the only done-for-you cold calling service built exclusively for vacant land investors. We deliver warm, off-market land seller leads straight to your CRM. Book a call.",
+    "Done-for-you cold calling built exclusively for vacant land investors. We deliver warm, off-market land seller leads straight to your CRM. Book a call.",
   canonical: `${BASE_URL}/`,
   faviconUrl: "/assets/images/lc-logo-transparent.png",
   logo: "/assets/images/lc-logo-transparent.png",
