@@ -32,6 +32,11 @@
  * ------------------------------------------------------------------------- */
 html { scroll-behavior: smooth; }
 
+/* Deepest background shade (#0E0E0E) - replaces #0A0A0A; these arbitrary
+ * classes are not in the original purged Tailwind build. */
+.bg-\[\#0E0E0E\] { background-color: #0e0e0e; }
+.bg-\[\#0E0E0E\]\/98 { background-color: #0e0e0efa; }
+
 /* Fixed/parallax banner background (e.g. About hero). Mobile keeps `scroll`
  * because iOS Safari renders `fixed` backgrounds unreliably. */
 .lc-banner-fixed { background-attachment: scroll; }
@@ -45,6 +50,7 @@ html { scroll-behavior: smooth; }
 .scroll-mt-20 { scroll-margin-top: 5rem; }
 .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
 .py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+.mt-12 { margin-top: 3rem; }
 .gap-x-6 { column-gap: 1.5rem; }
 .gap-y-2 { row-gap: 0.5rem; }
 .opacity-80 { opacity: 0.8; }
@@ -72,6 +78,37 @@ html { scroll-behavior: smooth; }
   /* 7/5 split for the "Who We Are" guide teaser (col-span-6 already exists). */
   .lg\:col-span-7 { grid-column: span 7 / span 7; }
   .lg\:col-span-5 { grid-column: span 5 / span 5; }
+}
+
+/* ---------------------------------------------------------------------------
+ * Hero CRM device - iPad-style framed screenshot that bleeds off the right.
+ * ------------------------------------------------------------------------- */
+.lc-device {
+  background: #161616;
+  padding: 10px;
+  border-radius: 24px;
+  box-shadow: 0 30px 70px -25px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+.lc-device > img { display: block; width: 100%; height: auto; border-radius: 14px; }
+
+/* Mobile: device shown in flow beneath the hero copy. */
+.lc-hero-device-mobile { margin-top: 2.5rem; }
+
+/* Desktop: device lifted out and bleeding off the right edge (~half visible). */
+.lc-hero-device { display: none; }
+@media (min-width: 1024px) {
+  .lc-hero-device-mobile { display: none; }
+  .lc-hero-device {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 52%;
+    transform: translateY(-50%);
+    width: 78vw;
+    max-width: 1280px;
+    z-index: 5;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -152,7 +189,7 @@ html { scroll-behavior: smooth; }
   display: flex;
   align-items: center;
   gap: 14px;
-  background: #0a0a0a;
+  background: #0e0e0e;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 12px 14px;
@@ -211,7 +248,7 @@ html { scroll-behavior: smooth; }
   min-height: 700px;
   border-radius: 12px;
   overflow: hidden;
-  background: #0a0a0a;
+  background: #0e0e0e;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .lc-calendly__loading {

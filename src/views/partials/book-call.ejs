@@ -3,7 +3,7 @@ const inputCls = "h-10 w-full min-w-0 rounded-md border px-3 py-1 text-base shad
 const labelCls = "text-xs font-medium text-white/50 uppercase tracking-wider mb-2 block";
 const calUrl = (typeof calendlyUrl !== 'undefined' ? calendlyUrl : site.externalLinks.bookACall);
 %>
-<section id="book" class="py-24 lg:py-32 bg-[#0D0D0D] relative overflow-hidden scroll-mt-20">
+<section id="book" class="py-24 lg:py-32 bg-[#111111] relative overflow-hidden scroll-mt-20">
   <div class="container relative z-10">
     <!-- Single, centered section header -->
     <div class="text-center max-w-2xl mx-auto mb-12">
@@ -50,7 +50,7 @@ const calUrl = (typeof calendlyUrl !== 'undefined' ? calendlyUrl : site.external
             id="calendly-embed"
             class="lc-calendly"
             data-calendly
-            data-url="<%= calUrl %>?hide_gdpr_banner=1&background_color=0a0a0a&text_color=ffffff&primary_color=e8523a"
+            data-url="<%= calUrl %>?hide_gdpr_banner=1&background_color=0e0e0e&text_color=ffffff&primary_color=e8523a"
           >
             <div class="lc-calendly__loading" data-calendly-loading>
               <span class="lc-calendly__spinner" aria-hidden="true"></span>

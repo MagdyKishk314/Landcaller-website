@@ -1,7 +1,15 @@
-<section class="relative min-h-screen flex items-center bg-[#0A0A0A] overflow-hidden">
+<section class="relative min-h-screen flex items-center bg-[#0E0E0E] overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-br from-[#0A0A0A]/80 via-[#0D0D0D]/70 to-[#111111]/60"></div>
+
+  <!-- Desktop: CRM on an iPad-style frame, bleeding off the right edge -->
+  <div class="lc-hero-device" aria-hidden="true">
+    <div class="lc-device">
+      <img src="<%= hero.image %>" alt="" fetchpriority="high" decoding="async">
+    </div>
+  </div>
+
   <div class="container relative z-10 pt-24 pb-16 lg:pt-32 lg:pb-24">
-    <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+    <div class="grid lg:grid-cols-12 gap-12 items-center">
       <div class="lg:col-span-6 space-y-7">
         <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase"><%= hero.eyebrow %></p>
         <h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl text-white leading-[1.1] font-bold tracking-tight"><%= hero.headingLines[0] %><br><%= hero.headingLines[1] %></h1>
@@ -21,11 +29,12 @@
           <% }); %>
         </ul>
         <p class="text-white/50 text-sm leading-relaxed max-w-lg pt-1"><%= hero.note %></p>
-      </div>
-      <div class="lg:col-span-6">
-        <div class="relative">
-          <img alt="Land Caller CRM dashboard showing off-market land seller leads from cold calling campaigns" class="w-full h-auto" src="<%= hero.image %>" fetchpriority="high" decoding="async" style="mask-image: radial-gradient(85% 80%, black 50%, transparent 100%);">
-          <div class="absolute -inset-4 bg-[#E8523A]/5 rounded-2xl blur-3xl -z-10"></div>
+
+        <!-- Mobile: CRM device shown in flow beneath the copy -->
+        <div class="lc-hero-device-mobile">
+          <div class="lc-device">
+            <img src="<%= hero.image %>" alt="Land Caller CRM dashboard showing property market insights and analytics" loading="eager" decoding="async">
+          </div>
         </div>
       </div>
     </div>
