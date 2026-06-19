@@ -13,8 +13,8 @@ const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? ''
       <% }); %>
     </nav>
     <div class="hidden lg:flex items-center gap-3">
-      <%- include('_button', { label: 'CRM + Data Login', href: site.externalLinks.crmLogin, variant: 'outline', size: 'sm', external: true }) %>
-      <%- include('_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'sm', external: true }) %>
+      <%- include('_button', { label: 'Login', href: site.externalLinks.crmLogin, variant: 'outline', size: 'sm', external: true }) %>
+      <%- include('_button', { label: 'Book A Call', href: '/#book', variant: 'primary', size: 'sm' }) %>
     </div>
     <button type="button" id="mobile-menu-toggle" class="lg:hidden p-2 text-white" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
       <%- include('_icons', { name: 'menu', cls: '' }) %>
@@ -26,8 +26,8 @@ const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? ''
       <a href="<%= resolve(link.href) %>" class="text-sm font-medium text-white/80 hover:text-[#E8523A] py-2" data-mobile-link><%= link.label %></a>
       <% }); %>
       <div class="flex flex-col gap-2 pt-3 border-t border-white/10">
-        <%- include('_button', { label: 'CRM + Data Login', href: site.externalLinks.crmLogin, variant: 'outline', size: 'sm', external: true, block: true }) %>
-        <%- include('_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'sm', external: true, block: true }) %>
+        <%- include('_button', { label: 'Login', href: site.externalLinks.crmLogin, variant: 'outline', size: 'sm', external: true, block: true }) %>
+        <%- include('_button', { label: 'Book A Call', href: '/#book', variant: 'primary', size: 'sm', block: true }) %>
       </div>
     </nav>
   </div>

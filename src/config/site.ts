@@ -28,17 +28,14 @@ export const site: SiteConfig = {
 
 export const navLinks: NavLink[] = [
   { label: "Home", href: "#" },
-  { label: "Services", href: "/land-investor-cold-calling" },
+  { label: "About", href: "/about" },
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
-  { label: "About", href: "/about" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Join Us", href: "/join-us" },
 ];
 
 export const footerLinks: NavLink[] = [
   { label: "Pricing", href: "/pricing" },
-  { label: "Land Cold Calling Service", href: "/land-investor-cold-calling" },
-  { label: "Cold Calling vs Direct Mail", href: "/cold-calling-vs-direct-mail" },
   { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about" },
   { label: "FAQs", href: "#faq" },
