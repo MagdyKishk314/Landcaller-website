@@ -6,9 +6,9 @@
 
 export const pricingPage = {
   title:
-    "Land Caller Pricing & Packages | Cold Calling Lead Generation for Land Investors",
+    "Land Caller Pricing | Cold Calling for Land Investors",
   description:
-    "Compare Land Caller packages for land cold calling lead generation. Enterprise dedicated callers or Basic guaranteed-lead plans - dedicated callers, full CRM integration, and unlimited dials. Book a call for a custom quote.",
+    "Compare Land Caller's land cold calling packages - Enterprise dedicated callers or guaranteed-lead Basic plans, with full CRM integration and unlimited dials.",
   path: "/pricing",
   eyebrow: "Pricing & Packages",
   h1: "Land Caller Service Pricing",

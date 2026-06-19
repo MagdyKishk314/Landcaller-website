@@ -62,6 +62,9 @@ export function renderBlogPost(req: Request, res: Response, next: NextFunction):
     navLinks,
     footerLinks,
     post,
+    // Posts are placeholder content for now - keep them out of the index until
+    // real articles ship (see also the sitemap, which omits post URLs).
+    metaRobots: "noindex, follow",
     pageTitle: `${post.title} | Land Caller`,
     pageDescription: post.excerpt,
     canonical: `${site.url}${path}`,

@@ -22,6 +22,48 @@ export function createApp(): Application {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
+  // Security headers (mirrors vercel.json so the VPS/local get them too).
+  const CSP =
+    "default-src 'self'; " +
+    "script-src 'self' 'unsafe-inline' https://assets.calendly.com; " +
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; " +
+    "font-src 'self' https://fonts.gstatic.com; " +
+    "img-src 'self' data: https:; " +
+    "frame-src https://calendly.com https://assets.calendly.com; " +
+    "connect-src 'self' https://calendly.com https://assets.calendly.com; " +
+    "base-uri 'self'; form-action 'self'";
+
+  // Only the canonical production host should be indexable. Any other host
+  // (Vercel preview, raw VPS IP, staging) gets an explicit noindex so it can
+  // never compete with or leak ahead of landcaller.com.
+  const PROD_HOSTS = new Set(["landcaller.com", "www.landcaller.com"]);
+
+  app.use((req, res, next) => {
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+    res.setHeader("X-Frame-Options", "SAMEORIGIN");
+    res.setHeader(
+      "Permissions-Policy",
+      "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    );
+    res.setHeader("Content-Security-Policy", CSP);
+
+    // HSTS - only meaningful over HTTPS. Vercel adds this automatically; on the
+    // VPS (behind an HTTPS reverse proxy) req.secure is true via trust proxy.
+    if (req.secure) {
+      res.setHeader(
+        "Strict-Transport-Security",
+        "max-age=63072000; includeSubDomains; preload"
+      );
+    }
+
+    const host = (req.hostname || "").toLowerCase();
+    if (!PROD_HOSTS.has(host)) {
+      res.setHeader("X-Robots-Tag", "noindex, nofollow");
+    }
+    next();
+  });
+
   // Static assets (css, js, images) reproduced 1:1 from the source site.
   app.use(
     "/assets",

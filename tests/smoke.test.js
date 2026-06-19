@@ -193,7 +193,51 @@ test("sitemap.xml lists canonical URLs", async () => {
     assert.match(res.headers.get("content-type") || "", /xml/);
     assert.ok(xml.includes("/about"), "sitemap missing /about");
     assert.ok(xml.includes("/pricing"), "sitemap missing /pricing");
-    assert.ok(xml.includes("/blog"), "sitemap missing /blog");
+    assert.ok(xml.includes("<loc>https://landcaller.com/blog</loc>"), "sitemap missing /blog");
+    // Placeholder blog posts must stay out of the sitemap until real content ships.
+    assert.ok(!xml.includes("/blog/"), "sitemap should not list individual blog posts yet");
+  } finally {
+    server.close();
+  }
+});
+
+test("security headers are present on every response", async () => {
+  const app = createApp();
+  const server = await listen(app);
+  const { port } = server.address();
+  try {
+    const res = await fetch(`http://127.0.0.1:${port}/`);
+    assert.equal(res.headers.get("x-content-type-options"), "nosniff");
+    assert.equal(res.headers.get("referrer-policy"), "strict-origin-when-cross-origin");
+    assert.equal(res.headers.get("x-frame-options"), "SAMEORIGIN");
+    assert.ok((res.headers.get("content-security-policy") || "").includes("default-src 'self'"));
+  } finally {
+    server.close();
+  }
+});
+
+test("non-production host gets X-Robots-Tag noindex", async () => {
+  const app = createApp();
+  const server = await listen(app);
+  const { port } = server.address();
+  try {
+    // 127.0.0.1 is not the canonical production host -> must be noindexed.
+    const res = await fetch(`http://127.0.0.1:${port}/`);
+    assert.match(res.headers.get("x-robots-tag") || "", /noindex/);
+  } finally {
+    server.close();
+  }
+});
+
+test("placeholder blog posts are marked noindex", async () => {
+  const app = createApp();
+  const server = await listen(app);
+  const { port } = server.address();
+  try {
+    const res = await fetch(`http://127.0.0.1:${port}/blog/cold-calling-vs-direct-mail-for-land`);
+    assert.equal(res.status, 200);
+    const html = await res.text();
+    assert.match(html, /<meta name="robots" content="noindex/);
   } finally {
     server.close();
   }
