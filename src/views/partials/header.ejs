@@ -2,7 +2,7 @@
 const onHome = (typeof isHome === 'undefined') ? true : isHome;
 const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? '' : h)) : h;
 %>
-<header id="site-header" class="top-0 z-50 transition-all duration-300 bg-[#0A0A0A]/98 backdrop-blur-md border-b border-white/5" style="position: sticky; top: 0;">
+<header id="site-header" class="top-0 z-50 transition-all duration-300 bg-[#0E0E0E]/98 backdrop-blur-md border-b border-white/5" style="position: sticky; top: 0;">
   <div class="container flex items-center justify-between h-16 lg:h-20 gap-6">
     <a href="<%= resolve('#') %>" class="flex items-center shrink-0">
       <img alt="Land Caller - land investor cold calling service" class="h-10 lg:h-12 w-auto" width="586" height="244" src="<%= site.logo %>">
@@ -20,7 +20,7 @@ const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? ''
       <%- include('_icons', { name: 'menu', cls: '' }) %>
     </button>
   </div>
-  <div id="mobile-menu" class="lg:hidden bg-[#0A0A0A] border-t border-white/10" hidden>
+  <div id="mobile-menu" class="lg:hidden bg-[#0E0E0E] border-t border-white/10" hidden>
     <nav class="container py-4 flex flex-col gap-3">
       <% navLinks.forEach(function(link){ %>
       <a href="<%= resolve(link.href) %>" class="text-sm font-medium text-white/80 hover:text-[#E8523A] py-2" data-mobile-link><%= link.label %></a>

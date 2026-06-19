@@ -9,9 +9,9 @@
         <%- include('partials/header') %>
         <main>
           <!-- Hero banner: background image + dark overlay + centered text -->
-          <section class="relative border-b border-white/5 overflow-hidden bg-[#0A0A0A] flex items-center" style="min-height:clamp(440px,68vh,720px);">
+          <section class="relative border-b border-white/5 overflow-hidden bg-[#0E0E0E] flex items-center" style="min-height:clamp(440px,68vh,720px);">
             <div class="absolute inset-0 lc-banner-fixed" style="background-image:url('/assets/images/about-banner.jpg');background-size:cover;background-position:center;" role="img" aria-label="Aerial view of a vacant land parcel outlined with a boundary and marked by a location pin"></div>
-            <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(10,10,10,0.6), rgba(10,10,10,0.45) 45%, rgba(10,10,10,0.85));"></div>
+            <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(14,14,14,0.6), rgba(14,14,14,0.45) 45%, rgba(14,14,14,0.85));"></div>
             <div class="container relative z-10 py-20 max-w-4xl text-center" style="text-shadow:0 2px 16px rgba(0,0,0,0.5);">
               <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase mb-4"><%= about.eyebrow %></p>
               <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] font-bold tracking-tight mb-6"><%= about.heading %></h1>
@@ -32,7 +32,7 @@
           </section>
 
           <!-- CTA -->
-          <section class="py-24 lg:py-32 bg-[#0A0A0A]">
+          <section class="py-24 lg:py-32 bg-[#0E0E0E]">
             <div class="container max-w-3xl text-center">
               <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-8 leading-tight"><%= about.ctaHeading %></h2>
               <%- include('partials/_button', { label: 'Book A Call', href: site.externalLinks.bookACall, variant: 'primary', size: 'lg', external: true }) %>

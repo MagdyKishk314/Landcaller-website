@@ -21,7 +21,7 @@ export const hero = {
     "Land Caller is the only done-for-you cold calling service built exclusively for vacant land investors. We dial off-market owners and deliver warm, qualified seller leads straight to your CRM - so you close more land deals.",
   note:
     "One dedicated caller. Unlimited dials. Consistent off-market deal flow - without building your own call center.",
-  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663203678839/mbp6FanYgpwBS3kCCTBiLV/laptop-mockup-square-nZPXFkERsr4aHb9ywUKqvj.webp",
+  image: "/assets/images/crm-dashboard.jpg",
   // Small trust signals rendered beneath the hero CTAs.
   trustBadges: [
     "5.0 rating from land investors",
