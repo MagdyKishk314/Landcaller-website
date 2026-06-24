@@ -135,5 +135,18 @@
     }
     .sidenav__nav { flex-direction: row; flex-wrap: wrap; }
     .sidenav__foot { margin-top: 14px; padding-top: 14px; }
+    /* Content: tighter gutters, full-width working area. */
+    .wrap { padding: 24px 16px 56px; }
+    .shell__content .wrap { max-width: none; }
+    /* Header rows (title + action) may wrap rather than squeeze. */
+    .row-between { flex-wrap: wrap; }
+    /* Paired form fields stack into a single column. */
+    .grid-2 { grid-template-columns: 1fr; gap: 0; }
+    /* List rows: content on top, action buttons wrap beneath. */
+    .post-row { flex-direction: column; align-items: stretch; gap: 12px; padding: 16px; }
+    .post-actions { flex-wrap: wrap; }
+    /* Cover-image picker stacks; preview spans the width. */
+    .image-picker { flex-direction: column; }
+    .image-preview { width: 100%; max-width: 280px; }
   }
 </style>

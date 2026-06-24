@@ -5,6 +5,7 @@ import { submitContact } from "../controllers/contactController.js";
 import {
   renderPricing,
   renderCrm,
+  renderJoinUs,
   renderBlog,
   renderBlogPost,
 } from "../controllers/pagesController.js";
@@ -29,6 +30,9 @@ router.get("/blog/:slug", asyncHandler(renderBlogPost));
 
 router.get("/about", renderAbout);
 router.get("/about-us", (_req, res) => res.redirect(301, "/about"));
+
+// Placeholder - content to be built out later.
+router.get("/join-us", renderJoinUs);
 
 // Blog admin / CMS
 router.use("/admin", adminRouter);

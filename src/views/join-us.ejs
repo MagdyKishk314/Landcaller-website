@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+
+  <%- include('partials/_head') %>
+
+  <body>
+    <div id="root">
+      <div class="min-h-screen flex flex-col bg-background">
+        <%- include('partials/header') %>
+        <main>
+          <!-- Placeholder: real content to be added later -->
+          <section class="bg-[#0E0E0E] flex items-center" style="min-height:clamp(440px,68vh,720px);">
+            <div class="container py-24 max-w-3xl text-center">
+              <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase mb-4"><%= page.eyebrow %></p>
+              <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] font-bold tracking-tight mb-6"><%= page.h1 %></h1>
+              <p class="text-white/70 text-lg leading-relaxed max-w-xl mx-auto mb-10"><%= page.lede %></p>
+              <%- include('partials/_button', { label: 'Back to Home', href: '/', variant: 'primary', size: 'lg' }) %>
+            </div>
+          </section>
+        </main>
+        <%- include('partials/footer') %>
+      </div>
+    </div>
+    <div id="toast-region" class="lc-toaster" aria-live="polite" aria-atomic="false"></div>
+  </body>
+
+</html>

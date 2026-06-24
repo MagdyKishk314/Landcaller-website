@@ -17,20 +17,6 @@ export interface NamedPoint {
   detail: string;
 }
 
-export interface DataTier {
-  volume: string;
-  price: string;
-}
-
-export interface DataOption {
-  key: string;
-  title: string;
-  subtitle: string;
-  tiers?: DataTier[];
-  flat?: string;
-  flatLabel?: string;
-}
-
 export const crmPage = {
   title: "Land Caller CRM + Data | Your Acquisition Command Center",
   description:
@@ -38,14 +24,14 @@ export const crmPage = {
   path: "/crm",
   eyebrow: "Land Caller CRM + Data",
   h1: "Stop buying leads. Start building a pipeline.",
+  // Same dashboard screenshot used in the home page hero.
+  image: "/assets/images/crm-dashboard.jpg",
   lede:
     "Land Caller is retiring the “Agency” model and delivering the Land Caller Ecosystem - unifying your data, dialing, and deal management under one command center.",
-  tagline: "One system. Operational leverage. Optimized deal flow.",
 };
 
 export const crmIntro = {
   eyebrow: "Land Caller CRM",
-  poweredBy: "Powered by Go High Level",
   heading: "Your acquisition command center.",
   body:
     "A fully integrated platform combining world-class cold calling with self-service data and a pre-built CRM. We’re replacing the under-powered Land Caller Client Portal with an extremely powerful, pre-built, and fully customizable Land Caller CRM experience - designed specifically for land investors, with real gains in control, integration, and performance.",
@@ -154,55 +140,6 @@ export const crmDataDashboard = {
         "Available to everyone. You don’t need a managed campaign to use our premium data.",
     },
   ] as NamedPoint[],
-};
-
-export const crmDataCosts = {
-  eyebrow: "Land Caller Data Costs",
-  heading: "Transparent, wholesale data pricing.",
-  lede:
-    "No markups, no mystery. See exactly what you’ll pay before you spend a dime.",
-  enterprise: {
-    name: "Enterprise Data Policy",
-    badge: "Purchased separately",
-    note:
-      "Your monthly fee covers the dedicated agent, tech stack, and campaign customization. Data is pass-through at our wholesale rates inside the software.",
-    options: [
-      {
-        key: "A",
-        title: "Enterprise Console Pull",
-        subtitle: "Pull + Skip + Scrub, billed per record by monthly volume.",
-        tiers: [
-          { volume: "10,000", price: "$0.1300" },
-          { volume: "10,000+", price: "$0.1200" },
-          { volume: "20,000+", price: "$0.1182" },
-          { volume: "50,000+", price: "$0.1083" },
-          { volume: "100,000+", price: "$0.0985" },
-          { volume: "150,000+", price: "$0.0934" },
-          { volume: "250,000+", price: "$0.0886" },
-        ],
-      },
-      {
-        key: "B",
-        title: "Bring Your Own Data",
-        subtitle: "Upload + Skip + Scrub.",
-        flat: "$0.0600",
-        flatLabel: "per record, flat rate",
-      },
-      {
-        key: "C",
-        title: "Bring Skip-Traced Data",
-        subtitle: "Pull + Scrub.",
-        flat: "$0.0300",
-        flatLabel: "per record, scrubbing only",
-      },
-    ] as DataOption[],
-  },
-  basic: {
-    name: "Basic Data Policy",
-    badge: "Included",
-    note:
-      "We provide the data credits you need to hit your lead guarantees. Simply log into the Land Caller dashboard, select your market, and pull the appropriate record counts at no extra cost.",
-  },
 };
 
 export const crmCta = {

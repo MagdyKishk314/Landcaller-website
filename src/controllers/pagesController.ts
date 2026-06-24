@@ -1,13 +1,12 @@
 import type { Request, Response, NextFunction } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
-import { pricingPage, blogPage } from "../models/pages.js";
+import { pricingPage, blogPage, joinUsPage } from "../models/pages.js";
 import {
   crmPage,
   crmIntro,
   crmPerformance,
   crmIntegration,
   crmDataDashboard,
-  crmDataCosts,
   crmCta,
 } from "../models/crm.js";
 import { featureMatrix, featureMatrixDisclaimer } from "../models/content.js";
@@ -53,7 +52,6 @@ export function renderCrm(_req: Request, res: Response): void {
     crmPerformance,
     crmIntegration,
     crmDataDashboard,
-    crmDataCosts,
     crmCta,
     pageTitle: crmPage.title,
     pageDescription: crmPage.description,
@@ -61,6 +59,26 @@ export function renderCrm(_req: Request, res: Response): void {
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "CRM + Data", path: crmPage.path },
+    ],
+    isHome: false,
+    year: new Date().getFullYear(),
+  });
+}
+
+/** "/join-us" - placeholder page (content TBD). Noindex until it's built out. */
+export function renderJoinUs(_req: Request, res: Response): void {
+  res.render("join-us", {
+    site,
+    navLinks,
+    footerLinks,
+    page: joinUsPage,
+    pageTitle: joinUsPage.title,
+    pageDescription: joinUsPage.description,
+    canonical: `${site.url}${joinUsPage.path}`,
+    metaRobots: "noindex, follow",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Join Us", path: joinUsPage.path },
     ],
     isHome: false,
     year: new Date().getFullYear(),
