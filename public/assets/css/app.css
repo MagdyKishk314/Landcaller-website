@@ -124,6 +124,15 @@ html { scroll-behavior: smooth; }
   }
 }
 
+/* Mobile: center the hero copy (text, capped paragraphs, CTAs, trust badges).
+   Reverts to the left-aligned desktop layout at lg (1024px+). */
+@media (max-width: 1023px) {
+  .lc-hero-copy { text-align: center; }
+  .lc-hero-copy .max-w-lg { margin-left: auto; margin-right: auto; }
+  .lc-hero-copy ul { justify-content: center; }
+  .lc-hero-cta { justify-content: center; }
+}
+
 /* ---------------------------------------------------------------------------
  * Buttons - single source of truth (see partials/_button.ejs).
  * Self-contained CSS so a button can never break from a missing purged

@@ -109,7 +109,26 @@ export const crmIntegration = {
   eyebrow: "Full Integration",
   heading: "Every lead, instantly in your CRM.",
   body:
-    "We’ve retired the old download-only portal. Every lead is now pushed instantly into your interactive Land Caller CRM, ready for immediate action or export.",
+    "We’ve retired the old download-only portal. Every lead now flows straight into your interactive Land Caller CRM - ready for immediate action or export.",
+  flow: [
+    {
+      icon: "phone",
+      title: "Live conversation",
+      detail:
+        "A land-trained caller works your market and books the motivated seller.",
+    },
+    {
+      icon: "shield-check",
+      title: "QA double-qualified",
+      detail: "Our team verifies every lead before it ever reaches you.",
+    },
+    {
+      icon: "zap",
+      title: "Instantly in your CRM",
+      detail:
+        "Pushed straight into your Land Caller CRM - ready to action or export.",
+    },
+  ],
 };
 
 export const crmDataDashboard = {
