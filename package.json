@@ -4,7 +4,7 @@
   "description": "1:1 TypeScript MVC replica of landcaller.manus.space (Node.js + Express + EJS)",
   "type": "module",
   "engines": {
-    "node": "20.x"
+    "node": ">=22.5"
   },
   "scripts": {
     "clean": "rimraf dist",
@@ -18,17 +18,27 @@
     "dev": "npm run build:client && tsx watch src/server.ts",
     "start": "node dist/server.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "db:init": "tsx scripts/init-db.ts",
+    "db:seed": "tsx scripts/init-db.ts --seed",
     "test": "node --test tests/smoke.test.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
+    "cookie-session": "^2.1.0",
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "marked": "^14.1.3",
+    "multer": "^1.4.5-lts.2",
+    "sanitize-html": "^2.13.1"
   },
   "devDependencies": {
     "@types/compression": "^1.7.5",
+    "@types/cookie-session": "^2.0.49",
     "@types/express": "^4.17.21",
-    "@types/node": "^22.5.0",
+    "@types/multer": "^1.4.13",
+    "@types/node": "^22.13.0",
+    "@types/sanitize-html": "^2.13.0",
     "esbuild": "^0.23.1",
     "rimraf": "^6.0.1",
     "tsx": "^4.19.0",

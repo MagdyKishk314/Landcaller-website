@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Posts | Land Caller Admin</title>
+    <%- include('_styles') %>
+  </head>
+  <body>
+    <%
+      const flashText = {
+        created: 'Post created.',
+        updated: 'Post saved.',
+        deleted: 'Post deleted.',
+        toggled: 'Publish status updated.',
+      }[flash];
+    %>
+    <div class="topbar">
+      <div class="brand">Land<span>Caller</span> Admin</div>
+      <div class="actions">
+        <a class="btn sm ghost" href="/" target="_blank" rel="noopener">View site</a>
+        <form class="inline" method="POST" action="/admin/logout">
+          <input type="hidden" name="_csrf" value="<%= csrf %>" />
+          <button type="submit" class="btn sm ghost">Sign out</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <% if (flashText) { %><div class="alert ok"><%= flashText %></div><% } %>
+
+      <div class="row-between">
+        <div>
+          <h1 class="page-title">Blog posts</h1>
+          <p class="muted" style="margin:4px 0 0; font-size:13px;"><%= posts.length %> post<%= posts.length === 1 ? '' : 's' %></p>
+        </div>
+        <a class="btn primary" href="/admin/posts/new">+ New post</a>
+      </div>
+
+      <div class="panel">
+        <% if (!posts.length) { %>
+          <div class="empty">
+            <p>No posts yet.</p>
+            <a class="btn primary" href="/admin/posts/new">Write your first post</a>
+          </div>
+        <% } else { %>
+          <% posts.forEach(function(post){
+               const dateLabel = post.date ? new Date(post.date).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) : '—'; %>
+          <div class="post-row">
+            <div class="post-main">
+              <p class="post-title">
+                <%= post.title %>
+                <span class="badge cat"><%= post.category %></span>
+              </p>
+              <p class="post-meta">
+                <span class="badge <%= post.published ? 'published' : 'draft' %>"><%= post.published ? 'Published' : 'Draft' %></span>
+                &nbsp;/<%= post.slug %>&nbsp;&middot;&nbsp;<%= dateLabel %>&nbsp;&middot;&nbsp;<%= post.readingTime %>
+              </p>
+            </div>
+            <div class="post-actions">
+              <% if (post.published) { %>
+                <a class="btn sm ghost" href="/blog/<%= post.slug %>" target="_blank" rel="noopener">View</a>
+              <% } %>
+              <a class="btn sm" href="/admin/posts/<%= post.id %>/edit">Edit</a>
+              <form class="inline" method="POST" action="/admin/posts/<%= post.id %>/publish">
+                <input type="hidden" name="_csrf" value="<%= csrf %>" />
+                <button type="submit" class="btn sm"><%= post.published ? 'Unpublish' : 'Publish' %></button>
+              </form>
+              <form class="inline" method="POST" action="/admin/posts/<%= post.id %>/delete" onsubmit="return confirm('Delete &quot;<%= post.title.replace(/"/g, '\\&quot;') %>&quot;? This cannot be undone.');">
+                <input type="hidden" name="_csrf" value="<%= csrf %>" />
+                <button type="submit" class="btn sm danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% }); %>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

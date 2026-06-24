@@ -8,10 +8,12 @@ import {
   renderBlogPost,
 } from "../controllers/pagesController.js";
 import { renderSitemap } from "../controllers/seoController.js";
+import { asyncHandler } from "../middleware/asyncHandler.js";
+import adminRouter from "./admin.js";
 
 const router = Router();
 
-router.get("/", renderHome);
+router.get("/", asyncHandler(renderHome));
 
 // Retired service pages - 301 to home to preserve any inbound link equity.
 router.get("/land-investor-cold-calling", (_req, res) => res.redirect(301, "/"));
@@ -19,14 +21,17 @@ router.get("/cold-calling-vs-direct-mail", (_req, res) => res.redirect(301, "/")
 
 // Funnel spoke pages
 router.get("/pricing", renderPricing);
-router.get("/blog", renderBlog);
-router.get("/blog/:slug", renderBlogPost);
+router.get("/blog", asyncHandler(renderBlog));
+router.get("/blog/:slug", asyncHandler(renderBlogPost));
 
 router.get("/about", renderAbout);
 router.get("/about-us", (_req, res) => res.redirect(301, "/about"));
 
+// Blog admin / CMS
+router.use("/admin", adminRouter);
+
 // SEO infrastructure
-router.get("/sitemap.xml", renderSitemap);
+router.get("/sitemap.xml", asyncHandler(renderSitemap));
 
 router.post("/contact", submitContact);
 

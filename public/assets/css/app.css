@@ -314,3 +314,35 @@ html { scroll-behavior: smooth; }
   .lc-slider__btn--next { right: -1.25rem; }
 }
 @media (prefers-reduced-motion: reduce) { .lc-slider__track { transition: none; } }
+
+/* ---------------------------------------------------------------------------
+ * Blog article prose. Rendered Markdown bodies (.lc-prose) ship as bare HTML
+ * tags, so style them here to match the dark theme. Kept deliberately scoped
+ * to .lc-prose so it never leaks into the Tailwind-driven marketing sections.
+ * ------------------------------------------------------------------------- */
+.lc-prose { color: rgba(255, 255, 255, 0.72); font-size: 1.125rem; line-height: 1.8; }
+.lc-prose > * + * { margin-top: 1.5rem; }
+.lc-prose h2 { font-family: "Playfair Display", Georgia, serif; color: #fff; font-size: 1.875rem; line-height: 1.25; font-weight: 700; margin-top: 3rem; margin-bottom: 0.25rem; letter-spacing: -0.01em; }
+.lc-prose h3 { color: #fff; font-size: 1.375rem; line-height: 1.3; font-weight: 600; margin-top: 2.25rem; }
+.lc-prose h4 { color: #fff; font-size: 1.125rem; font-weight: 600; margin-top: 1.75rem; }
+.lc-prose p { margin: 0; }
+.lc-prose a { color: #e8523a; text-decoration: underline; text-underline-offset: 2px; }
+.lc-prose a:hover { color: #ff6b54; }
+.lc-prose strong { color: #fff; font-weight: 600; }
+.lc-prose em { font-style: italic; }
+.lc-prose ul, .lc-prose ol { margin: 1.5rem 0; padding-left: 1.5rem; }
+.lc-prose li { margin-top: 0.5rem; }
+.lc-prose ul li { list-style: disc; }
+.lc-prose ol li { list-style: decimal; }
+.lc-prose li::marker { color: rgba(232, 82, 58, 0.8); }
+.lc-prose blockquote { border-left: 3px solid #e8523a; padding: 0.25rem 0 0.25rem 1.25rem; margin: 2rem 0; color: rgba(255, 255, 255, 0.85); font-style: italic; }
+.lc-prose blockquote p { margin: 0; }
+.lc-prose img { border-radius: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.08); margin: 2rem 0; max-width: 100%; height: auto; }
+.lc-prose code { background: #161616; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.15em 0.4em; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #f0c9c0; }
+.lc-prose pre { background: #0e0e0e; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 0.75rem; padding: 1.25rem; overflow-x: auto; margin: 2rem 0; }
+.lc-prose pre code { background: none; border: none; padding: 0; color: rgba(255, 255, 255, 0.8); }
+.lc-prose hr { border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 3rem 0; }
+.lc-prose h2:first-child, .lc-prose h3:first-child { margin-top: 0; }
+.lc-prose table { width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 1rem; }
+.lc-prose th, .lc-prose td { border: 1px solid rgba(255, 255, 255, 0.1); padding: 0.65rem 0.85rem; text-align: left; }
+.lc-prose th { background: #141414; color: #fff; font-weight: 600; }

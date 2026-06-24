@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= mode === 'new' ? 'New post' : 'Edit post' %> | Land Caller Admin</title>
+    <%- include('_styles') %>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="brand">Land<span>Caller</span> Admin</div>
+      <div class="actions">
+        <a class="btn sm ghost" href="/admin">&larr; All posts</a>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="row-between">
+        <h1 class="page-title"><%= mode === 'new' ? 'New post' : 'Edit post' %></h1>
+      </div>
+
+      <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+
+      <form method="POST" action="<%= action %>" enctype="multipart/form-data">
+        <input type="hidden" name="_csrf" value="<%= csrf %>" />
+
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" value="<%= form.title %>" required />
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="slug">URL slug</label>
+            <input type="text" id="slug" name="slug" value="<%= form.slug %>" placeholder="auto-generated from title" />
+            <p class="hint">Published at <code>/blog/<span id="slug-preview"><%= form.slug || 'your-slug' %></span></code></p>
+          </div>
+          <div class="field">
+            <label for="category">Category</label>
+            <input type="text" id="category" name="category" value="<%= form.category %>" placeholder="e.g. Lead Generation" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="excerpt">Excerpt</label>
+          <input type="text" id="excerpt" name="excerpt" value="<%= form.excerpt %>" placeholder="One-sentence summary shown on cards & meta description" />
+        </div>
+
+        <div class="field">
+          <label>Cover image</label>
+          <div class="image-picker">
+            <div class="image-preview">
+              <img id="image-preview-img" src="<%= form.image %>" alt="" <%= form.image ? '' : 'hidden' %> />
+              <span id="image-preview-empty" class="image-preview__empty" <%= form.image ? 'hidden' : '' %>>No image</span>
+            </div>
+            <div class="image-picker__controls">
+              <label for="imageFile" class="btn sm" role="button">Browse&hellip;</label>
+              <input type="file" id="imageFile" name="imageFile" accept="image/png,image/jpeg,image/webp,image/gif,image/avif" class="visually-hidden" />
+              <span id="image-filename" class="hint" style="margin:0;">JPG, PNG, WebP, GIF or AVIF &middot; up to 8&nbsp;MB</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field" style="max-width:220px;">
+          <label for="date">Publish date</label>
+          <input type="date" id="date" name="date" value="<%= form.date %>" />
+          <p class="hint">Leave blank to use today when first published.</p>
+        </div>
+
+        <div class="field">
+          <label for="body">Body (Markdown)</label>
+          <textarea id="body" name="body" placeholder="Write your article in Markdown..."><%= form.body %></textarea>
+          <p class="hint">Supports Markdown: <code>## Heading</code>, <code>**bold**</code>, <code>- lists</code>, <code>[links](url)</code>, <code>&gt; quotes</code>, images.</p>
+        </div>
+
+        <div class="field check">
+          <input type="checkbox" id="published" name="published" value="on" <%= form.published ? 'checked' : '' %> />
+          <label for="published">Published (visible on the site &amp; in the sitemap)</label>
+        </div>
+
+        <div class="sticky-actions">
+          <button type="submit" class="btn primary"><%= mode === 'new' ? 'Create post' : 'Save changes' %></button>
+          <a class="btn ghost" href="/admin">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      (function () {
+        var title = document.getElementById('title');
+        var slug = document.getElementById('slug');
+        var preview = document.getElementById('slug-preview');
+        var slugTouched = slug.value.trim().length > 0;
+
+        function slugify(s) {
+          return s.toLowerCase().trim()
+            .replace(/['"]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .slice(0, 80);
+        }
+        function updatePreview() {
+          preview.textContent = (slug.value.trim() ? slugify(slug.value) : 'your-slug');
+        }
+        slug.addEventListener('input', function () { slugTouched = true; updatePreview(); });
+        title.addEventListener('input', function () {
+          if (!slugTouched) { slug.value = slugify(title.value); updatePreview(); }
+        });
+
+        // --- Cover image: live preview + size guard ---------------------------
+        var MAX_BYTES = 8 * 1024 * 1024;
+        var fileInput = document.getElementById('imageFile');
+        var img = document.getElementById('image-preview-img');
+        var emptyLabel = document.getElementById('image-preview-empty');
+        var fileName = document.getElementById('image-filename');
+        var objectUrl = null;
+
+        function showPreview(src) {
+          if (src) {
+            img.src = src; img.hidden = false; emptyLabel.hidden = true;
+          } else {
+            img.removeAttribute('src'); img.hidden = true; emptyLabel.hidden = false;
+          }
+        }
+
+        fileInput.addEventListener('change', function () {
+          var file = fileInput.files && fileInput.files[0];
+          if (!file) return;
+          if (file.size > MAX_BYTES) {
+            alert('That image is ' + (file.size / 1048576).toFixed(1) + ' MB. Please choose one under 8 MB.');
+            fileInput.value = '';
+            return;
+          }
+          if (objectUrl) URL.revokeObjectURL(objectUrl);
+          objectUrl = URL.createObjectURL(file);
+          showPreview(objectUrl);
+          fileName.textContent = file.name;
+        });
+      })();
+    </script>
+  </body>
+</html>

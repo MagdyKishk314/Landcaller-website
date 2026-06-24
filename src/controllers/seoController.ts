@@ -1,6 +1,7 @@
-import type { Request, Response } from "express";
+import type { Request, Response, NextFunction } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
 import { pricingPage, blogPage } from "../models/pages.js";
+import { listPublishedPostsForSitemap } from "../repositories/postRepository.js";
 
 /**
  * Canonical, crawlable URLs for the XML sitemap. Individual blog posts are
@@ -21,13 +22,31 @@ const ROUTES: { path: string; changefreq: string; priority: string }[] = [
  */
 const LASTMOD = (process.env.SITE_BUILD_DATE || new Date().toISOString().slice(0, 10));
 
-/** GET /sitemap.xml - generated from the canonical route list. */
-export function renderSitemap(_req: Request, res: Response): void {
+/** GET /sitemap.xml - canonical routes plus every published blog post. */
+export async function renderSitemap(_req: Request, res: Response): Promise<void> {
   const lastmod = LASTMOD;
-  const urls = ROUTES.map(
-    (r) =>
-      `  <url>\n    <loc>${site.url}${r.path}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${r.changefreq}</changefreq>\n    <priority>${r.priority}</priority>\n  </url>`
-  ).join("\n");
+  const routes = [...ROUTES];
+
+  // Published posts (none without a configured DB) become indexable URLs.
+  try {
+    const posts = await listPublishedPostsForSitemap();
+    for (const post of posts) {
+      routes.push({
+        path: `${blogPage.path}/${post.slug}`,
+        changefreq: "monthly",
+        priority: "0.6",
+      });
+    }
+  } catch (err) {
+    console.error("[sitemap] failed to load posts:", err);
+  }
+
+  const urls = routes
+    .map(
+      (r) =>
+        `  <url>\n    <loc>${site.url}${r.path}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${r.changefreq}</changefreq>\n    <priority>${r.priority}</priority>\n  </url>`
+    )
+    .join("\n");
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
   res.header("Content-Type", "application/xml");
   res.send(xml);
@@ -42,6 +61,28 @@ export function renderNotFound(_req: Request, res: Response): void {
     pageTitle: "Page Not Found (404) | Land Caller",
     pageDescription:
       "The page you're looking for doesn't exist. Explore Land Caller's cold calling lead generation service for land investors instead.",
+    canonical: `${site.url}/`,
+    isHome: false,
+    year: new Date().getFullYear(),
+  });
+}
+
+/** Final error handler - logs the error and renders a 500 page. */
+export function renderError(
+  err: unknown,
+  _req: Request,
+  res: Response,
+  _next: NextFunction
+): void {
+  console.error("[error]", err);
+  if (res.headersSent) return;
+  res.status(500).render("404", {
+    site,
+    navLinks,
+    footerLinks,
+    pageTitle: "Something went wrong | Land Caller",
+    pageDescription:
+      "Something went wrong on our end. Please try again, or head back to the Land Caller home page.",
     canonical: `${site.url}/`,
     isHome: false,
     year: new Date().getFullYear(),

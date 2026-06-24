@@ -14,7 +14,8 @@ import {
   contactFields,
 } from "../models/content.js";
 import { enterprisePlan, basicPlan } from "../models/pricing.js";
-import { blogPosts } from "../models/blog.js";
+import { listPublishedPosts } from "../repositories/postRepository.js";
+import type { BlogPost } from "../models/types.js";
 
 /**
  * Builds the home page view model and renders the story-driven funnel.
@@ -22,7 +23,15 @@ import { blogPosts } from "../models/blog.js";
  * "teaser" sections (guide, packages, blog) link out to dedicated pages.
  * `faqs` and `testimonials` are passed so the FAQPage/Review JSON-LD emits.
  */
-export function renderHome(_req: Request, res: Response): void {
+export async function renderHome(_req: Request, res: Response): Promise<void> {
+  let blogPosts: BlogPost[];
+  try {
+    // Latest posts for the home blog slider; full list on /blog.
+    blogPosts = await listPublishedPosts(9);
+  } catch (err) {
+    console.error("[home] failed to load blog teaser:", err);
+    blogPosts = [];
+  }
   res.render("home", {
     site,
     navLinks,
@@ -39,8 +48,7 @@ export function renderHome(_req: Request, res: Response): void {
     comparisonRows: comparisonRows.slice(0, 4),
     enterprise: enterprisePlan,
     basic: basicPlan,
-    // Latest 3 posts for the blog teaser; full list on /blog.
-    blogPosts: blogPosts.slice(0, 3),
+    blogPosts,
     faqs: faqs.slice(0, 5),
     contactFields,
     // Inline scheduler URL for the booking climax (themed to the dark site).
