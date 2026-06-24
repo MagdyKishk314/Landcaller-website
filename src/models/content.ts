@@ -94,20 +94,20 @@ export const resultsStats: ResultStat[] = [
 
 export const callSamples: CallSample[] = [
   {
-    title: "Motivated seller, ready to talk price",
-    market: "Texas - 40 acres",
-    motivation: "Inherited land, doesn't want the tax burden",
-    outcome: "Qualified & booked for a follow-up offer",
-    durationLabel: "2:14",
-    src: "/assets/audio/sample-warm-lead-1.mp3",
+    title: "Generational owner, open to a sale",
+    market: "Mitchell County, TX · 155 acres",
+    motivation: "Family-held since the 1940s; lean farming years have him open to selling",
+    outcome: "Qualified - agreed to a valuation & follow-up, and offered up an adjacent parcel",
+    durationLabel: "5:38",
+    src: "/assets/audio/sample-call-1.mp3",
   },
   {
-    title: "Owner open to a cash offer",
-    market: "Arizona - 10 acres",
-    motivation: "Bought years ago, never used it",
-    outcome: "Warm lead delivered same day",
-    durationLabel: "1:48",
-    src: "/assets/audio/sample-warm-lead-2.mp3",
+    title: "Investor weighing a cash offer",
+    market: "Lake City, FL · 73 acres",
+    motivation: "Career land investor holding it as an investment; open to a strong offer",
+    outcome: "Warm - open to a cash offer and gave an email for the written offer",
+    durationLabel: "9:08",
+    src: "/assets/audio/sample-call-2.mp3",
   },
 ];
 

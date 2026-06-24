@@ -6,9 +6,12 @@ These files power the "Hear It For Yourself" section on the home page
 
 ## Current state
 
-`sample-warm-lead-1.mp3` and `sample-warm-lead-2.mp3` are **placeholder silent
-audio**. Replace them with real recordings (keep the same filenames and no code
-changes are needed), or update the `src` paths in `callSamples`.
+`sample-call-1.mp3` (Mitchell County, TX - 155 acres) and `sample-call-2.mp3`
+(Lake City, FL - 73 acres) are **real cold-call recordings**, wired up via
+`callSamples`. The on-page captions (title / market / motivation / outcome) were
+written from the call transcripts; owner names, emails, and exact addresses are
+intentionally omitted. To swap a recording, replace the file (keep the filename)
+or update the `src` path in `callSamples`.
 
 ## Requirements for the real recordings
 

@@ -44,7 +44,7 @@ test("home route renders the full landing page", async () => {
     assert.ok(html.includes("reliable, consistent pipeline of off-market seller leads"));
     // Call-sample audio players are rendered and reference the sample files.
     assert.ok(html.includes("data-audio-player"), "missing audio players");
-    assert.ok(html.includes("sample-warm-lead-1.mp3"), "missing audio source");
+    assert.ok(html.includes("sample-call-1.mp3"), "missing audio source");
     assert.equal((html.match(/data-audio-player/g) || []).length, 2, "expected 2 audio players");
     // Inline Calendly booking embed is present.
     assert.ok(html.includes('id="calendly-embed"'), "missing Calendly embed");
