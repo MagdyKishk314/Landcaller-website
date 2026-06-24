@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+  <%- include('partials/_head') %>
+
+  <body>
+    <div id="root">
+      <div class="min-h-screen flex flex-col bg-background">
+        <%- include('partials/header') %>
+        <main>
+
+          <!-- Hero: welcome to the partner program -->
+          <section class="py-24 lg:py-28 bg-[#0E0E0E] border-b border-white/5">
+            <div class="container text-center max-w-3xl mx-auto">
+              <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase mb-4"><%= page.eyebrow %></p>
+              <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] font-bold tracking-tight mb-6"><%= page.h1 %></h1>
+              <p class="text-white/70 text-lg leading-relaxed mb-4"><%= page.lede %></p>
+              <p class="text-white/60 leading-relaxed mb-8"><%= page.sub %></p>
+              <div class="flex flex-wrap items-center justify-center gap-4">
+                <%- include('partials/_button', { label: page.ctaLabel, href: site.externalLinks.affiliateSignup, variant: 'primary', size: 'lg', external: true }) %>
+                <%- include('partials/_button', { label: 'View Pricing', href: '/pricing', variant: 'outline', size: 'lg' }) %>
+              </div>
+            </div>
+          </section>
+
+          <!-- Three referral tiers -->
+          <section class="py-24 lg:py-32 bg-[#0D0D0D] border-b border-white/5">
+            <div class="container">
+              <div class="text-center max-w-2xl mx-auto mb-14">
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight"><%= page.tiersHeading %></h2>
+                <p class="text-white/60 leading-relaxed text-lg">Three affiliate tiers designed to suit your needs and maximize your earnings potential.</p>
+              </div>
+              <div class="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+                <% affiliateTiers.forEach(function(tier){ %>
+                <div class="bg-[#141414] rounded-xl border p-8 transition-all duration-300 hover:translate-y-[-3px] <%= tier.featured ? 'border-[#E8523A] hover:border-[#E8523A]' : 'border-white/5 hover:border-[#E8523A]/30' %>">
+                  <div class="w-10 h-10 rounded-lg bg-[#E8523A]/10 flex items-center justify-center mb-4">
+                    <%- include('partials/_icons', { name: tier.icon, cls: 'h-5 w-5 text-[#E8523A]' }) %>
+                  </div>
+                  <div class="text-xs font-bold text-[#E8523A] uppercase tracking-[0.15em] mb-1"><%= tier.tier %></div>
+                  <h3 class="text-lg font-bold text-white mb-2"><%= tier.name %></h3>
+                  <p class="text-xs text-white/50 mb-6"><%= tier.tagline %></p>
+                  <div class="space-y-2.5">
+                    <% tier.perks.forEach(function(perk){ %>
+                    <div class="flex items-start gap-2.5">
+                      <div class="w-4 h-4 rounded-full bg-[#E8523A]/15 flex items-center justify-center shrink-0 mt-0.5">
+                        <span class="text-[8px] font-bold text-[#E8523A]">&#10003;</span>
+                      </div>
+                      <span class="text-sm text-white/70"><%= perk %></span>
+                    </div>
+                    <% }); %>
+                  </div>
+                </div>
+                <% }); %>
+              </div>
+            </div>
+          </section>
+
+          <!-- How to get started + eligibility -->
+          <section class="py-24 lg:py-32 bg-[#0E0E0E] border-b border-white/5">
+            <div class="container">
+              <div class="text-center max-w-2xl mx-auto mb-14">
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight"><%= page.stepsHeading %></h2>
+                <p class="text-white/60 leading-relaxed text-lg">Joining our Partner Program is easy.</p>
+              </div>
+              <div class="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+                <% page.steps.forEach(function(step, i){ %>
+                <div class="bg-[#141414] rounded-xl p-6 border border-white/5 text-center">
+                  <div class="w-11 h-11 rounded-full bg-[#E8523A]/15 flex items-center justify-center mx-auto mb-4 font-display text-xl font-bold text-[#E8523A]"><%= i + 1 %></div>
+                  <p class="text-sm text-white/70 leading-relaxed"><%= step %></p>
+                </div>
+                <% }); %>
+              </div>
+              <p class="text-sm text-white/45 text-center mt-8"><%= page.stepsNote %></p>
+
+              <!-- Eligibility callout -->
+              <div class="mt-10 max-w-2xl mx-auto rounded-xl border border-[#E8523A]/40 bg-[#E8523A]/10 p-6 flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-[#E8523A]/20 flex items-center justify-center shrink-0 mt-0.5"><%- include('partials/_icons', { name: 'shield-check', cls: 'h-3.5 w-3.5 text-[#E8523A]' }) %></div>
+                <div>
+                  <p class="text-xs font-bold text-[#E8523A] uppercase tracking-wide mb-1.5">Eligibility</p>
+                  <p class="text-sm text-white/70 leading-relaxed"><%= page.eligibility %></p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Closing CTA -->
+          <section class="py-24 lg:py-32 bg-[#0E0E0E]">
+            <div class="container max-w-3xl text-center">
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-5 leading-tight"><%= page.ctaHeading %></h2>
+              <p class="text-white/60 leading-relaxed text-lg mb-8"><%= page.ctaBody %></p>
+              <%- include('partials/_button', { label: page.ctaLabel, href: site.externalLinks.affiliateSignup, variant: 'primary', size: 'lg', external: true }) %>
+            </div>
+          </section>
+
+        </main>
+        <%- include('partials/footer') %>
+      </div>
+    </div>
+    <div id="toast-region" class="lc-toaster" aria-live="polite" aria-atomic="false"></div>
+  </body>
+
+</html>

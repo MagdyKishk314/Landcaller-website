@@ -6,6 +6,7 @@ import {
   renderPricing,
   renderCrm,
   renderJoinUs,
+  renderAffiliate,
   renderBlog,
   renderBlogPost,
 } from "../controllers/pagesController.js";
@@ -33,6 +34,10 @@ router.get("/about-us", (_req, res) => res.redirect(301, "/about"));
 
 // Placeholder - content to be built out later.
 router.get("/join-us", renderJoinUs);
+
+// Affiliate program. /become-an-affiliate (the legacy slug) 301s to /affiliate.
+router.get("/affiliate", renderAffiliate);
+router.get("/become-an-affiliate", (_req, res) => res.redirect(301, "/affiliate"));
 
 // Blog admin / CMS
 router.use("/admin", adminRouter);

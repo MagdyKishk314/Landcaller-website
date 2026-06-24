@@ -23,6 +23,8 @@ export const site: SiteConfig = {
     crmLogin: "https://my.landcaller.com/",
     facebook: "https://www.facebook.com/landcaller",
     twitter: "https://twitter.com/Land_Caller",
+    affiliateSignup:
+      "https://landcaller.zohothrive.com/thrive/publicpages/affiliate-registration/landcaller/49c5985f1dc09761f5484e9331f929b6de9e51db8989f4d62bead81b772118e1",
   },
 };
 
@@ -32,6 +34,7 @@ export const navLinks: NavLink[] = [
   { label: "CRM + Data", href: "/crm" },
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
+  { label: "Affiliates", href: "/affiliate" },
   { label: "Join Us", href: "/join-us" },
 ];
 
@@ -40,5 +43,6 @@ export const footerLinks: NavLink[] = [
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about" },
+  { label: "Affiliates", href: "/affiliate" },
   { label: "FAQs", href: "#faq" },
 ];

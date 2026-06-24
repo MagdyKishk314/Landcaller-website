@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
-import { pricingPage, blogPage, joinUsPage } from "../models/pages.js";
+import { pricingPage, blogPage, joinUsPage, affiliatePage } from "../models/pages.js";
 import {
   crmPage,
   crmIntro,
@@ -9,7 +9,7 @@ import {
   crmDataDashboard,
   crmCta,
 } from "../models/crm.js";
-import { featureMatrix, featureMatrixDisclaimer } from "../models/content.js";
+import { featureMatrix, featureMatrixDisclaimer, affiliateTiers } from "../models/content.js";
 import { enterprisePlan, basicPlan, dataCostsNote } from "../models/pricing.js";
 import {
   listPublishedPosts,
@@ -79,6 +79,26 @@ export function renderJoinUs(_req: Request, res: Response): void {
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "Join Us", path: joinUsPage.path },
+    ],
+    isHome: false,
+    year: new Date().getFullYear(),
+  });
+}
+
+/** "/affiliate" - the affiliate program page (three referral tiers). */
+export function renderAffiliate(_req: Request, res: Response): void {
+  res.render("affiliate", {
+    site,
+    navLinks,
+    footerLinks,
+    page: affiliatePage,
+    affiliateTiers,
+    pageTitle: affiliatePage.title,
+    pageDescription: affiliatePage.description,
+    canonical: `${site.url}${affiliatePage.path}`,
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Affiliates", path: affiliatePage.path },
     ],
     isHome: false,
     year: new Date().getFullYear(),

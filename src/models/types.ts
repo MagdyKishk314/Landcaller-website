@@ -54,6 +54,7 @@ export interface SiteConfig {
     crmLogin: string;
     facebook: string;
     twitter: string;
+    affiliateSignup: string;
   };
 }
 
