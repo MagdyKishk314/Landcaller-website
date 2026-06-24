@@ -290,11 +290,13 @@ function initAudioPlayers(): void {
   });
 }
 
-/* --- Testimonials slider (one slide at a time) ----------------------------- */
+/* --- Carousels (testimonials, blog teaser, …) ------------------------------ */
 
-function initTestimonialsSlider(): void {
-  const root = document.querySelector<HTMLElement>("[data-slider]");
-  if (!root) return;
+function initSliders(): void {
+  document.querySelectorAll<HTMLElement>("[data-slider]").forEach(initSlider);
+}
+
+function initSlider(root: HTMLElement): void {
   const viewport = root.querySelector<HTMLElement>(".lc-slider__viewport");
   const track = root.querySelector<HTMLElement>("[data-slider-track]");
   const slides = Array.from(root.querySelectorAll<HTMLElement>("[data-slider-slide]"));
@@ -302,6 +304,8 @@ function initTestimonialsSlider(): void {
   const next = root.querySelector<HTMLButtonElement>("[data-slider-next]");
   if (!viewport || !track || slides.length === 0) return;
 
+  // Autoplay is on by default; opt out per-slider with data-slider-autoplay="off".
+  const autoplay = root.dataset.sliderAutoplay !== "off";
   const count = slides.length;
   let index = 0;
   let timer = 0;
@@ -317,8 +321,16 @@ function initTestimonialsSlider(): void {
     return { step, maxIndex: Math.max(0, count - perView) };
   };
 
+  // Hide the arrows when everything already fits (nothing to scroll to).
+  const updateControls = () => {
+    const hide = metrics().maxIndex < 1;
+    if (prev) prev.hidden = hide;
+    if (next) next.hidden = hide;
+  };
+
   const apply = () => {
     track.style.transform = `translateX(-${index * metrics().step}px)`;
+    updateControls();
   };
 
   const go = (i: number) => {
@@ -334,7 +346,7 @@ function initTestimonialsSlider(): void {
     }
   };
   const start = () => {
-    if (reduce || metrics().maxIndex < 1 || timer) return;
+    if (!autoplay || reduce || metrics().maxIndex < 1 || timer) return;
     timer = window.setInterval(() => go(index + 1), 6000);
   };
   const restart = () => {
@@ -401,7 +413,7 @@ function init(): void {
   initPackageAccordions();
   initFaqAccordion();
   initAudioPlayers();
-  initTestimonialsSlider();
+  initSliders();
   initBookingFlow();
   handleNoJsFallback();
 }

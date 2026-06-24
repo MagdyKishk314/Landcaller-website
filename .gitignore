@@ -17,6 +17,15 @@ _discovery/
 .env.*
 !.env.example
 
+# SQLite blog database (local/VPS data; never commit)
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# Uploaded blog cover images (runtime data on the host)
+public/uploads/
+
 # Logs & caches
 *.log
 npm-debug.log*

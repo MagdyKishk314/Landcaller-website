@@ -1,12 +1,36 @@
 import express, { type Application } from "express";
 import compression from "compression";
 import path from "node:path";
+import fs from "node:fs";
+import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
+import { env } from "./config/env.js";
 import routes from "./routes/index.js";
-import { renderNotFound } from "./controllers/seoController.js";
+import { renderNotFound, renderError } from "./controllers/seoController.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
+
+/**
+ * Cache-busting asset URL helper. Appends ?v=<short content hash> so a rebuilt
+ * CSS/JS file gets a fresh URL (assets are served immutable + long-cache, and
+ * the filenames are stable). Hashes are cached in production; recomputed in dev
+ * so a client rebuild is picked up without restarting the server.
+ */
+const assetHashes = new Map<string, string>();
+function assetUrl(publicRelPath: string): string {
+  let hash = assetHashes.get(publicRelPath);
+  if (!hash || !env.isProd) {
+    try {
+      const full = path.join(projectRoot, "public", publicRelPath.replace(/^\/+/, ""));
+      hash = crypto.createHash("sha1").update(fs.readFileSync(full)).digest("hex").slice(0, 8);
+    } catch {
+      hash = "dev";
+    }
+    if (env.isProd) assetHashes.set(publicRelPath, hash);
+  }
+  return `${publicRelPath}?v=${hash}`;
+}
 
 export function createApp(): Application {
   const app = express();
@@ -14,6 +38,8 @@ export function createApp(): Application {
   app.set("trust proxy", 1);
   app.set("view engine", "ejs");
   app.set("views", path.join(__dirname, "views"));
+  // Exposed to every template as asset('/assets/...') for cache-busted URLs.
+  app.locals.asset = assetUrl;
 
   // Vercel edge/CDN already compresses responses.
   if (!process.env.VERCEL) {
@@ -28,7 +54,7 @@ export function createApp(): Application {
     "script-src 'self' 'unsafe-inline' https://assets.calendly.com; " +
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; " +
     "font-src 'self' https://fonts.gstatic.com; " +
-    "img-src 'self' data: https:; " +
+    "img-src 'self' data: blob: https:; " +
     "frame-src https://calendly.com https://assets.calendly.com; " +
     "connect-src 'self' https://calendly.com https://assets.calendly.com; " +
     "base-uri 'self'; form-action 'self'";
@@ -79,6 +105,9 @@ export function createApp(): Application {
 
   // Real 404: render a Not Found page with a 404 status (no soft-redirect).
   app.use(renderNotFound);
+
+  // Final safety net: log unexpected errors and render a 500 page.
+  app.use(renderError);
 
   return app;
 }

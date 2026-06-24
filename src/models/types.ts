@@ -222,3 +222,28 @@ export interface BlogPost {
   category: string;
   image: string;
 }
+
+/**
+ * A full blog post as stored in the database, including the article body.
+ * `body` is the raw Markdown source (edited in the admin); `bodyHtml` is the
+ * sanitized HTML rendered for the public post page.
+ */
+export interface BlogPostRecord extends BlogPost {
+  id: number;
+  body: string;
+  bodyHtml: string;
+  published: boolean;
+}
+
+/** Form payload accepted by the admin create/update endpoints. */
+export interface PostInput {
+  slug: string;
+  title: string;
+  excerpt: string;
+  body: string;
+  category: string;
+  image: string;
+  published: boolean;
+  /** Display date as YYYY-MM-DD, or null to leave unset. */
+  publishedAt: string | null;
+}

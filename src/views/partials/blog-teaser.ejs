@@ -10,25 +10,35 @@
         <%- include('_button', { label: 'Read the blog', href: '/blog', variant: 'outline', icon: 'arrow-right' }) %>
       </div>
     </div>
-    <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
-      <% blogPosts.forEach(function(post){
-           const dateLabel = new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); %>
-      <a href="/blog/<%= post.slug %>" class="group flex flex-col bg-[#141414] border border-white/5 rounded-xl overflow-hidden hover:border-[#E8523A]/40 hover:bg-[#1A1A1A] transition-all duration-300 hover:translate-y-[-2px]">
-        <div class="aspect-video overflow-hidden bg-[#0E0E0E]">
-          <img src="<%= post.image %>" alt="<%= post.title %>" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" loading="lazy">
-        </div>
-        <div class="flex flex-col flex-1 p-6">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#E8523A] bg-[#E8523A]/10 px-2.5 py-1 rounded-full"><%= post.category %></span>
-            <span class="text-xs text-white/40"><%= post.readingTime %></span>
+
+    <div class="lc-slider" data-slider data-slider-autoplay="off" aria-roledescription="carousel" aria-label="Latest blog posts">
+      <button type="button" class="lc-slider__btn lc-slider__btn--prev" data-slider-prev aria-label="Previous posts"><%- include('_icons', { name: 'arrow-right', cls: 'h-5 w-5 rotate-180' }) %></button>
+      <div class="lc-slider__viewport">
+        <div class="lc-slider__track" data-slider-track>
+          <% (blogPosts || []).forEach(function(post, i){
+               const dateLabel = new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); %>
+          <div class="lc-slider__slide" data-slider-slide role="group" aria-roledescription="slide" aria-label="Post <%= i + 1 %> of <%= blogPosts.length %>">
+            <a href="/blog/<%= post.slug %>" class="group flex flex-col h-full bg-[#141414] border border-white/5 rounded-xl overflow-hidden hover:border-[#E8523A]/40 hover:bg-[#1A1A1A] transition-all duration-300 hover:translate-y-[-2px]">
+              <div class="aspect-video overflow-hidden bg-[#0E0E0E]">
+                <img src="<%= post.image %>" alt="<%= post.title %>" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" loading="lazy">
+              </div>
+              <div class="flex flex-col flex-1 p-6">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-[#E8523A] bg-[#E8523A]/10 px-2.5 py-1 rounded-full"><%= post.category %></span>
+                  <span class="text-xs text-white/40"><%= post.readingTime %></span>
+                </div>
+                <h3 class="text-lg font-semibold text-white leading-snug mb-2 group-hover:text-[#E8523A] transition-colors duration-200"><%= post.title %></h3>
+                <p class="text-sm text-white/60 leading-relaxed mb-5 flex-1"><%= post.excerpt %></p>
+                <span class="text-xs text-white/40 mt-auto"><%= dateLabel %></span>
+              </div>
+            </a>
           </div>
-          <h3 class="text-lg font-semibold text-white leading-snug mb-2 group-hover:text-[#E8523A] transition-colors duration-200"><%= post.title %></h3>
-          <p class="text-sm text-white/60 leading-relaxed mb-5 flex-1"><%= post.excerpt %></p>
-          <span class="text-xs text-white/40 mt-auto"><%= dateLabel %></span>
+          <% }); %>
         </div>
-      </a>
-      <% }); %>
+      </div>
+      <button type="button" class="lc-slider__btn lc-slider__btn--next" data-slider-next aria-label="Next posts"><%- include('_icons', { name: 'arrow-right', cls: 'h-5 w-5' }) %></button>
     </div>
+
     <div class="text-center mt-10 sm:hidden">
       <%- include('_button', { label: 'Read the blog', href: '/blog', variant: 'outline', icon: 'arrow-right' }) %>
     </div>

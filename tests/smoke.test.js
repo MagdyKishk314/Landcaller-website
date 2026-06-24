@@ -4,6 +4,13 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createApp } from "../dist/app.js";
 
+// These tests cover the public marketing site and its no-database fallback
+// (static seed posts, noindex placeholders, no post URLs in the sitemap). We
+// disable the SQLite layer so the suite is deterministic and never touches a
+// real database file. The DB layer reads this flag live, so setting it here
+// forces the fallback path. The CMS/admin is exercised separately with the DB on.
+process.env.BLOG_DB = "off";
+
 function listen(app) {
   return new Promise((resolve) => {
     const server = app.listen(0, () => resolve(server));

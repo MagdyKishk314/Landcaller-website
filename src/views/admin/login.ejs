@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Login | Land Caller</title>
+    <%- include('_styles') %>
+  </head>
+  <body>
+    <div class="wrap narrow" style="padding-top: 80px;">
+      <div class="row-between" style="justify-content:center; margin-bottom:28px;">
+        <div class="brand" style="font-size:20px; font-weight:700;">Land<span style="color:var(--accent)">Caller</span> Admin</div>
+      </div>
+      <div class="panel" style="padding: 28px;">
+        <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+        <form method="POST" action="/admin/login">
+          <input type="hidden" name="_csrf" value="<%= csrf %>" />
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" autocomplete="current-password" autofocus required />
+          </div>
+          <button type="submit" class="btn primary" style="width:100%; justify-content:center;">Sign in</button>
+        </form>
+      </div>
+      <p class="hint" style="text-align:center; margin-top:18px;">
+        <a href="/">&larr; Back to site</a>
+      </p>
+    </div>
+  </body>
+</html>

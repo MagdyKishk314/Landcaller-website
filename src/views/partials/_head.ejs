@@ -18,8 +18,8 @@ const _robots = (typeof metaRobots !== 'undefined') ? metaRobots : 'index, follo
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://assets.calendly.com" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/assets/css/index.css">
-    <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="stylesheet" href="<%= asset('/assets/css/index.css') %>">
+    <link rel="stylesheet" href="<%= asset('/assets/css/app.css') %>">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -43,5 +43,5 @@ const _robots = (typeof metaRobots !== 'undefined') ? metaRobots : 'index, follo
     <meta name="twitter:image:alt" content="<%= _ogImageAlt %>">
 
     <%- include('_schema') %>
-    <script defer src="/assets/js/main.js"></script>
+    <script defer src="<%= asset('/assets/js/main.js') %>"></script>
   </head>

@@ -3,7 +3,11 @@ import { site, navLinks, footerLinks } from "../config/site.js";
 import { pricingPage, blogPage } from "../models/pages.js";
 import { featureMatrix, featureMatrixDisclaimer } from "../models/content.js";
 import { enterprisePlan, basicPlan, dataCostsNote } from "../models/pricing.js";
-import { blogPosts } from "../models/blog.js";
+import {
+  listPublishedPosts,
+  getPublishedPostBySlug,
+} from "../repositories/postRepository.js";
+import type { BlogPost, BlogPostRecord } from "../models/types.js";
 
 /** "/pricing" - full packages + feature matrix (moved off the home funnel). */
 export function renderPricing(_req: Request, res: Response): void {
@@ -29,8 +33,15 @@ export function renderPricing(_req: Request, res: Response): void {
   });
 }
 
-/** "/blog" - blog index (placeholder posts until real content lands). */
-export function renderBlog(_req: Request, res: Response): void {
+/** "/blog" - blog index, backed by published posts from the database. */
+export async function renderBlog(_req: Request, res: Response): Promise<void> {
+  let blogPosts: BlogPost[];
+  try {
+    blogPosts = await listPublishedPosts();
+  } catch (err) {
+    console.error("[blog] failed to load posts:", err);
+    blogPosts = [];
+  }
   res.render("blog", {
     site,
     navLinks,
@@ -50,11 +61,22 @@ export function renderBlog(_req: Request, res: Response): void {
 }
 
 /**
- * "/blog/:slug" - individual post. The article body is a placeholder until
- * real content lands; unknown slugs fall through to the 404 handler via next().
+ * "/blog/:slug" - individual published post. Unknown slugs fall through to the
+ * 404 handler via next(). Posts with a real body are indexable; the body-less
+ * fallback (no database configured) stays noindex.
  */
-export function renderBlogPost(req: Request, res: Response, next: NextFunction): void {
-  const post = blogPosts.find((p) => p.slug === req.params.slug);
+export async function renderBlogPost(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
+  let post: BlogPostRecord | null;
+  try {
+    post = await getPublishedPostBySlug(req.params.slug);
+  } catch (err) {
+    console.error("[blog] failed to load post:", err);
+    return next();
+  }
   if (!post) return next();
   const path = `${blogPage.path}/${post.slug}`;
   res.render("blog-post", {
@@ -62,9 +84,8 @@ export function renderBlogPost(req: Request, res: Response, next: NextFunction):
     navLinks,
     footerLinks,
     post,
-    // Posts are placeholder content for now - keep them out of the index until
-    // real articles ship (see also the sitemap, which omits post URLs).
-    metaRobots: "noindex, follow",
+    // Body-less placeholders stay out of the index; real articles are indexable.
+    metaRobots: post.bodyHtml ? undefined : "noindex, follow",
     pageTitle: `${post.title} | Land Caller`,
     pageDescription: post.excerpt,
     canonical: `${site.url}${path}`,
