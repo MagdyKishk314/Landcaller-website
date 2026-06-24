@@ -12,7 +12,7 @@
     <div class="grid lg:grid-cols-12 gap-12 items-center">
       <div class="lg:col-span-6 space-y-7">
         <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase"><%= hero.eyebrow %></p>
-        <h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl text-white leading-[1.1] font-bold tracking-tight"><%= hero.headingLines[0] %> <br><%= hero.headingLines[1] %></h1>
+        <h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl text-white leading-[1.1] font-bold tracking-tight"><%= hero.heading %></h1>
         <p class="text-white/70 text-lg leading-relaxed max-w-lg"><%= hero.subtext %></p>
         <div class="flex flex-wrap gap-5 pt-2">
           <%- include('_button', { label: hero.primaryCta.label, href: hero.primaryCta.href, variant: 'primary', size: 'lg' }) %>
