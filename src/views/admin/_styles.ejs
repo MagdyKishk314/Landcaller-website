@@ -91,4 +91,49 @@
   .image-preview__empty { font-size: 12px; color: var(--muted); }
   .image-picker__controls { display: flex; flex-direction: column; gap: 8px; padding-top: 4px; }
   label.btn { width: max-content; }
+  /* App shell: a sticky sidebar beside the scrolling content. The public
+     header is sticky (top:0); the sidebar sticks just below it. ------------- */
+  .shell {
+    display: grid; grid-template-columns: 232px minmax(0, 1fr); align-items: start;
+  }
+  .sidenav {
+    border-right: 1px solid var(--border); background: #0e0e0e;
+    padding: 22px 14px; display: flex; flex-direction: column;
+    /* Stick below the 64px (h-16) header; 80px (h-20) at lg - see below. */
+    position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto;
+  }
+  @media (min-width: 1024px) {
+    .sidenav { top: 80px; height: calc(100vh - 80px); }
+  }
+  .sidenav__label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted); margin: 0 10px 12px;
+  }
+  .sidenav__nav { display: flex; flex-direction: column; gap: 4px; }
+  .sidenav__item {
+    display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px;
+    color: var(--text); font-size: 14px; font-weight: 600;
+  }
+  .sidenav__item:hover { background: var(--panel-2); text-decoration: none; }
+  .sidenav__item.is-active { background: var(--accent-dim); color: var(--accent); }
+  .sidenav__item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  /* Pinned to the bottom of the sidebar (View site + Sign out). */
+  .sidenav__foot {
+    margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .sidenav__foot form { margin: 0; }
+  .shell__content { min-width: 0; }
+  /* Center the working area within the column to the right of the sidebar. */
+  .shell__content .wrap { margin: 0 auto; max-width: 880px; }
+  @media (max-width: 720px) {
+    .shell { grid-template-columns: 1fr; }
+    /* Stack above the content on small screens; no longer sticky/full-height. */
+    .sidenav {
+      position: static; height: auto; overflow: visible;
+      border-right: none; border-bottom: 1px solid var(--border);
+    }
+    .sidenav__nav { flex-direction: row; flex-wrap: wrap; }
+    .sidenav__foot { margin-top: 14px; padding-top: 14px; }
+  }
 </style>

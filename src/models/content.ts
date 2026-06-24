@@ -86,7 +86,7 @@ export const howItWorks = {
 };
 
 export const resultsStats: ResultStat[] = [
-  { value: "55+", label: "Leads per agent / month (Enterprise avg.)" },
+  { value: "45 - 65", label: "Leads per agent / month (Enterprise avg.)" },
   { value: "3x", label: "Higher contact rate vs single-number dialers" },
   { value: "1:1", label: "Dedicated caller per campaign" },
   { value: "60-70%", label: "Cheaper than comparable direct mail" },
@@ -130,12 +130,12 @@ export const whoWeAre: InfoCard[] = [
   {
     icon: "target",
     title: "Our Mission",
-    body: "Deliver a relentless flow of off-market seller leads through expert cold-calling operations - so you close more deals, faster.",
+    body: "Deliver a relentless flow of off-market seller leads through expert cold calling operations - so you close more deals, faster.",
   },
   {
     icon: "eye",
     title: "Our Vision",
-    body: "Become the undisputed #1 cold-calling partner for every land investor in North America. No exceptions.",
+    body: "Become the undisputed #1 cold calling partner for every land investor in North America. No exceptions.",
   },
   {
     icon: "phone",
@@ -155,7 +155,7 @@ export const whatSetsApart = {
     {
       number: "01",
       title: "The First & Only",
-      body: "We pioneered cold-calling lead gen exclusively for vacant land investors. Nobody else has our depth of niche expertise.",
+      body: "We pioneered cold calling lead gen exclusively for vacant land investors. Nobody else has our depth of niche expertise.",
     },
     {
       number: "02",
@@ -170,7 +170,7 @@ export const whatSetsApart = {
     {
       number: "04",
       title: "Battle-Tested Callers",
-      body: "Zero rookies. Every caller has real estate cold-calling experience and understands exactly what land investors need to hear.",
+      body: "Zero rookies. Every caller has real estate cold calling experience and understands exactly what land investors need to hear.",
     },
     {
       number: "05",
@@ -274,7 +274,7 @@ export const packages: PricingPackage[] = [
     mostPopular: true,
     blurbs: [
       'Built for <strong data-loc="enterprise" class="text-white">full-time land businesses</strong> with a VA or team in place.',
-      'Avg. <strong data-loc="enterprise" class="text-[#E8523A]">55+ leads/agent/month</strong>. Advanced customization, dedicated support, zero compromises.',
+      'Avg. <strong data-loc="enterprise" class="text-[#E8523A]">45 - 65 leads/agent/month</strong>. Advanced customization, dedicated support, zero compromises.',
     ],
     features: [
       {
@@ -410,7 +410,7 @@ export const faqs: FaqItem[] = [
   {
     question: "How many leads can one caller generate per month?",
     answer:
-      "Enterprise clients average 55 leads per agent monthly. The exact number depends on answer rates, conversation length, and campaign complexity - but our system is built to maximize every dial.",
+      "Enterprise clients average 45 to 65 leads per agent monthly. The exact number depends on answer rates, conversation length, and campaign complexity - but our system is built to maximize every dial.",
   },
   {
     question: "How do you get more owners to pick up?",

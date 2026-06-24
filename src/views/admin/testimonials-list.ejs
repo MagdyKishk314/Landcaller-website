@@ -1,0 +1,58 @@
+<%- include('_shell-start', { title: 'Testimonials', active: 'testimonials' }) %>
+    <%
+      const flashText = {
+        created: 'Testimonial created.',
+        updated: 'Testimonial saved.',
+        deleted: 'Testimonial deleted.',
+        toggled: 'Visibility updated.',
+      }[flash];
+    %>
+    <div class="wrap">
+      <% if (flashText) { %><div class="alert ok"><%= flashText %></div><% } %>
+
+      <div class="row-between">
+        <div>
+          <h1 class="page-title">Testimonials</h1>
+          <p class="muted" style="margin:4px 0 0; font-size:13px;"><%= testimonials.length %> testimonial<%= testimonials.length === 1 ? '' : 's' %></p>
+        </div>
+        <a class="btn primary" href="/admin/testimonials/new">+ New testimonial</a>
+      </div>
+
+      <div class="panel">
+        <% if (!testimonials.length) { %>
+          <div class="empty">
+            <p>No testimonials yet.</p>
+            <a class="btn primary" href="/admin/testimonials/new">Add your first testimonial</a>
+          </div>
+        <% } else { %>
+          <% testimonials.forEach(function(t){
+               const preview = t.quote.length > 110 ? t.quote.slice(0, 110) + '…' : t.quote; %>
+          <div class="post-row">
+            <div class="post-main">
+              <p class="post-title">
+                <%= t.name %>
+                <% if (t.company) { %><span class="badge cat"><%= t.company %></span><% } %>
+              </p>
+              <p class="post-meta">
+                <span class="badge <%= t.published ? 'published' : 'draft' %>"><%= t.published ? 'Visible' : 'Hidden' %></span>
+                &nbsp;&middot;&nbsp;<span style="color:var(--accent)"><%= '★'.repeat(t.rating) %></span>&nbsp;&middot;&nbsp;#<%= t.sortOrder %>
+                <br />&ldquo;<%= preview %>&rdquo;
+              </p>
+            </div>
+            <div class="post-actions">
+              <a class="btn sm" href="/admin/testimonials/<%= t.id %>/edit">Edit</a>
+              <form class="inline" method="POST" action="/admin/testimonials/<%= t.id %>/publish">
+                <input type="hidden" name="_csrf" value="<%= csrf %>" />
+                <button type="submit" class="btn sm"><%= t.published ? 'Hide' : 'Show' %></button>
+              </form>
+              <form class="inline" method="POST" action="/admin/testimonials/<%= t.id %>/delete" onsubmit="return confirm('Delete the testimonial from &quot;<%= t.name.replace(/"/g, '\\&quot;') %>&quot;? This cannot be undone.');">
+                <input type="hidden" name="_csrf" value="<%= csrf %>" />
+                <button type="submit" class="btn sm danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% }); %>
+        <% } %>
+      </div>
+    </div>
+<%- include('_shell-end') %>

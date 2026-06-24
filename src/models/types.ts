@@ -78,6 +78,23 @@ export interface Testimonial {
   rating: number;
 }
 
+/** A testimonial as stored in / read back from the database (admin-managed). */
+export interface TestimonialRecord extends Testimonial {
+  id: number;
+  published: boolean;
+  sortOrder: number;
+}
+
+/** The write payload for creating/updating a testimonial from the admin form. */
+export interface TestimonialInput {
+  quote: string;
+  name: string;
+  company: string;
+  rating: number;
+  published: boolean;
+  sortOrder: number;
+}
+
 export interface ComparisonRow {
   feature: string;
   landCaller: string;

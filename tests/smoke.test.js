@@ -36,7 +36,7 @@ test("home route renders the full landing page", async () => {
       "Why Land Caller Wins", // why us
       "Choose your weapon", // pricing teaser
       "From the Blog", // blog teaser
-      "Let's build your deal flow.", // booking climax (FAQ presence asserted via answer text below)
+      "Let's dial in your deal flow.", // booking climax (FAQ presence asserted via answer text below)
     ]) {
       assert.ok(html.includes(needle), `missing section: ${needle}`);
     }
@@ -108,7 +108,7 @@ test("about route renders the new-design about page", async () => {
       "About Land Caller",
       "Who We Are",
       "Joe Roberts",
-      "first-ever cold-calling company",
+      "first-ever cold calling company",
       "Ad Majorem Dei Gloriam",
       "Start Growing Your Land Investing Business Today",
     ]) {
@@ -159,12 +159,18 @@ test("SEO landing pages render with one H1 each", async () => {
     for (const [path, needle] of [
       ["/pricing", "Land Caller Service Pricing"],
       ["/blog", "Insights on Cold Calling"],
+      ["/crm", "Stop buying leads. Start building a pipeline."],
     ]) {
       const res = await fetch(`http://127.0.0.1:${port}${path}`);
       assert.equal(res.status, 200, `page failed: ${path}`);
       const html = await res.text();
       assert.ok(html.includes(needle), `missing H1 on ${path}`);
       assert.equal((html.match(/<h1/g) || []).length, 1, `${path} should have exactly one <h1>`);
+    }
+    // CRM page surfaces its key content + data-pricing table.
+    const crm = await (await fetch(`http://127.0.0.1:${port}/crm`)).text();
+    for (const n of ["Land Caller CRM", "Undeniable performance", "Smart Estimates", "$0.1300", "Basic Data Policy"]) {
+      assert.ok(crm.includes(n), `crm page missing: ${n}`);
     }
   } finally {
     server.close();
@@ -199,6 +205,7 @@ test("sitemap.xml lists canonical URLs", async () => {
     const xml = await res.text();
     assert.match(res.headers.get("content-type") || "", /xml/);
     assert.ok(xml.includes("/about"), "sitemap missing /about");
+    assert.ok(xml.includes("/crm"), "sitemap missing /crm");
     assert.ok(xml.includes("/pricing"), "sitemap missing /pricing");
     assert.ok(xml.includes("<loc>https://landcaller.com/blog</loc>"), "sitemap missing /blog");
     // Placeholder blog posts must stay out of the sitemap until real content ships.

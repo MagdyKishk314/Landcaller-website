@@ -1,0 +1,48 @@
+<%
+  // Shared admin chrome. Pages pass { title, active } where `active` is one of
+  // 'blog' | 'testimonials' to highlight the current sidebar item. The PUBLIC
+  // site header & footer are reused (data supplied by the admin router locals)
+  // so admins can hop straight back to the marketing pages. The whole document
+  // is a flex column so the footer sticks to the bottom on short pages. Closed
+  // by the matching _shell-end partial.
+%><!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="theme-color" content="#0E0E0E" />
+    <title><%= title %> | Land Caller Admin</title>
+    <link rel="icon" type="image/png" href="<%= site.faviconUrl %>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Public site styles first, then the admin overrides in _styles. -->
+    <link rel="stylesheet" href="<%= asset('/assets/css/index.css') %>">
+    <link rel="stylesheet" href="<%= asset('/assets/css/app.css') %>">
+    <%- include('_styles') %>
+    <!-- Powers the public header's mobile menu & sticky behaviour (self-guards). -->
+    <script defer src="<%= asset('/assets/js/main.js') %>"></script>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+
+    <div class="shell">
+      <aside class="sidenav">
+        <p class="sidenav__label">Manage</p>
+        <nav class="sidenav__nav">
+          <a href="/admin" class="sidenav__item <%= active === 'blog' ? 'is-active' : '' %>">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12l4 4v12H4z"/><path d="M16 4v4h4"/><path d="M8 12h8M8 16h8"/></svg>
+            Blog posts
+          </a>
+          <a href="/admin/testimonials" class="sidenav__item <%= active === 'testimonials' ? 'is-active' : '' %>">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg>
+            Testimonials
+          </a>
+        </nav>
+        <div class="sidenav__foot">
+          <form method="POST" action="/admin/logout">
+            <input type="hidden" name="_csrf" value="<%= csrf %>" />
+            <button type="submit" class="btn sm ghost" style="width:100%; justify-content:center;">Sign out</button>
+          </form>
+        </div>
+      </aside>
+      <main class="shell__content">

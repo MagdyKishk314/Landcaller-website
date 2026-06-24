@@ -1,0 +1,56 @@
+<%- include('_shell-start', { title: mode === 'new' ? 'New testimonial' : 'Edit testimonial', active: 'testimonials' }) %>
+    <div class="wrap">
+      <div class="row-between">
+        <h1 class="page-title"><%= mode === 'new' ? 'New testimonial' : 'Edit testimonial' %></h1>
+        <a class="btn sm ghost" href="/admin/testimonials">&larr; All testimonials</a>
+      </div>
+
+      <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+
+      <form method="POST" action="<%= action %>">
+        <input type="hidden" name="_csrf" value="<%= csrf %>" />
+
+        <div class="field">
+          <label for="quote">Quote</label>
+          <textarea id="quote" name="quote" required style="min-height:140px; font-family:inherit; font-size:14px;" placeholder="What the client said..."><%= form.quote %></textarea>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="<%= form.name %>" placeholder="e.g. Cooper L." required />
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" value="<%= form.company %>" placeholder="e.g. Ad Astra Land Co" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="rating">Rating</label>
+            <select id="rating" name="rating">
+              <% [5,4,3,2,1].forEach(function(r){ %>
+                <option value="<%= r %>" <%= form.rating === r ? 'selected' : '' %>><%= r %> star<%= r === 1 ? '' : 's' %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sortOrder">Display order</label>
+            <input type="text" inputmode="numeric" id="sortOrder" name="sortOrder" value="<%= form.sortOrder %>" />
+            <p class="hint">Lower numbers appear first on the site.</p>
+          </div>
+        </div>
+
+        <div class="field check">
+          <input type="checkbox" id="published" name="published" value="on" <%= form.published ? 'checked' : '' %> />
+          <label for="published">Visible on the site</label>
+        </div>
+
+        <div class="sticky-actions">
+          <button type="submit" class="btn primary"><%= mode === 'new' ? 'Create testimonial' : 'Save changes' %></button>
+          <a class="btn ghost" href="/admin/testimonials">Cancel</a>
+        </div>
+      </form>
+    </div>
+<%- include('_shell-end') %>

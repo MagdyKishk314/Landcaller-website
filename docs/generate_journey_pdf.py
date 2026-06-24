@@ -227,7 +227,7 @@ sections = [
      "badges quietly de-risk the page before the visitor has scrolled an inch."),
 
     ("Results band", "Hard numbers - quantify the promise",
-     "A compact stat strip: 55+ leads per agent / month, 3x higher contact rate, "
+     "A compact stat strip: 45 - 65 leads per agent / month, 3x higher contact rate, "
      "1:1 dedicated caller per campaign, 60-70% cheaper than direct mail.",
      "Immediately after the emotional hook we ground it in numbers so the claim "
      "doesn't feel like hype. Placing measurable outcomes this high sets the frame "
@@ -304,7 +304,7 @@ sections = [
      "heading for the CTA below."),
 
     ("Booking CTA + FAQ", "The ask - convert with objections handled",
-     "'Let's build your deal flow' - a contact form that swaps in-place to an "
+     "'Let's dial in your deal flow' - a contact form that swaps in-place to an "
      "embedded Calendly scheduler, with the FAQ accordion beside it.",
      "The climax. Every prior section earned the right to ask. We pair the booking "
      "action with the FAQ so last-second objections are answered inches from the "
