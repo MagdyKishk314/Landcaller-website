@@ -15,18 +15,18 @@ import type {
 } from "./types.js";
 
 export const hero = {
-  eyebrow: "Cold Calling Lead Generation for Land Investors",
+  eyebrow: "Cold Calling Lead Gen | CRM + Data",
   headingLines: ["Warm Land Seller Leads.", "Cold Calling, Done For You."],
   subtext:
-    "Land Caller is the only done-for-you cold calling service built exclusively for vacant land investors. We dial off-market owners and deliver warm, qualified seller leads straight to your CRM - so you close more land deals.",
+    "Land Caller is the done-for-you cold calling service built exclusively for land professionals. Now, we're evolving beyond the traditional agency model to deliver the Land Caller Ecosystem - a unified platform that brings lead generation, data, and deal management together in one command center.",
   note:
-    "One dedicated caller. Unlimited dials. Consistent off-market deal flow - without building your own call center.",
+    "Purpose-built campaigns. Proven outcomes. Positioned for profit.",
   image: "/assets/images/crm-dashboard.jpg",
   // Small trust signals rendered beneath the hero CTAs.
   trustBadges: [
-    "5.0 rating from land investors",
     "Hundreds of campaigns run",
-    "US-based, TCPA compliant",
+    "TCPA compliant",
+    "Owned and operated by land investors",
   ],
   primaryCta: { label: "Book A Call", href: "#book" },
   // Scrolls down to the live call recordings - the "hear it for yourself" moment.
@@ -86,10 +86,10 @@ export const howItWorks = {
 };
 
 export const resultsStats: ResultStat[] = [
-  { value: "45 - 65", label: "Leads per agent / month (Enterprise avg.)" },
-  { value: "3x", label: "Higher contact rate vs single-number dialers" },
-  { value: "1:1", label: "Dedicated caller per campaign" },
-  { value: "60-70%", label: "Cheaper than comparable direct mail" },
+  { value: "45-65+", label: "Average leads per month" },
+  { value: "~50%+", label: "Cost savings compared to direct mail campaigns of the same size" },
+  { value: "100%", label: "Campaign visibility & reporting" },
+  { value: "40hrs", label: "Weekly dial time" },
 ];
 
 export const callSamples: CallSample[] = [

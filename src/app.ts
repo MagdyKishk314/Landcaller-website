@@ -65,6 +65,9 @@ export function createApp(): Application {
   const PROD_HOSTS = new Set(["landcaller.com", "www.landcaller.com"]);
 
   app.use((req, res, next) => {
+    // Exposed to every template so the navbar can highlight the active page.
+    res.locals.currentPath = req.path;
+
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     res.setHeader("X-Frame-Options", "SAMEORIGIN");

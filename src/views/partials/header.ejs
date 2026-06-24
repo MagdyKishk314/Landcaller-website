@@ -1,6 +1,12 @@
 <%
 const onHome = (typeof isHome === 'undefined') ? true : isHome;
 const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? '' : h)) : h;
+// Normalised current path (no trailing slash) so the navbar can flag the page
+// you're on. Home ('#') matches '/'; page links match exactly or as a prefix
+// (e.g. /blog stays active on /blog/a-post).
+let curPath = (typeof currentPath === 'undefined' || !currentPath) ? '/' : currentPath;
+if (curPath.length > 1) curPath = curPath.replace(/\/+$/, '');
+const isActive = (h) => h === '#' ? curPath === '/' : (curPath === h || curPath.indexOf(h + '/') === 0);
 %>
 <header id="site-header" class="top-0 z-50 transition-all duration-300 bg-[#0E0E0E]/98 backdrop-blur-md border-b border-white/5" style="position: sticky; top: 0;">
   <div class="container flex items-center justify-between h-16 lg:h-20 gap-6">
@@ -8,8 +14,8 @@ const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? ''
       <img alt="Land Caller - land investor cold calling service" class="h-10 lg:h-12 w-auto" width="586" height="244" src="<%= site.logo %>">
     </a>
     <nav class="hidden lg:flex items-center gap-7">
-      <% navLinks.forEach(function(link){ %>
-      <a href="<%= resolve(link.href) %>" class="text-sm font-medium text-white/70 hover:text-[#E8523A] transition-colors duration-200 whitespace-nowrap"><%= link.label %></a>
+      <% navLinks.forEach(function(link){ const active = isActive(link.href); %>
+      <a href="<%= resolve(link.href) %>" class="text-sm font-medium <%= active ? 'text-[#E8523A]' : 'text-white/70' %> hover:text-[#E8523A] transition-colors duration-200 whitespace-nowrap"<%- active ? ' aria-current="page"' : '' %>><%= link.label %></a>
       <% }); %>
     </nav>
     <div class="hidden lg:flex items-center gap-3">
@@ -22,8 +28,8 @@ const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? ''
   </div>
   <div id="mobile-menu" class="lg:hidden bg-[#0E0E0E] border-t border-white/10" hidden>
     <nav class="container py-4 flex flex-col gap-3">
-      <% navLinks.forEach(function(link){ %>
-      <a href="<%= resolve(link.href) %>" class="text-sm font-medium text-white/80 hover:text-[#E8523A] py-2" data-mobile-link><%= link.label %></a>
+      <% navLinks.forEach(function(link){ const active = isActive(link.href); %>
+      <a href="<%= resolve(link.href) %>" class="text-sm font-medium <%= active ? 'text-[#E8523A]' : 'text-white/80' %> hover:text-[#E8523A] py-2" data-mobile-link<%- active ? ' aria-current="page"' : '' %>><%= link.label %></a>
       <% }); %>
       <div class="flex flex-col gap-2 pt-3 border-t border-white/10">
         <%- include('_button', { label: 'Login', href: site.externalLinks.crmLogin, variant: 'outline', size: 'sm', external: true, block: true }) %>
