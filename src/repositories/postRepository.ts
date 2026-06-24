@@ -123,6 +123,23 @@ export async function listAllPosts(): Promise<BlogPostRecord[]> {
   return rows.map(mapRow);
 }
 
+/**
+ * Distinct, alphabetically-sorted category names in use - powers the category
+ * combobox on the post editor. Degrades to the static seed without a DB.
+ */
+export async function listCategories(): Promise<string[]> {
+  const db = getDb();
+  if (!db) {
+    return [...new Set(seedPosts.map((p) => p.category).filter(Boolean))].sort((a, b) =>
+      a.localeCompare(b)
+    );
+  }
+  const rows = db
+    .prepare("SELECT DISTINCT category FROM posts WHERE category <> '' ORDER BY category COLLATE NOCASE")
+    .all() as unknown as { category: string }[];
+  return rows.map((r) => r.category);
+}
+
 export async function getPostById(id: number): Promise<BlogPostRecord | null> {
   const db = requireDb();
   const row = db.prepare("SELECT * FROM posts WHERE id = ? LIMIT 1").get(id) as unknown as

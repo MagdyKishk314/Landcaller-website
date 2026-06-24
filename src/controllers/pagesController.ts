@@ -1,6 +1,15 @@
 import type { Request, Response, NextFunction } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
 import { pricingPage, blogPage } from "../models/pages.js";
+import {
+  crmPage,
+  crmIntro,
+  crmPerformance,
+  crmIntegration,
+  crmDataDashboard,
+  crmDataCosts,
+  crmCta,
+} from "../models/crm.js";
 import { featureMatrix, featureMatrixDisclaimer } from "../models/content.js";
 import { enterprisePlan, basicPlan, dataCostsNote } from "../models/pricing.js";
 import {
@@ -27,6 +36,31 @@ export function renderPricing(_req: Request, res: Response): void {
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "Pricing", path: pricingPage.path },
+    ],
+    isHome: false,
+    year: new Date().getFullYear(),
+  });
+}
+
+/** "/crm" - the CRM + Data showcase (rebuilt from the legacy marketing copy). */
+export function renderCrm(_req: Request, res: Response): void {
+  res.render("crm", {
+    site,
+    navLinks,
+    footerLinks,
+    page: crmPage,
+    crmIntro,
+    crmPerformance,
+    crmIntegration,
+    crmDataDashboard,
+    crmDataCosts,
+    crmCta,
+    pageTitle: crmPage.title,
+    pageDescription: crmPage.description,
+    canonical: `${site.url}${crmPage.path}`,
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "CRM + Data", path: crmPage.path },
     ],
     isHome: false,
     year: new Date().getFullYear(),

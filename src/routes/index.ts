@@ -4,6 +4,7 @@ import { renderAbout } from "../controllers/aboutController.js";
 import { submitContact } from "../controllers/contactController.js";
 import {
   renderPricing,
+  renderCrm,
   renderBlog,
   renderBlogPost,
 } from "../controllers/pagesController.js";
@@ -21,6 +22,8 @@ router.get("/cold-calling-vs-direct-mail", (_req, res) => res.redirect(301, "/")
 
 // Funnel spoke pages
 router.get("/pricing", renderPricing);
+router.get("/crm", renderCrm);
+router.get("/crm-and-data", (_req, res) => res.redirect(301, "/crm"));
 router.get("/blog", asyncHandler(renderBlog));
 router.get("/blog/:slug", asyncHandler(renderBlogPost));
 

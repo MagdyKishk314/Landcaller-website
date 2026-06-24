@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import "../config/env.js"; // ensure .env is loaded before we read SQLITE_PATH
 import { starterPosts } from "./starterPosts.js";
+import { testimonials as starterTestimonials } from "../models/content.js";
 
 /**
  * SQLite storage via Node's built-in `node:sqlite` - no third-party database or
@@ -30,6 +31,19 @@ const SCHEMA = `
     updated_at   TEXT NOT NULL DEFAULT (datetime('now'))
   );
   CREATE INDEX IF NOT EXISTS posts_published_idx ON posts (published, published_at);
+
+  CREATE TABLE IF NOT EXISTS testimonials (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    quote      TEXT NOT NULL,
+    name       TEXT NOT NULL,
+    company    TEXT NOT NULL DEFAULT '',
+    rating     INTEGER NOT NULL DEFAULT 5,
+    published  INTEGER NOT NULL DEFAULT 1,
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS testimonials_order_idx ON testimonials (published, sort_order);
 `;
 
 let db: DatabaseSync | null = null;
@@ -57,6 +71,26 @@ function seed(handle: DatabaseSync): void {
   }
 }
 
+/** Insert the starter testimonials (the static set that ships with the site). */
+function seedTestimonials(handle: DatabaseSync): void {
+  const stmt = handle.prepare(
+    `INSERT INTO testimonials (quote, name, company, rating, published, sort_order)
+     VALUES (?, ?, ?, ?, 1, ?)`
+  );
+  starterTestimonials.forEach((t, i) => {
+    stmt.run(t.quote, t.name, t.company, t.rating, i);
+  });
+}
+
+/** True if a table already exists in the open database. */
+function tableExists(handle: DatabaseSync, name: string): boolean {
+  return (
+    handle
+      .prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?")
+      .get(name) !== undefined
+  );
+}
+
 /**
  * Open (once) and return the SQLite handle, or null if the database is disabled
  * or can't be opened. A brand-new database is seeded with the starter posts; an
@@ -72,11 +106,14 @@ export function getDb(): DatabaseSync | null {
     const handle = new DatabaseSync(file);
     handle.exec("PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;");
 
-    const tableExisted = handle
-      .prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'posts'")
-      .get();
+    // Check each table *before* applying the schema so we only seed the ones
+    // that didn't already exist - this lets an older database (posts only) gain
+    // a freshly-seeded testimonials table without touching its posts.
+    const postsExisted = tableExists(handle, "posts");
+    const testimonialsExisted = tableExists(handle, "testimonials");
     handle.exec(SCHEMA);
-    if (!tableExisted) seed(handle); // fresh database -> starter content
+    if (!postsExisted) seed(handle); // fresh database -> starter content
+    if (!testimonialsExisted) seedTestimonials(handle);
 
     db = handle;
     return db;
@@ -98,7 +135,15 @@ export function setupDatabase(forceSeed = false): { path: string; count: number 
       "SQLite is disabled (BLOG_DB=off) or could not be opened. Check SQLITE_PATH / permissions."
     );
   }
-  if (forceSeed) seed(handle);
+  if (forceSeed) {
+    seed(handle);
+    // Testimonials have no natural unique key, so only seed when empty to avoid
+    // duplicating the starter set on repeated `db:seed` runs.
+    const existing = handle
+      .prepare("SELECT count(*) AS c FROM testimonials")
+      .get() as { c: number };
+    if (existing.c === 0) seedTestimonials(handle);
+  }
   const row = handle.prepare("SELECT count(*) AS c FROM posts").get() as { c: number };
   return { path: resolveDbPath(), count: row.c };
 }

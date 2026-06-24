@@ -1,11 +1,4 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Posts | Land Caller Admin</title>
-    <%- include('_styles') %>
-  </head>
-  <body>
+<%- include('_shell-start', { title: 'Blog posts', active: 'blog' }) %>
     <%
       const flashText = {
         created: 'Post created.',
@@ -14,17 +7,6 @@
         toggled: 'Publish status updated.',
       }[flash];
     %>
-    <div class="topbar">
-      <div class="brand">Land<span>Caller</span> Admin</div>
-      <div class="actions">
-        <a class="btn sm ghost" href="/" target="_blank" rel="noopener">View site</a>
-        <form class="inline" method="POST" action="/admin/logout">
-          <input type="hidden" name="_csrf" value="<%= csrf %>" />
-          <button type="submit" class="btn sm ghost">Sign out</button>
-        </form>
-      </div>
-    </div>
-
     <div class="wrap">
       <% if (flashText) { %><div class="alert ok"><%= flashText %></div><% } %>
 
@@ -75,5 +57,4 @@
         <% } %>
       </div>
     </div>
-  </body>
-</html>
+<%- include('_shell-end') %>

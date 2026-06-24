@@ -45,11 +45,24 @@ html { scroll-behavior: smooth; }
 }
 
 .max-w-xl { max-width: 36rem; }
+.max-w-4xl { max-width: 56rem; }
 .max-w-6xl { max-width: 72rem; }
 .max-w-\[12rem\] { max-width: 12rem; }
+
+/* CRM page utilities not in the original purged build. Alpha colours mirror the
+ * build's hex8 format (e.g. text-white/70 = #ffffffb3). */
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+.text-white\/55 { color: #ffffff8c; }
+.text-white\/45 { color: #ffffff73; }
+.bg-white\/15 { background-color: #ffffff26; }
+.border-\[\#E8523A\]\/30 { border-color: #e8523a4d; }
+@media (min-width: 768px) {
+  .md\:items-center { align-items: center; }
+}
 .scroll-mt-20 { scroll-margin-top: 5rem; }
 .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
 .py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+.pt-6 { padding-top: 1.5rem; }
 .mt-12 { margin-top: 3rem; }
 .gap-x-6 { column-gap: 1.5rem; }
 .gap-y-2 { row-gap: 0.5rem; }

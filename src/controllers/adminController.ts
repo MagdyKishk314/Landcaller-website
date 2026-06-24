@@ -6,6 +6,7 @@ import { slugify } from "../lib/markdown.js";
 import type { BlogPostRecord, PostInput } from "../models/types.js";
 import {
   listAllPosts,
+  listCategories,
   getPostById,
   createPost,
   updatePost,
@@ -165,10 +166,11 @@ export async function renderPostList(req: Request, res: Response): Promise<void>
   });
 }
 
-export function renderNewPost(req: Request, res: Response): void {
+export async function renderNewPost(req: Request, res: Response): Promise<void> {
   res.render("admin/edit", {
     mode: "new",
     form: emptyForm(),
+    categories: await listCategories(),
     error: null,
     action: "/admin/posts",
     csrf: ensureCsrfToken(req),
@@ -187,6 +189,7 @@ export async function renderEditPost(
   res.render("admin/edit", {
     mode: "edit",
     form: recordToForm(post),
+    categories: await listCategories(),
     error: null,
     action: `/admin/posts/${id}`,
     csrf: ensureCsrfToken(req),
@@ -203,6 +206,7 @@ export async function createPostAction(req: Request, res: Response): Promise<voi
     res.status(400).render("admin/edit", {
       mode: "new",
       form: inputToForm(input, null),
+      categories: await listCategories(),
       error,
       action: "/admin/posts",
       csrf: ensureCsrfToken(req),
@@ -234,6 +238,7 @@ export async function updatePostAction(
     res.status(400).render("admin/edit", {
       mode: "edit",
       form: inputToForm({ ...input, image: input.image || existing.image }, id),
+      categories: await listCategories(),
       error,
       action: `/admin/posts/${id}`,
       csrf: ensureCsrfToken(req),

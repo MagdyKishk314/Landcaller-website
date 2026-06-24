@@ -1,0 +1,211 @@
+/**
+ * Content model for the CRM + Data page (/crm). Copy is adapted from the legacy
+ * marketing site; the design is rebuilt to match the Land Caller system. The
+ * page showcases the Land Caller CRM (the acquisition command center) and the
+ * self-service Data dashboard, with transparent wholesale data pricing.
+ */
+import type { IconName } from "./types.js";
+
+export interface CrmFeature {
+  icon: IconName;
+  title: string;
+  detail: string;
+}
+
+export interface NamedPoint {
+  title: string;
+  detail: string;
+}
+
+export interface DataTier {
+  volume: string;
+  price: string;
+}
+
+export interface DataOption {
+  key: string;
+  title: string;
+  subtitle: string;
+  tiers?: DataTier[];
+  flat?: string;
+  flatLabel?: string;
+}
+
+export const crmPage = {
+  title: "Land Caller CRM + Data | Your Acquisition Command Center",
+  description:
+    "The Land Caller CRM unifies your data, dialing, and deal management in one command center - real-time KPIs, in-app scripts, AI automations, and transparent wholesale data pricing built for land investors.",
+  path: "/crm",
+  eyebrow: "Land Caller CRM + Data",
+  h1: "Stop buying leads. Start building a pipeline.",
+  lede:
+    "Land Caller is retiring the “Agency” model and delivering the Land Caller Ecosystem - unifying your data, dialing, and deal management under one command center.",
+  tagline: "One system. Operational leverage. Optimized deal flow.",
+};
+
+export const crmIntro = {
+  eyebrow: "Land Caller CRM",
+  poweredBy: "Powered by Go High Level",
+  heading: "Your acquisition command center.",
+  body:
+    "A fully integrated platform combining world-class cold calling with self-service data and a pre-built CRM. We’re replacing the under-powered Land Caller Client Portal with an extremely powerful, pre-built, and fully customizable Land Caller CRM experience - designed specifically for land investors, with real gains in control, integration, and performance.",
+  featuresIntro: "With the new Land Caller CRM, you’ll be able to:",
+  features: [
+    {
+      icon: "trending-up",
+      title: "Real-time KPIs",
+      detail:
+        "View campaign performance and KPIs in real time - no more emails flooding your inbox.",
+    },
+    {
+      icon: "book-open",
+      title: "Edit scripts in-app",
+      detail:
+        "Modify scripts directly inside your campaigns - no more back-and-forth in Slack or email.",
+    },
+    {
+      icon: "users",
+      title: "One source of truth",
+      detail: "Store and manage all your leads and records in one place.",
+    },
+    {
+      icon: "target",
+      title: "Track every deal",
+      detail: "Track deal flow from first call to close.",
+    },
+    {
+      icon: "zap",
+      title: "AI-powered automation",
+      detail: "Build AI-powered automations, workflows, and follow-ups.",
+    },
+    {
+      icon: "phone",
+      title: "Multi-channel outreach",
+      detail:
+        "Launch SMS and direct mail alongside calling - fully integrated and managed from one system.",
+    },
+  ] as CrmFeature[],
+  closing:
+    "This CRM becomes the control center of your acquisition engine - delivering real-time visibility, faster execution, and hands-on control across every stage of your workflow.",
+};
+
+export const crmPerformance = {
+  eyebrow: "Quality, Managed",
+  heading: "Undeniable performance.",
+  body:
+    "We don’t just hire agents; we manage them. We police the calls, track the KPIs, and fire underperformers so you don’t have to.",
+  points: [
+    {
+      title: "Quality Assurance Teams",
+      detail:
+        "Every call is monitored by our internal QA staff to ensure compliance and quality.",
+    },
+    { title: "Weekly Calibrations", detail: "We fix issues fast." },
+    { title: "Zero Management", detail: "You get results, not headaches." },
+    {
+      title: "Verified Delivery",
+      detail:
+        "Leads go from the agent to our in-depth QA process to be double-qualified, then delivered directly to you.",
+    },
+    {
+      title: "Land Caller CRM",
+      detail:
+        "All plans include access to our pre-built CRM to manage leads, dispositions, and follow-ups.",
+    },
+    {
+      title: "Context Attached",
+      detail: "Property data and lead notes included with every delivery.",
+    },
+  ] as NamedPoint[],
+};
+
+export const crmIntegration = {
+  eyebrow: "Full Integration",
+  heading: "Every lead, instantly in your CRM.",
+  body:
+    "We’ve retired the old download-only portal. Every lead is now pushed instantly into your interactive Land Caller CRM, ready for immediate action or export.",
+};
+
+export const crmDataDashboard = {
+  eyebrow: "Land Caller Data Dashboard",
+  heading: "Stop buying blind.",
+  body:
+    "Our exclusive Smart Estimates engine predicts your final list size with 90-95% accuracy - transparency you simply can’t get anywhere else.",
+  stat: { value: "90-95%", label: "Smart Estimate accuracy on final list size" },
+  points: [
+    {
+      title: "Precision Budgeting",
+      detail:
+        "Eliminate the guesswork. Know your exact costs and scrubbed counts before you spend a dime.",
+    },
+    {
+      title: "Zero Wasted Time",
+      detail:
+        "No more list-management headaches or back-and-forth on mismatched expectations.",
+    },
+    {
+      title: "Rapid Verification",
+      detail:
+        "Lists are completed, verified by our team, and uploaded to the dialer immediately.",
+    },
+    {
+      title: "Universal Access",
+      detail:
+        "Available to everyone. You don’t need a managed campaign to use our premium data.",
+    },
+  ] as NamedPoint[],
+};
+
+export const crmDataCosts = {
+  eyebrow: "Land Caller Data Costs",
+  heading: "Transparent, wholesale data pricing.",
+  lede:
+    "No markups, no mystery. See exactly what you’ll pay before you spend a dime.",
+  enterprise: {
+    name: "Enterprise Data Policy",
+    badge: "Purchased separately",
+    note:
+      "Your monthly fee covers the dedicated agent, tech stack, and campaign customization. Data is pass-through at our wholesale rates inside the software.",
+    options: [
+      {
+        key: "A",
+        title: "Enterprise Console Pull",
+        subtitle: "Pull + Skip + Scrub, billed per record by monthly volume.",
+        tiers: [
+          { volume: "10,000", price: "$0.1300" },
+          { volume: "10,000+", price: "$0.1200" },
+          { volume: "20,000+", price: "$0.1182" },
+          { volume: "50,000+", price: "$0.1083" },
+          { volume: "100,000+", price: "$0.0985" },
+          { volume: "150,000+", price: "$0.0934" },
+          { volume: "250,000+", price: "$0.0886" },
+        ],
+      },
+      {
+        key: "B",
+        title: "Bring Your Own Data",
+        subtitle: "Upload + Skip + Scrub.",
+        flat: "$0.0600",
+        flatLabel: "per record, flat rate",
+      },
+      {
+        key: "C",
+        title: "Bring Skip-Traced Data",
+        subtitle: "Pull + Scrub.",
+        flat: "$0.0300",
+        flatLabel: "per record, scrubbing only",
+      },
+    ] as DataOption[],
+  },
+  basic: {
+    name: "Basic Data Policy",
+    badge: "Included",
+    note:
+      "We provide the data credits you need to hit your lead guarantees. Simply log into the Land Caller dashboard, select your market, and pull the appropriate record counts at no extra cost.",
+  },
+};
+
+export const crmCta = {
+  heading: "Start growing your land investing business today.",
+  body: "See how Land Caller can dial-in your deal flow.",
+};

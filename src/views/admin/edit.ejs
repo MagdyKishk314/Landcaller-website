@@ -1,21 +1,8 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title><%= mode === 'new' ? 'New post' : 'Edit post' %> | Land Caller Admin</title>
-    <%- include('_styles') %>
-  </head>
-  <body>
-    <div class="topbar">
-      <div class="brand">Land<span>Caller</span> Admin</div>
-      <div class="actions">
-        <a class="btn sm ghost" href="/admin">&larr; All posts</a>
-      </div>
-    </div>
-
+<%- include('_shell-start', { title: mode === 'new' ? 'New post' : 'Edit post', active: 'blog' }) %>
     <div class="wrap">
       <div class="row-between">
         <h1 class="page-title"><%= mode === 'new' ? 'New post' : 'Edit post' %></h1>
+        <a class="btn sm ghost" href="/admin">&larr; All posts</a>
       </div>
 
       <% if (error) { %><div class="alert error"><%= error %></div><% } %>
@@ -36,7 +23,11 @@
           </div>
           <div class="field">
             <label for="category">Category</label>
-            <input type="text" id="category" name="category" value="<%= form.category %>" placeholder="e.g. Lead Generation" />
+            <input type="text" id="category" name="category" value="<%= form.category %>" list="category-options" autocomplete="off" placeholder="Choose one, or type a new category" />
+            <datalist id="category-options">
+              <% categories.forEach(function(c){ %><option value="<%= c %>"></option><% }); %>
+            </datalist>
+            <p class="hint" id="category-hint" hidden>&#10024; New category &mdash; &ldquo;<span id="category-hint-name"></span>&rdquo; will be created when you save.</p>
           </div>
         </div>
 
@@ -135,7 +126,23 @@
           showPreview(objectUrl);
           fileName.textContent = file.name;
         });
+
+        // --- Category combobox: surface when a new category will be created ---
+        var categoryInput = document.getElementById('category');
+        var catHint = document.getElementById('category-hint');
+        var catHintName = document.getElementById('category-hint-name');
+        var knownCats = Array.prototype.map.call(
+          document.querySelectorAll('#category-options option'),
+          function (o) { return o.value.trim().toLowerCase(); }
+        );
+        function updateCategoryHint() {
+          var v = categoryInput.value.trim();
+          var isNew = v.length > 0 && knownCats.indexOf(v.toLowerCase()) === -1;
+          catHint.hidden = !isNew;
+          if (isNew) catHintName.textContent = v;
+        }
+        categoryInput.addEventListener('input', updateCategoryHint);
+        updateCategoryHint();
       })();
     </script>
-  </body>
-</html>
+<%- include('_shell-end') %>

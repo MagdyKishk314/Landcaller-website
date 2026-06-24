@@ -15,7 +15,8 @@ import {
 } from "../models/content.js";
 import { enterprisePlan, basicPlan } from "../models/pricing.js";
 import { listPublishedPosts } from "../repositories/postRepository.js";
-import type { BlogPost } from "../models/types.js";
+import { listTestimonials } from "../repositories/testimonialRepository.js";
+import type { BlogPost, Testimonial } from "../models/types.js";
 
 /**
  * Builds the home page view model and renders the story-driven funnel.
@@ -32,6 +33,16 @@ export async function renderHome(_req: Request, res: Response): Promise<void> {
     console.error("[home] failed to load blog teaser:", err);
     blogPosts = [];
   }
+
+  // Admin-managed testimonials; fall back to the static set on any DB error.
+  let testimonialList: Testimonial[];
+  try {
+    testimonialList = await listTestimonials();
+  } catch (err) {
+    console.error("[home] failed to load testimonials:", err);
+    testimonialList = testimonials;
+  }
+
   res.render("home", {
     site,
     navLinks,
@@ -43,7 +54,7 @@ export async function renderHome(_req: Request, res: Response): Promise<void> {
     howItWorks,
     resultsStats,
     whatSetsApart,
-    testimonials,
+    testimonials: testimonialList,
     // Condensed "us vs everyone else" mini-table; full set lives on /cold-calling-vs-direct-mail.
     comparisonRows: comparisonRows.slice(0, 4),
     enterprise: enterprisePlan,
