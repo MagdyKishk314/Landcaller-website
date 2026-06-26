@@ -7,16 +7,6 @@
         <% guide.body.forEach(function(paragraph){ %>
         <p class="text-white/60 leading-relaxed text-lg"><%= paragraph %></p>
         <% }); %>
-        <ul class="space-y-3 pt-1">
-          <% guide.highlights.forEach(function(h){ %>
-          <li class="flex items-center gap-3">
-            <span class="w-8 h-8 rounded-lg bg-[#E8523A]/10 flex items-center justify-center shrink-0">
-              <%- include('_icons', { name: h.icon, cls: 'h-4 w-4 text-[#E8523A]' }) %>
-            </span>
-            <span class="text-sm text-white/80 font-medium"><%= h.label %></span>
-          </li>
-          <% }); %>
-        </ul>
         <div class="pt-3">
           <%- include('_button', { label: guide.cta.label, href: guide.cta.href, variant: 'outline', icon: 'arrow-right' }) %>
         </div>

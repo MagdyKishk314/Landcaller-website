@@ -27,11 +27,10 @@ test("home route renders the full landing page", async () => {
     const html = await res.text();
     // Every major funnel section is present, in story order.
     for (const needle of [
-      "Warm Land Seller Leads.", // hero
+      "The Land Investing Ecosystem", // hero
       "The Hard Truth", // problem
       "Built by land investors", // guide teaser
-      "Stop imagining a warm lead", // call samples
-      "Warm leads in your CRM", // how it works
+      "Your Next Land Deal Starts Here", // how it works
       "We proved that we can do it.", // testimonials slider
       "Why Land Caller Wins", // why us
       "Choose your weapon", // pricing teaser
@@ -42,10 +41,6 @@ test("home route renders the full landing page", async () => {
     }
     // FAQ answer is server-rendered (not just the question).
     assert.ok(html.includes("reliable, consistent pipeline of off-market seller leads"));
-    // Call-sample audio players are rendered and reference the sample files.
-    assert.ok(html.includes("data-audio-player"), "missing audio players");
-    assert.ok(html.includes("sample-call-1.mp3"), "missing audio source");
-    assert.equal((html.match(/data-audio-player/g) || []).length, 2, "expected 2 audio players");
     // Inline Calendly booking embed is present.
     assert.ok(html.includes('id="calendly-embed"'), "missing Calendly embed");
     assert.ok(html.includes("data-calendly"), "missing Calendly hook");
@@ -167,9 +162,9 @@ test("SEO landing pages render with one H1 each", async () => {
       assert.ok(html.includes(needle), `missing H1 on ${path}`);
       assert.equal((html.match(/<h1/g) || []).length, 1, `${path} should have exactly one <h1>`);
     }
-    // CRM page surfaces its key content + data-pricing table.
+    // CRM page surfaces its key content sections.
     const crm = await (await fetch(`http://127.0.0.1:${port}/crm`)).text();
-    for (const n of ["Land Caller CRM", "Undeniable performance", "Smart Estimates", "$0.1300", "Basic Data Policy"]) {
+    for (const n of ["Land Caller CRM", "Undeniable performance", "Smart Estimates", "Every lead, instantly in your CRM"]) {
       assert.ok(crm.includes(n), `crm page missing: ${n}`);
     }
   } finally {

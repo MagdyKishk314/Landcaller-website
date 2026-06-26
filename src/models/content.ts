@@ -59,8 +59,8 @@ export const problem = {
 
 export const howItWorks = {
   eyebrow: "The Plan",
-  heading: "Warm leads in your CRM, in four steps",
-  subtext: "No call center to build. No guesswork. Here's exactly what happens after you book.",
+  heading: "Your Next Land Deal Starts Here",
+  subtext: "Here's exactly what happens after you become a Land Caller customer.",
   steps: [
     {
       number: "01",
@@ -92,7 +92,14 @@ export const resultsStats: ResultStat[] = [
   { value: "40hrs", label: "Weekly dial time" },
 ];
 
-export const callSamples: CallSample[] = [
+// Call samples are temporarily NOT shown on the site. The recordings still live
+// in /public/assets/audio (sample-call-1.mp3 & sample-call-2.mp3) with company
+// names, seller names, and emails bleeped out. An empty array hides the "Hear a
+// real lead" home section AND the hero's secondary CTA. To bring it back, restore
+// the entries below (or swap in new recordings).
+export const callSamples: CallSample[] = [];
+
+/* Previous samples, kept for when call samples are re-enabled:
   {
     title: "Generational owner, open to a sale",
     market: "Mitchell County, TX · 155 acres",
@@ -109,19 +116,15 @@ export const callSamples: CallSample[] = [
     durationLabel: "9:08",
     src: "/assets/audio/sample-call-2.mp3",
   },
-];
+*/
 
 /** Condensed "the guide" teaser shown on the home funnel; links to /about. */
 export const guide = {
   eyebrow: "Who We Are",
   heading: "Built by land investors, for land investors.",
   body: [
-    "Land Caller was founded by a land investor who got tired of saturated direct mail and built a cold calling operation that actually worked - then turned it into a done-for-you service for investors like you.",
-    "Because we invest in land ourselves, our callers speak your prospects' language, build rapport fast, and qualify the leads that actually become deals.",
-  ],
-  highlights: [
-    { icon: "shield-check" as const, label: "Veteran-founded, US-based team" },
-    { icon: "target" as const, label: "The first cold call team built only for land" },
+    "Land Caller was founded by land investor Joe Roberts, who grew frustrated with the high costs and inconsistent results of large-scale direct mail campaigns.",
+    "After developing a cold calling system that consistently generated off-market opportunities, he built Land Caller to help other land professionals create predictable acquisition pipelines—without the burden of hiring, training, managing callers, or navigating TCPA compliance.",
   ],
   cta: { label: "Read our story", href: "/about" },
 };
@@ -154,18 +157,18 @@ export const whatSetsApart = {
   items: [
     {
       number: "01",
-      title: "The First & Only",
+      title: "The First",
       body: "We pioneered cold calling lead gen exclusively for vacant land investors. Nobody else has our depth of niche expertise.",
     },
     {
       number: "02",
       title: "Obsessively Data-Driven",
-      body: "Daily KPI reporting. Relentless split-testing. Every campaign is optimized until it prints leads.",
+      body: "Weekly and Daily KPI reporting. Relentless split-testing. Every campaign is optimized until it prints leads.",
     },
     {
       number: "03",
       title: "Scale Without Limits",
-      body: "From 1 caller to 20 - we grow with you. No caps on dials, no caps on ambition.",
+      body: "From 1 caller to 20 - we grow with you. No caps on dials, no caps on growth.",
     },
     {
       number: "04",

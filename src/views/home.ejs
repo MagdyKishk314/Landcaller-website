@@ -12,7 +12,7 @@
           <%- include('partials/results') %>
           <%- include('partials/testimonials-slider') %>
           <%- include('partials/why-us') %>
-          <%- include('partials/call-samples') %>
+          <% if (typeof callSamples !== 'undefined' && callSamples.length) { %><%- include('partials/call-samples') %><% } %>
           <%- include('partials/problem') %>
           <%- include('partials/who-we-are') %>
           <%- include('partials/how-it-works') %>
