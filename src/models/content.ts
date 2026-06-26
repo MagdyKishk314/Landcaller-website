@@ -92,14 +92,11 @@ export const resultsStats: ResultStat[] = [
   { value: "40hrs", label: "Weekly dial time" },
 ];
 
-// Call samples are temporarily NOT shown on the site. The recordings still live
-// in /public/assets/audio (sample-call-1.mp3 & sample-call-2.mp3) with company
-// names, seller names, and emails bleeped out. An empty array hides the "Hear a
-// real lead" home section AND the hero's secondary CTA. To bring it back, restore
-// the entries below (or swap in new recordings).
-export const callSamples: CallSample[] = [];
-
-/* Previous samples, kept for when call samples are re-enabled:
+// Call samples shown in the "Hear a real lead" home section. These recordings
+// live in /public/assets/audio with company names, seller names, and emails
+// bleeped out; the caller's voice and name are left intact. An empty array would
+// hide the section AND the hero's secondary CTA (both are guarded on length).
+export const callSamples: CallSample[] = [
   {
     title: "Generational owner, open to a sale",
     market: "Mitchell County, TX · 155 acres",
@@ -116,7 +113,7 @@ export const callSamples: CallSample[] = [];
     durationLabel: "9:08",
     src: "/assets/audio/sample-call-2.mp3",
   },
-*/
+];
 
 /** Condensed "the guide" teaser shown on the home funnel; links to /about. */
 export const guide = {

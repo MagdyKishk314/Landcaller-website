@@ -23,7 +23,7 @@
         <!-- Audio player (custom controls over native <audio>; wired in main.ts) -->
         <div class="lc-audio" data-audio-player>
           <audio preload="metadata" data-audio-el>
-            <source src="<%= sample.src %>" type="audio/mpeg">
+            <source src="<%= asset(sample.src) %>" type="audio/mpeg">
           </audio>
           <button type="button" class="lc-audio__btn" data-audio-toggle aria-pressed="false" aria-label="Play call sample: <%= sample.title %>">
             <span data-audio-icon="play" class="flex"><%- include('_icons', { name: 'play', cls: 'h-5 w-5 fill-current translate-x-px' }) %></span>

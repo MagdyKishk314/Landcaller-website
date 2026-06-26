@@ -30,6 +30,7 @@ test("home route renders the full landing page", async () => {
       "The Land Investing Ecosystem", // hero
       "The Hard Truth", // problem
       "Built by land investors", // guide teaser
+      "Stop imagining a warm lead", // call samples
       "Your Next Land Deal Starts Here", // how it works
       "We proved that we can do it.", // testimonials slider
       "Why Land Caller Wins", // why us
@@ -41,6 +42,10 @@ test("home route renders the full landing page", async () => {
     }
     // FAQ answer is server-rendered (not just the question).
     assert.ok(html.includes("reliable, consistent pipeline of off-market seller leads"));
+    // Call-sample audio players are rendered and reference the sample files.
+    assert.ok(html.includes("data-audio-player"), "missing audio players");
+    assert.ok(html.includes("sample-call-1.mp3"), "missing audio source");
+    assert.equal((html.match(/data-audio-player/g) || []).length, 2, "expected 2 audio players");
     // Inline Calendly booking embed is present.
     assert.ok(html.includes('id="calendly-embed"'), "missing Calendly embed");
     assert.ok(html.includes("data-calendly"), "missing Calendly hook");
