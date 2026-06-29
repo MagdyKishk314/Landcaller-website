@@ -204,11 +204,11 @@ export interface PainPoint {
   body: string;
 }
 
-/** A numbered step in the home "How It Works" plan. */
+/** A numbered step in the home "How It Works" plan timeline. */
 export interface ProcessStep {
   number: string;
   title: string;
-  body: string;
+  points: string[];
 }
 
 /** A single hard-number stat in the results band. */

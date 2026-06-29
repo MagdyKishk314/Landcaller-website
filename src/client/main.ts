@@ -400,6 +400,105 @@ function initSlider(root: HTMLElement): void {
   start();
 }
 
+/* --- "The Plan" timeline (scroll reveal + rail draw) ----------------------- */
+
+function initTimelines(): void {
+  const timelines = Array.from(document.querySelectorAll<HTMLElement>("[data-timeline]"));
+  if (!timelines.length) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  timelines.forEach((timeline) => {
+    const items = Array.from(timeline.querySelectorAll<HTMLElement>("[data-timeline-item]"));
+    const rail = timeline.querySelector<HTMLElement>("[data-timeline-rail]");
+    const progress = timeline.querySelector<HTMLElement>("[data-timeline-progress]");
+    const nodes = items.map((it) => it.querySelector<HTMLElement>("[data-timeline-node]"));
+    if (!items.length) return;
+
+    // Reduced motion: leave the copy visible (default), just fill the rail and
+    // light the nodes. No `is-animated` class -> no hidden initial state.
+    if (reduce) {
+      nodes.forEach((n) => n?.classList.add("is-active"));
+      if (progress) progress.style.height = "100%";
+      return;
+    }
+
+    // Opt into the animated state only now that JS is running. The hidden
+    // initial state in CSS is scoped to `.is-animated`, so the copy stays
+    // visible if this script never loads (progressive enhancement).
+    timeline.classList.add("is-animated");
+
+    // Fade/slide each item in as it scrolls into view.
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.25, rootMargin: "0px 0px -12% 0px" }
+    );
+    items.forEach((it) => io.observe(it));
+
+    // Node centres (relative to the timeline top) drive the rail geometry and
+    // the scroll-linked progress fill. The node reveal scales about its centre,
+    // so these measurements stay stable regardless of reveal state.
+    let centers: number[] = [];
+    const layout = () => {
+      const top = timeline.getBoundingClientRect().top;
+      centers = nodes.map((n) => {
+        if (!n) return 0;
+        const r = n.getBoundingClientRect();
+        return r.top - top + r.height / 2;
+      });
+      if (rail && centers.length) {
+        const first = centers[0];
+        const last = centers[centers.length - 1];
+        rail.style.top = `${first}px`;
+        rail.style.height = `${Math.max(0, last - first)}px`;
+      }
+    };
+
+    const update = () => {
+      if (centers.length < 2) return;
+      const top = timeline.getBoundingClientRect().top;
+      const first = centers[0];
+      const span = centers[centers.length - 1] - first;
+      if (span <= 0) return;
+      const anchor = window.innerHeight * 0.6; // fill reaches nodes ~60% down the viewport
+      const ratio = Math.min(Math.max((anchor - (top + first)) / span, 0), 1);
+      if (progress) progress.style.height = `${ratio * 100}%`;
+      const filled = ratio * span;
+      nodes.forEach((n, i) => {
+        if (n && filled >= centers[i] - first - 4) n.classList.add("is-active");
+      });
+    };
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    const onResize = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        layout();
+        update();
+      });
+    };
+
+    layout();
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    // Re-measure once fonts/layout settle (node heights can shift on font swap).
+    window.setTimeout(() => {
+      layout();
+      update();
+    }, 350);
+  });
+}
+
 function handleNoJsFallback(): void {
   const params = new URLSearchParams(window.location.search);
   if (params.get("sent") === "1") {
@@ -414,6 +513,7 @@ function init(): void {
   initFaqAccordion();
   initAudioPlayers();
   initSliders();
+  initTimelines();
   initBookingFlow();
   handleNoJsFallback();
 }

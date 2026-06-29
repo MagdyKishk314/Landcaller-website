@@ -368,3 +368,143 @@ html { scroll-behavior: smooth; }
 .lc-prose table { width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 1rem; }
 .lc-prose th, .lc-prose td { border: 1px solid rgba(255, 255, 255, 0.1); padding: 0.65rem 0.85rem; text-align: left; }
 .lc-prose th { background: #141414; color: #fff; font-weight: 600; }
+
+/* ---------------------------------------------------------------------------
+ * "The Plan" vertical timeline (home how-it-works). Numbered nodes on an
+ * animated rail; items fade/slide in on scroll and the rail "draws" itself as
+ * the section scrolls past. Behaviour wired in main.ts (initTimelines).
+ * ------------------------------------------------------------------------- */
+.lc-timeline {
+  position: relative;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+/* The static rail + animated progress fill, centred on the node column. */
+.lc-timeline__rail {
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  height: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.lc-timeline__progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0%;
+  border-radius: 9999px;
+  background: linear-gradient(to bottom, #e8523a, #ff7a63);
+  box-shadow: 0 0 12px rgba(232, 82, 58, 0.5);
+  transition: height 0.15s linear;
+}
+
+.lc-timeline__item {
+  position: relative;
+  display: flex;
+  gap: 1.25rem;
+  padding-bottom: 2.75rem;
+}
+.lc-timeline__item:last-child { padding-bottom: 0; }
+
+/* Numbered node sitting on the rail. */
+.lc-timeline__node {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background: #141414;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.5);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+.lc-timeline__node.is-active {
+  background: #e8523a;
+  border-color: #e8523a;
+  color: #fff;
+  box-shadow: 0 0 0 6px rgba(232, 82, 58, 0.12), 0 8px 22px -8px rgba(232, 82, 58, 0.7);
+}
+
+.lc-timeline__content {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-top: 0.35rem;
+  padding-bottom: 0.25rem;
+}
+.lc-timeline__title {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 1rem;
+}
+.lc-timeline__points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.lc-timeline__point {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.lc-timeline__check {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.28rem;
+  color: #e8523a;
+}
+
+/* Reveal-on-scroll. The hidden initial state is applied ONLY after main.ts marks
+ * the timeline `.is-animated`, so the copy is always visible when JS is
+ * unavailable (progressive enhancement). The node scales about its centre (so
+ * its rail position never shifts) and the copy slides up. */
+.lc-timeline.is-animated .lc-timeline__node { opacity: 0; transform: scale(0.4); }
+.lc-timeline.is-animated .lc-timeline__content {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s ease 0.1s, transform 0.55s ease 0.1s;
+}
+.lc-timeline.is-animated .lc-timeline__item.is-visible .lc-timeline__node { opacity: 1; transform: scale(1); }
+.lc-timeline.is-animated .lc-timeline__item.is-visible .lc-timeline__content { opacity: 1; transform: translateY(0); }
+
+@media (min-width: 640px) {
+  .lc-timeline__item { gap: 1.75rem; padding-bottom: 3.25rem; }
+  .lc-timeline__title { font-size: 1.375rem; }
+  .lc-timeline__point { font-size: 1rem; }
+}
+
+/* No-motion preference: show everything, no transitions. JS also short-circuits. */
+@media (prefers-reduced-motion: reduce) {
+  .lc-timeline.is-animated .lc-timeline__node,
+  .lc-timeline.is-animated .lc-timeline__content {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  .lc-timeline__progress { transition: none; }
+}

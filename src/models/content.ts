@@ -64,23 +64,34 @@ export const howItWorks = {
   steps: [
     {
       number: "01",
-      title: "We build your target list",
-      body: "Share your buy box and counties. We pull records, skip trace the top phone numbers, and scrub every one for litigators and DNC compliance.",
+      title: "Build Your Target List",
+      points: [
+        "Conduct market research, then pull, skip trace, and scrub your records directly from the Land Caller Data Dashboard. All DNC records are included for FREE.",
+        "Want to bring your own list? Simply upload it after it's been skip traced and scrubbed through the Data Dashboard. Skip tracing and TCPA + DNC scrubbing costs just ½ credit, and DNC records are always included for free.",
+      ],
     },
     {
       number: "02",
-      title: "Your dedicated caller dials",
-      body: "A full-time, land-trained caller works your campaign 1:1 - never shared across 20 clients - with unlimited dials and no call caps.",
+      title: "Customized Script + Dedicated Slack Channel",
+      points: [
+        "Your dedicated Slack channel will be created, and your team will be invited for direct access to our QA, data, and support teams throughout your campaign.",
+        "Finalize your custom script using one of our proven templates or build your own. We'll help refine your messaging with insights gained from hundreds of successful land campaigns.",
+      ],
     },
     {
       number: "03",
-      title: "Warm seller leads hit your CRM",
-      body: "Qualified, off-market leads are delivered the same day with call dispositions and daily KPI reporting, so you always know your numbers.",
+      title: "CRM Integration + Lead Delivery",
+      points: [
+        "We'll integrate lead delivery directly into your Land Caller CRM or your existing CRM - and can even handle appointment setting on your behalf.",
+        "Qualified, off-market seller leads are delivered the same day, complete with call dispositions and daily KPI reporting, giving you full visibility into your campaign's performance.",
+      ],
     },
     {
       number: "04",
-      title: "We optimize, you close",
-      body: "We split-test scripts and markets to drive your cost per lead down while you focus on negotiating and closing deals.",
+      title: "We Optimize. You Close.",
+      points: [
+        "Our team continuously monitors performance, split-tests dialing strategies, and optimizes your campaign - so you can spend less time managing marketing and more time closing land deals.",
+      ],
     },
   ] as ProcessStep[],
 };
