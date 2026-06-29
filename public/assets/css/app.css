@@ -402,7 +402,7 @@ html { scroll-behavior: smooth; }
   height: 0%;
   border-radius: 9999px;
   background: linear-gradient(to bottom, #e8523a, #ff7a63);
-  box-shadow: 0 0 12px rgba(232, 82, 58, 0.5);
+  box-shadow: 0 0 4px rgba(232, 82, 58, 0.2);
   transition: height 0.15s linear;
 }
 
@@ -439,7 +439,7 @@ html { scroll-behavior: smooth; }
   background: #e8523a;
   border-color: #e8523a;
   color: #fff;
-  box-shadow: 0 0 0 6px rgba(232, 82, 58, 0.12), 0 8px 22px -8px rgba(232, 82, 58, 0.7);
+  box-shadow: 0 0 0 3px rgba(232, 82, 58, 0.1);
 }
 
 .lc-timeline__content {
@@ -496,6 +496,32 @@ html { scroll-behavior: smooth; }
   .lc-timeline__item { gap: 1.75rem; padding-bottom: 3.25rem; }
   .lc-timeline__title { font-size: 1.375rem; }
   .lc-timeline__point { font-size: 1rem; }
+}
+
+/* Desktop: centered, alternating timeline. The rail and nodes run down the
+ * page centre (aligned with the centred heading); steps 01/03 sit to the left
+ * and 02/04 to the right. Mobile keeps the readable left-rail layout above. */
+@media (min-width: 768px) {
+  .lc-timeline { max-width: 64rem; }
+  .lc-timeline__rail { left: 50%; }
+  .lc-timeline__item {
+    display: grid;
+    grid-template-columns: 1fr 3rem 1fr;
+    column-gap: 2.5rem;
+    align-items: start;
+    padding-bottom: 3.5rem;
+  }
+  .lc-timeline__node { grid-column: 2; grid-row: 1; }
+  .lc-timeline__content {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    max-width: 26rem;
+  }
+  .lc-timeline__item:nth-of-type(even) .lc-timeline__content {
+    grid-column: 3;
+    justify-self: start;
+  }
 }
 
 /* No-motion preference: show everything, no transitions. JS also short-circuits. */

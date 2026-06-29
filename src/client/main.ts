@@ -465,7 +465,7 @@ function initTimelines(): void {
       const first = centers[0];
       const span = centers[centers.length - 1] - first;
       if (span <= 0) return;
-      const anchor = window.innerHeight * 0.6; // fill reaches nodes ~60% down the viewport
+      const anchor = window.innerHeight * 0.75; // fill's leading edge sits 75% down the viewport
       const ratio = Math.min(Math.max((anchor - (top + first)) / span, 0), 1);
       if (progress) progress.style.height = `${ratio * 100}%`;
       const filled = ratio * span;
