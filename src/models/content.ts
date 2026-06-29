@@ -98,19 +98,19 @@ export const resultsStats: ResultStat[] = [
 // hide the section AND the hero's secondary CTA (both are guarded on length).
 export const callSamples: CallSample[] = [
   {
-    title: "Generational owner, open to a sale",
-    market: "Mitchell County, TX · 155 acres",
-    motivation: "Family-held since the 1940s; lean farming years have him open to selling",
-    outcome: "Qualified - agreed to a valuation & follow-up, and offered up an adjacent parcel",
-    durationLabel: "5:38",
+    title: "Stuck with a parcel they no longer need",
+    market: "2.64-acre vacant lot",
+    motivation: "Bought it for someone who never paid them back - now they just want it gone",
+    outcome: "Warm - named a ~$10k/acre target and agreed to a callback with an offer",
+    durationLabel: "3:02",
     src: "/assets/audio/sample-call-1.mp3",
   },
   {
-    title: "Investor weighing a cash offer",
-    market: "Lake City, FL · 73 acres",
-    motivation: "Career land investor holding it as an investment; open to a strong offer",
-    outcome: "Warm - open to a cash offer and gave an email for the written offer",
-    durationLabel: "9:08",
+    title: "Selling the smaller of two adjoining tracts",
+    market: "4.66-acre tract · mobile home & utilities",
+    motivation: "Doesn't use it; keeping the adjoining tract where family lives",
+    outcome: "Warm - shared a ~$50k target and a 30-day timeline for a follow-up",
+    durationLabel: "5:01",
     src: "/assets/audio/sample-call-2.mp3",
   },
 ];
