@@ -161,6 +161,8 @@ export interface PricingPlan {
   teaserTagline?: string;
   /** Overrides the home teaser's checkmark labels (defaults to the first 4 feature labels). */
   teaserHighlights?: string[];
+  /** Optional sticker (e.g. "5% OFF") shown on the "All [plan] Packages Include" box. */
+  includesBadge?: string;
 }
 
 export interface FeatureMatrixRow {
