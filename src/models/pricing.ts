@@ -54,16 +54,15 @@ export const enterprisePlan: PricingPlan = {
     { name: "Annual", term: "48 weeks of calling", price: "$2,350", per: "/ 4 weeks" },
   ],
   includes: [
-    "Full-time (40 hrs/week) dedicated professional land cold caller",
+    "40hrs/week dial time with professional land cold caller(s)",
     "Dialer software + phone infrastructure",
-    "Same-day lead delivery, appointment setting, and live transfers",
+    "Same-day lead delivery, appointment setting",
     "Land Caller CRM access (or your CRM integration)",
     "Data Dashboard access at volume waterfall discount rates",
     "Full script customization & Call Disposition Report",
     "Dedicated Slack channel for your team",
   ],
   footnotes: [
-    "Flat fee for a full-time (40 hrs/week) professional land cold caller on your campaign.",
     "Volume discount: $100 off/month for every additional agent. Each additional Enterprise agent requires 10,000-12,000 records per 4-week campaign cycle.",
     "5% discount on monthly prices if paid up-front.",
   ],
