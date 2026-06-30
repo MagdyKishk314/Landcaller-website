@@ -10,6 +10,7 @@ export const enterprisePlan: PricingPlan = {
   tagline: "For Full-Time Land Operators (or Professionals)",
   whoFor:
     "Enterprise Packages are designed for established land businesses that need consistent seller conversations, customized campaigns, and advanced campaign insights to support multi-channel marketing.",
+  note: "“Best Value” needs to be placed in front of the Annual Package since it has the lowest rate. However, if you’re wanting to highlight the middle package for aesthetic reasons, you could change “Best Value” to “Most Popular”.",
   features: [
     {
       label: "Custom Script + Dedicated Caller",
