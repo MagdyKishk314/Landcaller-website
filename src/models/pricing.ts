@@ -65,7 +65,6 @@ export const enterprisePlan: PricingPlan = {
   footnotes: [
     "Volume discount: $100 off/month for every additional agent. Each additional Enterprise agent requires 10,000-12,000 records per 4-week campaign cycle.",
   ],
-  includesBadge: "5% OFF",
   includesNote: "5% discount on monthly prices if paid up-front.",
   startingAt: { price: "$2,350", per: "/ 4 weeks" },
   // Condensed copy for the home pricing teaser card (does not affect /pricing).
