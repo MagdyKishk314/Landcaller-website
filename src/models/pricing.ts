@@ -10,7 +10,7 @@ export const enterprisePlan: PricingPlan = {
   tagline: "For Full-Time Land Operators (or Professionals)",
   whoFor:
     "Enterprise Packages are designed for established land businesses that need consistent seller conversations, customized campaigns, and advanced campaign insights to support multi-channel marketing.",
-  note: "“Best Value” needs to be placed in front of the Annual Package since it has the lowest rate. However, if you’re wanting to highlight the middle package for aesthetic reasons, you could change “Best Value” to “Most Popular”.",
+  note: "Lead fulfillment varies with market saturation, property type, and the quality of your data and skip tracing. Our focus is maximizing performance within those variables - most campaigns generate approximately 45-65 leads per month.",
   features: [
     {
       label: "Custom Script + Dedicated Caller",
