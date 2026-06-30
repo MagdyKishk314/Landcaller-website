@@ -7,10 +7,9 @@ import type { PricingPlan } from "./types.js";
 
 export const enterprisePlan: PricingPlan = {
   name: "Enterprise",
-  tagline: "For serious operators ready to scale",
+  tagline: "For Full-Time Land Operators (or Professionals)",
   whoFor:
-    "Enterprise is built for serious operators. If you're running a full-time land business with a VA or small team in place and want a fully customized acquisition system that drives consistent deal flow, Enterprise is your next step.",
-  note: "Lead fulfillment varies with market saturation, property type, and the quality of your data and skip tracing. Our focus is maximizing performance within those variables - most campaigns generate approximately 45-65 leads per month.",
+    "Enterprise Packages are designed for established land businesses that need consistent seller conversations, customized campaigns, and advanced campaign insights to support multi-channel marketing.",
   features: [
     {
       label: "Custom Script + Dedicated Caller",
