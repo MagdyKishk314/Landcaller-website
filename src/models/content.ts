@@ -416,7 +416,7 @@ export const faqs: FaqItem[] = [
   {
     question: "How does cold calling compare to direct mail on cost?",
     answer:
-      "Cold calling is typically more cost-effective per lead. With direct mail, you're paying for printing, postage, and list costs with low response rates. With cold calling, you're paying for direct conversations with motivated sellers - higher conversion, lower cost per acquisition.",
+      "Cold calling delivers a more cost-effective path to seller conversations, often costing 50%+ less than comparable direct mail campaigns.",
   },
   {
     question: "How many leads can one caller generate per month?",
