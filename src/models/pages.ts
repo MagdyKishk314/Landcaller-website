@@ -13,7 +13,7 @@ export const pricingPage = {
   eyebrow: "Pricing & Packages",
   h1: "Land Caller Service Pricing",
   lede:
-    "Transparent, flat-fee packages for land cold calling. Go all-in with a dedicated full-time caller on Enterprise, or start lean with a guaranteed-lead Basic package. Every plan includes land-trained callers, litigator-scrubbed data, and done-for-you operations.",
+    "Whether you're seeking your first deal or actively scaling your land business, there's a Land Caller package designed to help you build an acquisition engine that grows with your land business.",
 };
 
 // Affiliate program page. Copy adapted from the legacy marketing site; the three

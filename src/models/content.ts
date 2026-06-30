@@ -379,11 +379,11 @@ export const packagesDisclaimer =
   "*Auto-renewal unless cancelled in writing. **7-day notice required before contract end. ***Pre-cancellation payments non-refundable; services continue until end of paid period.";
 
 export const featureMatrix: FeatureMatrixRow[] = [
-  { feature: "Dedicated Caller", enterprise: true, basic: false },
+  { feature: "40hrs/week Dial Time", enterprise: true, basic: false },
   { feature: "Calling the First 3 Skip Traced Phone #'s", enterprise: true, basic: false },
   { feature: "Full Script Customization", enterprise: true, basic: false },
   { feature: "Personalized Slack Channel for Support", enterprise: true, basic: false },
-  { feature: "Bring Your Own Records", enterprise: true, basic: true },
+  { feature: "Bring Your Own Records", enterprise: true, basic: false },
   { feature: "Customized Caller Training", enterprise: true, basic: false },
   { feature: "Personal CRM Integration", enterprise: true, basic: false },
   { feature: "Call Disposition Reports", enterprise: true, basic: false },
