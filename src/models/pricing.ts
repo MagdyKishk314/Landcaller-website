@@ -68,6 +68,15 @@ export const enterprisePlan: PricingPlan = {
     "5% discount on monthly prices if paid up-front.",
   ],
   startingAt: { price: "$2,350", per: "/ 4 weeks" },
+  // Condensed copy for the home pricing teaser card (does not affect /pricing).
+  teaserTagline: "Designed for full-time land operators",
+  teaserHighlights: [
+    "Custom Script + 40hrs/week Dial Time",
+    "Advanced CRM Integration + Appointment Setting",
+    "Call Disposition Report (Multi-Channel Layering)",
+    "Dedicated Slack Channel",
+    "Top 3 Skip Traced Numbers Dialed",
+  ],
 };
 
 export const basicPlan: PricingPlan = {

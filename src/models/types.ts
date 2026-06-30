@@ -157,6 +157,10 @@ export interface PricingPlan {
   footnotes?: string[];
   /** Lowest price, surfaced on the home pricing teaser. */
   startingAt?: { price: string; per?: string };
+  /** Overrides {@link tagline} on the condensed home pricing teaser card only. */
+  teaserTagline?: string;
+  /** Overrides the home teaser's checkmark labels (defaults to the first 4 feature labels). */
+  teaserHighlights?: string[];
 }
 
 export interface FeatureMatrixRow {

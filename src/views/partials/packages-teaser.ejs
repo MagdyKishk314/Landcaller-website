@@ -2,8 +2,8 @@
   <div class="container">
     <div class="text-center max-w-2xl mx-auto mb-14">
       <p class="text-[#E8523A] text-sm font-semibold tracking-wide uppercase mb-4">Pricing</p>
-      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight">Choose your weapon. Scale at your pace.</h2>
-      <p class="text-white/60 leading-relaxed text-lg">Two ways to start - a dedicated full-time caller with Enterprise, or a guaranteed-lead Basic package to test the waters.</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight">Find The Right Fit For Your Business</h2>
+      <p class="text-white/60 leading-relaxed text-lg">Whether you're just getting started or actively scaling, every Land Caller package is designed to help you build a more predictable acquisition pipeline.</p>
     </div>
     <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
       <% [{ plan: enterprise, pop: true, icon: 'crown' }, { plan: basic, pop: false, icon: 'zap' }].forEach(function(x){ const p = x.plan; const pop = x.pop; %>
@@ -17,7 +17,7 @@
           </div>
           <div>
             <h3 class="text-xl font-bold text-white"><%= p.name %></h3>
-            <p class="text-xs text-white/50"><%= p.tagline %></p>
+            <p class="text-xs text-white/50"><%= p.teaserTagline || p.tagline %></p>
           </div>
         </div>
         <div class="flex items-end gap-1.5 mt-5 mb-6">
@@ -26,8 +26,8 @@
           <% if (p.startingAt.per) { %><span class="text-white/45 text-sm mb-1.5"><%= p.startingAt.per %></span><% } %>
         </div>
         <ul class="space-y-2.5 mb-6">
-          <% p.features.slice(0, 4).forEach(function(f){ %>
-          <li class="flex items-start gap-2 text-sm text-white/70"><%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %><%= f.label %></li>
+          <% (p.teaserHighlights || p.features.slice(0, 4).map(function(f){ return f.label; })).forEach(function(label){ %>
+          <li class="flex items-start gap-2 text-sm text-white/70"><%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %><%= label %></li>
           <% }); %>
         </ul>
         <%- include('_button', { label: 'See ' + p.name + ' pricing', href: '/pricing', variant: pop ? 'primary' : 'outline', icon: 'arrow-right', block: true, extra: 'mt-auto' }) %>

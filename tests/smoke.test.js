@@ -34,7 +34,7 @@ test("home route renders the full landing page", async () => {
       "Your Next Land Deal Starts Here", // how it works
       "We proved that we can do it.", // testimonials slider
       "Why Land Caller Wins", // why us
-      "Choose your weapon", // pricing teaser
+      "Find The Right Fit For Your Business", // pricing teaser
       "From the Blog", // blog teaser
       "Let's dial in your deal flow.", // booking climax (FAQ presence asserted via answer text below)
     ]) {
