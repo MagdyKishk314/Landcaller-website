@@ -144,6 +144,14 @@ export const basicPlan: PricingPlan = {
     "Land Caller CRM full-access upgrades available for expanded automation and multichannel features.",
   ],
   startingAt: { price: "$1,100" },
+  // Condensed checkmarks for the home pricing teaser card (does not affect /pricing).
+  teaserHighlights: [
+    "Guaranteed Lead Counts",
+    "Land Caller Data Credits Included",
+    "Done-For-You Compliance & Call Operations",
+    "Built for Every Experience Level",
+    "No Contracts or Long-Term Commitments",
+  ],
 };
 
 export const dataCostsNote =
