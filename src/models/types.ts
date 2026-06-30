@@ -163,6 +163,8 @@ export interface PricingPlan {
   teaserHighlights?: string[];
   /** Optional sticker (e.g. "5% OFF") shown on the "All [plan] Packages Include" box. */
   includesBadge?: string;
+  /** Optional highlighted line shown centered above the "All [plan] Packages Include" box. */
+  includesNote?: string;
 }
 
 export interface FeatureMatrixRow {

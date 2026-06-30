@@ -36,7 +36,10 @@ const p = plan;
 
 <!-- What's included -->
 <% if (p.includes && p.includes.length) { %>
-<div class="relative max-w-3xl mx-auto mt-10 bg-[#0E0E0E] border border-white/10 rounded-xl p-6 lg:p-7">
+<% if (p.includesNote) { %>
+<p class="max-w-3xl mx-auto text-center font-bold text-[#E8523A]" style="margin-top:2.5rem; margin-bottom:0.75rem;"><%= p.includesNote %></p>
+<% } %>
+<div class="relative max-w-3xl mx-auto bg-[#0E0E0E] border border-white/10 rounded-xl p-6 lg:p-7" style="margin-top:<%= p.includesNote ? '0' : '2.5rem' %>;">
   <% if (p.includesBadge) { const bw = p.includesBadge.split(' '); %>
   <div style="position:absolute; top:-1.4rem; right:-0.6rem; width:4.75rem; height:4.75rem; z-index:10; filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));" aria-hidden="true">
     <svg viewBox="0 0 100 100" width="100%" height="100%">
