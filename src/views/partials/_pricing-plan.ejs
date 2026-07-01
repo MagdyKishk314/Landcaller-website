@@ -14,7 +14,7 @@ const p = plan;
 <div class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
   <% p.tiers.forEach(function(t){ const f = !!t.featured; %>
   <div class="relative rounded-xl p-6 lg:p-7 flex flex-col <%= f ? 'bg-[#141414] border-2 border-[#E8523A]' : 'bg-[#141414] border border-white/10' %>">
-    <% if (f) { %><div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E8523A] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider whitespace-nowrap">Best Value</div><% } %>
+    <% if (f) { %><div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E8523A] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider whitespace-nowrap"><%= p.featuredBadge || 'Best Value' %></div><% } %>
     <div class="text-center">
       <h4 class="text-lg font-bold text-white"><%= t.name %></h4>
       <p class="text-xs text-white/45 mt-0.5 mb-4"><%= t.term %></p>

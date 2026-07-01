@@ -80,7 +80,8 @@ export const enterprisePlan: PricingPlan = {
 
 export const basicPlan: PricingPlan = {
   name: "Basic",
-  tagline: "Start generating leads without overcommitting",
+  tagline: "Start Smart. Grow Fast.",
+  featuredBadge: "Most Popular",
   whoFor:
     "Basic Packages are built for solo land investors, newer operators, or anyone who hasn't yet used cold calling as a primary lead source. The ideal starting point for consistent seller conversations - without overcommitting on cost, complexity, or monthly overhead.",
   features: [

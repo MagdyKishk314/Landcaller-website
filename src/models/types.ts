@@ -163,6 +163,8 @@ export interface PricingPlan {
   teaserHighlights?: string[];
   /** Optional highlighted line shown centered above the "All [plan] Packages Include" box. */
   includesNote?: string;
+  /** Badge text on the featured tier (defaults to "Best Value"). */
+  featuredBadge?: string;
 }
 
 export interface FeatureMatrixRow {
