@@ -109,7 +109,7 @@ export const basicPlan: PricingPlan = {
   tiers: [
     {
       name: "Tier 1",
-      term: "~2 weeks of calling",
+      term: "Up to 2 Weeks of Calling",
       price: "$1,100",
       highlights: [
         "5,000 records pulled, skipped, scrubbed & dialed",
@@ -119,7 +119,7 @@ export const basicPlan: PricingPlan = {
     },
     {
       name: "Tier 2",
-      term: "~3 weeks of calling",
+      term: "Up to 3 Weeks of Calling",
       price: "$1,890",
       featured: true,
       highlights: [
@@ -130,7 +130,7 @@ export const basicPlan: PricingPlan = {
     },
     {
       name: "Tier 3",
-      term: "~4 weeks of calling",
+      term: "Up to 4 Weeks of Calling",
       price: "$2,650",
       highlights: [
         "10,000 records pulled, skipped, scrubbed & dialed",
