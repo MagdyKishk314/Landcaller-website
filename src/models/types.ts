@@ -43,6 +43,12 @@ export interface SiteConfig {
   url: string;
   title: string;
   description: string;
+  /** Comma-separated default meta keywords (per-page override via `metaKeywords`). */
+  keywords: string;
+  /** Default content author for the meta author tag. */
+  author: string;
+  /** Default content publisher for the meta publisher tag. */
+  publisher: string;
   canonical: string;
   faviconUrl: string;
   logo: string;

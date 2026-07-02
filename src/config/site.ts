@@ -13,6 +13,10 @@ export const site: SiteConfig = {
   title: "Land Lead Generation & Cold Calling for Land Investors | Land Caller",
   description:
     "Done-for-you cold calling built exclusively for vacant land investors. We deliver warm, off-market land seller leads straight to your CRM. Book a call.",
+  keywords:
+    "land investor cold calling, land seller leads, cold calling service, land lead generation, vacant land leads, off-market land deals, real estate cold calling, skip tracing, land acquisition, land investing, motivated seller leads, done-for-you cold calling",
+  author: "Land Caller",
+  publisher: "Land Caller",
   canonical: `${BASE_URL}/`,
   faviconUrl: "/assets/images/lc-logo-transparent.png",
   logo: "/assets/images/lc-logo-transparent.png",

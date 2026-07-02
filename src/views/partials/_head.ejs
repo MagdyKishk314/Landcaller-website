@@ -4,12 +4,18 @@ const _desc = (typeof pageDescription !== 'undefined') ? pageDescription : site.
 const _canonical = (typeof canonical !== 'undefined') ? canonical : site.canonical;
 const _ogImageAlt = (typeof ogImageAlt !== 'undefined') ? ogImageAlt : 'Land Caller - cold calling lead generation for land investors';
 const _robots = (typeof metaRobots !== 'undefined') ? metaRobots : 'index, follow, max-image-preview:large';
+const _keywords = (typeof metaKeywords !== 'undefined') ? metaKeywords : site.keywords;
+const _author = (typeof metaAuthor !== 'undefined') ? metaAuthor : site.author;
+const _publisher = (typeof metaPublisher !== 'undefined') ? metaPublisher : site.publisher;
 %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= _title %></title>
     <meta name="description" content="<%= _desc %>" />
+    <meta name="keywords" content="<%= _keywords %>" />
+    <meta name="author" content="<%= _author %>" />
+    <meta name="publisher" content="<%= _publisher %>" />
     <meta name="robots" content="<%= _robots %>" />
     <meta name="theme-color" content="#0E0E0E" />
     <link rel="icon" type="image/png" href="<%= site.faviconUrl %>" />

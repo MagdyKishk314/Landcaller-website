@@ -25,7 +25,7 @@
                      const dateLabel = new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); %>
                 <a href="/blog/<%= post.slug %>" class="group flex flex-col bg-[#141414] border border-white/5 rounded-xl overflow-hidden hover:border-[#E8523A]/40 hover:bg-[#1A1A1A] transition-all duration-300 hover:translate-y-[-2px]">
                   <div class="aspect-video overflow-hidden bg-[#0E0E0E]">
-                    <img src="<%= post.image %>" alt="<%= post.title %>" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" loading="lazy">
+                    <img src="<%= post.image %>" alt="<%= post.title %>" title="<%= post.title %>" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" loading="lazy">
                   </div>
                   <div class="flex flex-col flex-1 p-6">
                     <div class="flex items-center gap-3 mb-3">

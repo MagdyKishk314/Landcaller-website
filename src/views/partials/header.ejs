@@ -11,7 +11,7 @@ const isActive = (h) => h === '#' ? curPath === '/' : (curPath === h || curPath.
 <header id="site-header" class="top-0 z-50 transition-all duration-300 bg-[#0E0E0E]/98 backdrop-blur-md border-b border-white/5" style="position: sticky; top: 0;">
   <div class="container flex items-center justify-between h-16 lg:h-20 gap-6">
     <a href="<%= resolve('#') %>" class="flex items-center shrink-0">
-      <img alt="Land Caller - land investor cold calling service" class="h-10 lg:h-12 w-auto" width="586" height="244" src="<%= site.logo %>">
+      <img alt="Land Caller - land investor cold calling service" title="Land Caller" class="h-10 lg:h-12 w-auto" width="586" height="244" src="<%= site.logo %>">
     </a>
     <nav class="hidden lg:flex items-center gap-7">
       <% navLinks.forEach(function(link){ const active = isActive(link.href); %>

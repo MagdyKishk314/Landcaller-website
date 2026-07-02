@@ -26,7 +26,7 @@
             <section class="py-16 lg:py-24 bg-[#0D0D0D]">
               <div class="container max-w-3xl">
                 <div class="aspect-video overflow-hidden rounded-xl bg-[#0E0E0E] border border-white/5 mb-10">
-                  <img src="<%= post.image %>" alt="<%= post.title %>" class="w-full h-full object-cover" loading="lazy">
+                  <img src="<%= post.image %>" alt="<%= post.title %>" title="<%= post.title %>" class="w-full h-full object-cover" loading="lazy">
                 </div>
                 <% if (post.bodyHtml) { %>
                   <div class="lc-prose"><%- post.bodyHtml %></div>
