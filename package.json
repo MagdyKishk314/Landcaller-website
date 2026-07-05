@@ -14,12 +14,12 @@
     "build": "npm run clean && npm run build:server && npm run copy:views && npm run build:client",
     "vercel-build": "npm run build",
     "dev:client": "esbuild src/client/main.ts --bundle --format=iife --sourcemap --outfile=public/assets/js/main.js --watch",
-    "dev:server": "tsx watch src/server.ts",
-    "dev": "npm run build:client && tsx watch src/server.ts",
+    "dev:server": "node --watch --import ./scripts/dev-ts-resolve.mjs src/server.ts",
+    "dev": "npm run build:client && node --watch --import ./scripts/dev-ts-resolve.mjs src/server.ts",
     "start": "node dist/server.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "db:init": "tsx scripts/init-db.ts",
-    "db:seed": "tsx scripts/init-db.ts --seed",
+    "db:init": "node --import ./scripts/dev-ts-resolve.mjs scripts/init-db.ts",
+    "db:seed": "node --import ./scripts/dev-ts-resolve.mjs scripts/init-db.ts --seed",
     "test": "node --test tests/smoke.test.js"
   },
   "dependencies": {
