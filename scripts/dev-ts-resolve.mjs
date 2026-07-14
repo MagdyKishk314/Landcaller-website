@@ -6,22 +6,11 @@
  * ".ts" file on disk. This hook adds that fallback so `node src/server.ts` works
  * without a bundler/transpiler (previously handled by tsx). No effect in prod,
  * where `npm start` runs the compiled dist/*.js.
+ *
+ * Registers the resolve hook via the async `module.register()` API (stable since
+ * Node 20) rather than the synchronous `registerHooks` (only Node 22.15+), so
+ * `npm run dev` works on older Node 22.x releases too.
  */
-import { registerHooks } from "node:module";
+import { register } from "node:module";
 
-registerHooks({
-  resolve(specifier, context, nextResolve) {
-    try {
-      return nextResolve(specifier, context);
-    } catch (err) {
-      // Only retry relative ".js" specifiers by pointing at the ".ts" source.
-      if (
-        (specifier.startsWith("./") || specifier.startsWith("../")) &&
-        specifier.endsWith(".js")
-      ) {
-        return nextResolve(specifier.slice(0, -3) + ".ts", context);
-      }
-      throw err;
-    }
-  },
-});
+register("./dev-ts-hooks.mjs", import.meta.url);
