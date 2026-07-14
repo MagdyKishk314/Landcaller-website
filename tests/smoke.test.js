@@ -159,7 +159,7 @@ test("SEO landing pages render with one H1 each", async () => {
     for (const [path, needle] of [
       ["/pricing", "Land Caller Service Pricing"],
       ["/blog", "Insights on Cold Calling"],
-      ["/crm", "Stop buying leads. Start building a pipeline."],
+      ["/crm", "Land Caller CRM + Data."],
     ]) {
       const res = await fetch(`http://127.0.0.1:${port}${path}`);
       assert.equal(res.status, 200, `page failed: ${path}`);
@@ -167,11 +167,11 @@ test("SEO landing pages render with one H1 each", async () => {
       assert.ok(html.includes(needle), `missing H1 on ${path}`);
       assert.equal((html.match(/<h1/g) || []).length, 1, `${path} should have exactly one <h1>`);
     }
-    // CRM page surfaces its key content sections.
+    // /crm is temporarily served as a "coming soon" page (full content preserved,
+    // just not rendered) and is excluded from indexing.
     const crm = await (await fetch(`http://127.0.0.1:${port}/crm`)).text();
-    for (const n of ["Land Caller CRM", "Undeniable performance", "Smart Estimates", "Every lead, instantly in your CRM"]) {
-      assert.ok(crm.includes(n), `crm page missing: ${n}`);
-    }
+    assert.ok(crm.includes("Coming Soon"), "crm coming-soon eyebrow missing");
+    assert.ok(crm.includes('content="noindex, follow"'), "crm coming-soon should be noindex");
   } finally {
     server.close();
   }

@@ -56,6 +56,19 @@ export const joinUsPage = {
   lede: "We're putting this page together. Check back soon for open roles and ways to work with us.",
 };
 
+// The /crm route is temporarily served as a "coming soon" page. The full CRM +
+// Data page is preserved (views/crm.ejs + models/crm.ts) and can be switched
+// back on in pagesController (see renderCrm).
+export const crmComingSoonPage = {
+  title: "Land Caller CRM + Data - Coming Soon",
+  description:
+    "The Land Caller CRM + Data platform is coming soon. Book a call to learn more, or check back shortly.",
+  path: "/crm",
+  eyebrow: "Coming Soon",
+  h1: "Land Caller CRM + Data.",
+  lede: "We're putting the finishing touches on our unified CRM + Data platform. It's coming soon - book a call to get the details, or check back shortly.",
+};
+
 export const blogPage = {
   title: "The Land Caller Blog | Cold Calling & Land Acquisition Insights",
   description:
