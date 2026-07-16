@@ -2,10 +2,6 @@
 /* Renders a full pricing plan (Enterprise or Basic). Param: plan (PricingPlan).
    Relies on `site` from the page locals for the CTA link. */
 const p = plan;
-const hasCrm = function(s){ return /CRM/.test(s); };
-const planHasCrm =
-  (p.includes || []).some(hasCrm) ||
-  (p.tiers || []).some(function(t){ return (t.highlights || []).some(hasCrm); });
 %>
 <div class="max-w-3xl mx-auto text-center mb-10">
   <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-2">Land Caller <%= p.name %> Package</h2>
@@ -30,17 +26,13 @@ const planHasCrm =
     <% if (t.highlights && t.highlights.length) { %>
     <ul class="space-y-2.5 mt-6 text-left">
       <% t.highlights.forEach(function(h){ %>
-      <li class="flex items-start gap-2 text-sm text-white/70"><%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %><span><%= h %><% if (hasCrm(h)) { %><%- include('_coming-soon-badge') %><% } %></span></li>
+      <li class="flex items-start gap-2 text-sm text-white/70"><%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %><%= h %></li>
       <% }); %>
     </ul>
     <% } %>
   </div>
   <% }); %>
 </div>
-
-<% if (planHasCrm && typeof crmDisclosure !== 'undefined') { %>
-<p class="max-w-3xl mx-auto text-center text-xs text-white/45 leading-relaxed" style="margin-top:1.25rem;"><span style="color:#E8523A;font-weight:600;">Note:</span> <%= crmDisclosure %></p>
-<% } %>
 
 <!-- What's included -->
 <% if (p.includes && p.includes.length) { %>
@@ -51,7 +43,7 @@ const planHasCrm =
   <p class="text-xs font-bold uppercase tracking-wider text-white mb-4">All <%= p.name %> Packages Include</p>
   <div class="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
     <% p.includes.forEach(function(inc){ %>
-    <div class="flex items-start gap-2 text-sm text-white/65"><%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %><span><%= inc %><% if (hasCrm(inc)) { %><%- include('_coming-soon-badge') %><% } %></span></div>
+    <div class="flex items-start gap-2 text-sm text-white/65"><%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %><%= inc %></div>
     <% }); %>
   </div>
 </div>

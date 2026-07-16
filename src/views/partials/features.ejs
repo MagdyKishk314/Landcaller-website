@@ -19,7 +19,7 @@
            const rowBg = idx % 2 === 0 ? 'bg-[#141414]' : 'bg-[#0F0F0F]';
            const borderCls = last ? '' : 'border-b border-white/5 '; %>
       <div class="grid grid-cols-[1fr_100px_100px] sm:grid-cols-[1fr_140px_140px] <%= borderCls %><%= rowBg %>">
-        <div class="p-3 lg:p-4 text-sm text-white/70 flex items-center flex-wrap"><span><%= row.feature %></span><% if (/CRM/.test(row.feature)) { %><%- include('_coming-soon-badge') %><% } %></div>
+        <div class="p-3 lg:p-4 text-sm text-white/70 flex items-center"><%= row.feature %></div>
         <div class="p-3 lg:p-4 flex items-center justify-center">
           <div class="w-6 h-6 rounded-full bg-[#E8523A]/15 flex items-center justify-center">
             <%- include('_icons', { name: 'check', cls: 'h-3.5 w-3.5 text-[#E8523A]' }) %>
@@ -37,9 +37,6 @@
       </div>
       <% }); %>
     </div>
-    <% if (typeof crmDisclosure !== 'undefined') { %>
-    <p class="text-xs text-white/45 leading-relaxed mt-6 max-w-3xl mx-auto text-center"><span style="color:#E8523A;font-weight:600;">Note:</span> <%= crmDisclosure %></p>
-    <% } %>
     <p class="text-xs text-white/40 mt-6 max-w-3xl mx-auto text-center"><%= featureMatrixDisclaimer %></p>
   </div>
 </section>
