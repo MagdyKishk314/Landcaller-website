@@ -43,6 +43,7 @@
           <section class="py-24 lg:py-32 bg-[#111111] border-b border-white/5">
             <div class="container">
               <div class="text-center max-w-3xl mx-auto mb-12">
+                <%- include('partials/_crm-soon-flag') %>
                 <p class="text-[#E8523A] text-sm font-semibold tracking-wide uppercase mb-3"><%= crmIntro.eyebrow %></p>
                 <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-5 leading-tight"><%= crmIntro.heading %></h2>
                 <p class="text-white/60 leading-relaxed text-lg"><%= crmIntro.body %></p>
@@ -58,9 +59,6 @@
                 <% }); %>
               </div>
               <p class="text-center text-white/60 leading-relaxed text-lg max-w-3xl mx-auto mt-12"><%= crmIntro.closing %></p>
-              <div class="text-center mt-10">
-                <%- include('partials/_button', { label: 'Access the CRM', variant: 'primary', size: 'lg', attrs: 'data-crm-coming-soon title="CRM is coming soon"' }) %>
-              </div>
             </div>
           </section>
 
@@ -90,6 +88,7 @@
           <section class="py-24 lg:py-32 bg-[#111111] border-b border-white/5">
             <div class="container">
               <div class="text-center max-w-3xl mx-auto mb-14">
+                <%- include('partials/_crm-soon-flag') %>
                 <p class="text-[#E8523A] text-sm font-semibold tracking-wide uppercase mb-4"><%= crmIntegration.eyebrow %></p>
                 <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight"><%= crmIntegration.heading %></h2>
                 <p class="text-white/60 leading-relaxed text-lg"><%= crmIntegration.body %></p>
@@ -107,9 +106,6 @@
                 <div class="hidden md:flex items-center justify-center shrink-0 text-[#E8523A]"><%- include('partials/_icons', { name: 'arrow-right', cls: 'h-5 w-5' }) %></div>
                 <% } %>
                 <% }); %>
-              </div>
-              <div class="text-center mt-12">
-                <%- include('partials/_button', { label: 'Access the CRM', variant: 'primary', size: 'lg', attrs: 'data-crm-coming-soon title="CRM is coming soon"' }) %>
               </div>
             </div>
           </section>

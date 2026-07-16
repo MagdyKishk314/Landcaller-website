@@ -93,6 +93,11 @@ html { scroll-behavior: smooth; }
   .lg\:col-span-5 { grid-column: span 5 / span 5; }
 }
 
+/* Drop shadow on the /crm hero dashboard screenshot. Not in the original purged
+ * Tailwind build, so define them here (Tailwind default 2xl shadow, black/40). */
+.shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+.shadow-black\/40 { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4); }
+
 /* ---------------------------------------------------------------------------
  * Hero CRM device - iPad-style framed screenshot that bleeds off the right.
  * ------------------------------------------------------------------------- */
@@ -533,4 +538,41 @@ html { scroll-behavior: smooth; }
     transform: none;
   }
   .lc-timeline__progress { transition: none; }
+}
+
+/* "CRM is coming soon" flag - a flashing pill pinned atop each CRM section. */
+.lc-soon-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  background: rgba(232, 82, 58, 0.12);
+  border: 1px solid rgba(232, 82, 58, 0.45);
+  color: #e8523a;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  animation: lc-soon-flash 1.5s ease-in-out infinite;
+}
+.lc-soon-flag__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: #e8523a;
+  animation: lc-soon-blink 1.5s ease-in-out infinite;
+}
+@keyframes lc-soon-flash {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(232, 82, 58, 0); }
+  50% { opacity: 0.6; box-shadow: 0 0 14px 2px rgba(232, 82, 58, 0.35); }
+}
+@keyframes lc-soon-blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.7); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lc-soon-flag,
+  .lc-soon-flag__dot { animation: none; }
 }
