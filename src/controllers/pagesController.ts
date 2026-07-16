@@ -8,6 +8,7 @@ import {
   crmIntegration,
   crmDataDashboard,
   crmCta,
+  crmComingSoon,
 } from "../models/crm.js";
 import { featureMatrix, featureMatrixDisclaimer, affiliateTiers } from "../models/content.js";
 import { enterprisePlan, basicPlan, dataCostsNote } from "../models/pricing.js";
@@ -56,6 +57,7 @@ export function renderCrm(_req: Request, res: Response): void {
     crmIntegration,
     crmDataDashboard,
     crmCta,
+    crmComingSoon,
     pageTitle: crmPage.title,
     pageDescription: crmPage.description,
     canonical: `${site.url}${crmPage.path}`,
