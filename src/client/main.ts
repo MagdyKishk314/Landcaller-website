@@ -507,6 +507,19 @@ function handleNoJsFallback(): void {
   }
 }
 
+/* --- "Coming soon" buttons (e.g. the CRM on /crm) -------------------------- */
+
+function initComingSoonButtons(): void {
+  document.addEventListener("click", (e) => {
+    const trigger = (e.target as HTMLElement).closest<HTMLElement>(
+      "[data-crm-coming-soon]"
+    );
+    if (!trigger) return;
+    e.preventDefault();
+    showToast("The Land Caller CRM is coming soon!");
+  });
+}
+
 function init(): void {
   initMobileMenu();
   initPackageAccordions();
@@ -515,6 +528,7 @@ function init(): void {
   initSliders();
   initTimelines();
   initBookingFlow();
+  initComingSoonButtons();
   handleNoJsFallback();
 }
 
