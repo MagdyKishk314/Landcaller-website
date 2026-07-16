@@ -12,6 +12,7 @@ import {
   comparisonRows,
   faqs,
   contactFields,
+  crmDisclosure,
 } from "../models/content.js";
 import { enterprisePlan, basicPlan } from "../models/pricing.js";
 import { listPublishedPosts } from "../repositories/postRepository.js";
@@ -59,6 +60,7 @@ export async function renderHome(_req: Request, res: Response): Promise<void> {
     comparisonRows: comparisonRows.slice(0, 4),
     enterprise: enterprisePlan,
     basic: basicPlan,
+    crmDisclosure,
     blogPosts,
     faqs: faqs.slice(0, 5),
     contactFields,

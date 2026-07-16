@@ -10,11 +10,11 @@
       <span class="lc-timeline__rail" data-timeline-rail aria-hidden="true">
         <span class="lc-timeline__progress" data-timeline-progress></span>
       </span>
-      <% howItWorks.steps.forEach(function(step){ %>
+      <% howItWorks.steps.forEach(function(step){ const stepCrm = /CRM/.test(step.title); %>
       <li class="lc-timeline__item" data-timeline-item>
         <div class="lc-timeline__node" data-timeline-node aria-hidden="true"><%= step.number %></div>
         <div class="lc-timeline__content">
-          <h3 class="lc-timeline__title"><%= step.title %></h3>
+          <h3 class="lc-timeline__title"><%= step.title %><% if (stepCrm) { %><%- include('_coming-soon-badge') %><% } %></h3>
           <ul class="lc-timeline__points">
             <% step.points.forEach(function(point){ %>
             <li class="lc-timeline__point">
@@ -23,6 +23,9 @@
             </li>
             <% }); %>
           </ul>
+          <% if (stepCrm && typeof crmDisclosure !== 'undefined') { %>
+          <p class="text-xs text-white/45 leading-relaxed" style="margin-top:0.85rem;"><span style="color:#E8523A;font-weight:600;">Note:</span> <%= crmDisclosure %></p>
+          <% } %>
         </div>
       </li>
       <% }); %>

@@ -27,13 +27,16 @@
         </div>
         <ul class="space-y-2.5 mb-6">
           <% (p.teaserHighlights || p.features.slice(0, 4).map(function(f){ return f.label; })).forEach(function(label){ %>
-          <li class="flex items-start gap-2 text-sm text-white/70"><%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %><%= label %></li>
+          <li class="flex items-start gap-2 text-sm text-white/70"><%- include('_icons', { name: 'check', cls: 'h-4 w-4 text-[#E8523A] mt-0.5 shrink-0' }) %><span><%= label %><% if (/CRM/.test(label)) { %><%- include('_coming-soon-badge') %><% } %></span></li>
           <% }); %>
         </ul>
         <%- include('_button', { label: 'See ' + p.name + ' pricing', href: '/pricing', variant: pop ? 'primary' : 'outline', icon: 'arrow-right', block: true, extra: 'mt-auto' }) %>
       </div>
       <% }); %>
     </div>
+    <% if (typeof crmDisclosure !== 'undefined') { %>
+    <p class="text-xs text-white/45 leading-relaxed max-w-3xl mx-auto text-center" style="margin-top:1.5rem;"><span style="color:#E8523A;font-weight:600;">Note:</span> <%= crmDisclosure %></p>
+    <% } %>
     <div class="text-center mt-10">
       <%- include('_section-link', { label: 'Compare full pricing & features', href: '/pricing' }) %>
     </div>

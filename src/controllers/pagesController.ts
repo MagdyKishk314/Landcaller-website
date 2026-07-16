@@ -1,13 +1,15 @@
 import type { Request, Response, NextFunction } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
+import { pricingPage, blogPage, joinUsPage, affiliatePage } from "../models/pages.js";
 import {
-  pricingPage,
-  blogPage,
-  joinUsPage,
-  affiliatePage,
-  crmComingSoonPage,
-} from "../models/pages.js";
-import { featureMatrix, featureMatrixDisclaimer, affiliateTiers } from "../models/content.js";
+  crmPage,
+  crmIntro,
+  crmPerformance,
+  crmIntegration,
+  crmDataDashboard,
+  crmCta,
+} from "../models/crm.js";
+import { featureMatrix, featureMatrixDisclaimer, affiliateTiers, crmDisclosure } from "../models/content.js";
 import { enterprisePlan, basicPlan, dataCostsNote } from "../models/pricing.js";
 import {
   listPublishedPosts,
@@ -27,6 +29,7 @@ export function renderPricing(_req: Request, res: Response): void {
     dataCostsNote,
     featureMatrix,
     featureMatrixDisclaimer,
+    crmDisclosure,
     pageTitle: pricingPage.title,
     pageDescription: pricingPage.description,
     canonical: `${site.url}${pricingPage.path}`,
@@ -39,26 +42,24 @@ export function renderPricing(_req: Request, res: Response): void {
   });
 }
 
-/**
- * "/crm" - temporarily served as a "coming soon" page. The full CRM + Data page
- * is preserved (views/crm.ejs + models/crm.ts, still wired to `crmPage`); to
- * bring it back, restore the crm model import and render "crm" with
- * { page: crmPage, crmIntro, crmPerformance, crmIntegration, crmDataDashboard,
- * crmCta } as before, and drop the coming-soon render below.
- */
+/** "/crm" - the CRM + Data showcase (rebuilt from the legacy marketing copy). */
 export function renderCrm(_req: Request, res: Response): void {
-  res.render("coming-soon", {
+  res.render("crm", {
     site,
     navLinks,
     footerLinks,
-    page: crmComingSoonPage,
-    pageTitle: crmComingSoonPage.title,
-    pageDescription: crmComingSoonPage.description,
-    canonical: `${site.url}${crmComingSoonPage.path}`,
-    metaRobots: "noindex, follow",
+    page: crmPage,
+    crmIntro,
+    crmPerformance,
+    crmIntegration,
+    crmDataDashboard,
+    crmCta,
+    pageTitle: crmPage.title,
+    pageDescription: crmPage.description,
+    canonical: `${site.url}${crmPage.path}`,
     breadcrumbs: [
       { name: "Home", path: "/" },
-      { name: "CRM + Data", path: crmComingSoonPage.path },
+      { name: "CRM + Data", path: crmPage.path },
     ],
     isHome: false,
     year: new Date().getFullYear(),

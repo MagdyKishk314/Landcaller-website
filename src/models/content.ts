@@ -402,6 +402,14 @@ export const featureMatrix: FeatureMatrixRow[] = [
 export const featureMatrixDisclaimer =
   "*Automatic Renewal: Contracts will automatically renew unless we receive written notice of cancellation. **Notice Period: To avoid renewal, please notify us at least 7 days before your contract ends. ***Refunds: Payments made prior to cancellation are non-refundable, but services will continue until the end of the paid period.";
 
+/**
+ * Shown wherever the Land Caller CRM is presented as a feature, while the CRM
+ * platform is still being built. Kept in one place so the wording stays
+ * consistent across the home + pricing sections (and easy to remove at launch).
+ */
+export const crmDisclosure =
+  "The Land Caller CRM is currently in development and launching soon. CRM features roll out as they go live - your leads are delivered to you in the meantime.";
+
 export const faqs: FaqItem[] = [
   {
     question: "Who is Land Caller built for?",
