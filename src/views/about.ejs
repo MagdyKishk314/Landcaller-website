@@ -38,18 +38,6 @@
               <%- include('partials/_button', { label: 'Book A Call', href: '/#book', variant: 'primary', size: 'lg' }) %>
             </div>
           </section>
-
-          <!-- CRM + Data: coming soon -->
-          <section class="py-24 lg:py-32 bg-[#0D0D0D] border-t border-white/5">
-            <div class="container max-w-3xl">
-              <div class="rounded-2xl border border-[#E8523A]/25 bg-[#141414] p-10 lg:p-14 text-center">
-                <%- include('partials/_crm-soon-flag') %>
-                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white leading-tight" style="margin-bottom:1rem;"><%= about.comingSoon.heading %></h2>
-                <p class="text-white/65 leading-relaxed text-lg max-w-2xl mx-auto mb-8"><%= about.comingSoon.body %></p>
-                <%- include('partials/_button', { label: about.comingSoon.cta.label, href: about.comingSoon.cta.href, variant: 'outline', size: 'lg', icon: 'arrow-right' }) %>
-              </div>
-            </div>
-          </section>
         </main>
         <%- include('partials/footer') %>
       </div>

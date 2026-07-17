@@ -15,12 +15,6 @@ export const about = {
     'Our motto in business, as it is in life, is <strong class="text-white">"Ad Majorem Dei Gloriam"</strong> - Latin for "To God Be the Glory." Our faith underlies everything we do, including building a business that provides excellent service and outstanding results for our clients, and fair pay and great opportunities for our people.',
   ],
   ctaHeading: "Start Growing Your Land Investing Business Today",
-  // Bottom-of-page teaser for the in-development CRM + Data platform.
-  comingSoon: {
-    heading: "The Land Caller CRM is coming soon.",
-    body: "We're evolving beyond the agency model into the Land Caller Ecosystem - bringing lead generation, data, and deal management together in one command center. The CRM is the next piece, and it's launching soon.",
-    cta: { label: "Preview CRM + Data", href: "/crm" },
-  },
 };
 
 export const team: TeamMember[] = [
