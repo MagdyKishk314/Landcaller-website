@@ -18,11 +18,11 @@ export interface NamedPoint {
 }
 
 export const crmPage = {
-  title: "Land Caller CRM + Data | Your Acquisition Command Center",
+  title: "Land Caller Data + CRM | Your Acquisition Command Center",
   description:
     "The Land Caller CRM unifies your data, dialing, and deal management in one command center - real-time KPIs, in-app scripts, AI automations, and transparent wholesale data pricing built for land investors.",
   path: "/crm",
-  eyebrow: "Land Caller CRM + Data",
+  eyebrow: "Data + CRM",
   h1: "Stop buying leads. Start building a pipeline.",
   // Same dashboard screenshot used in the home page hero.
   image: "/assets/images/crm-dashboard.jpg",

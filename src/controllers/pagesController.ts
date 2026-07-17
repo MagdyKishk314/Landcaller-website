@@ -63,7 +63,7 @@ export function renderCrm(_req: Request, res: Response): void {
     canonical: `${site.url}${crmPage.path}`,
     breadcrumbs: [
       { name: "Home", path: "/" },
-      { name: "CRM + Data", path: crmPage.path },
+      { name: "Data + CRM", path: crmPage.path },
     ],
     isHome: false,
     year: new Date().getFullYear(),

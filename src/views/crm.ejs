@@ -9,31 +9,20 @@
         <%- include('partials/header') %>
         <main>
 
-          <!-- Hero: fits within one screen. Column layout - the dashboard image
-               flex-grows to fill whatever height is left after the title/CTAs,
-               cropping from the top (object-fit) so it never pushes past the fold. -->
-          <section class="bg-[#0E0E0E] border-b border-white/5 overflow-hidden" style="height: calc(100vh - 80px); min-height: 560px;">
-            <div class="container" style="height: 100%;">
-              <div class="max-w-5xl mx-auto text-center flex flex-col" style="height: 100%; padding-top: 2rem; padding-bottom: 2rem;">
-
-                <!-- 1. Title -->
-                <div style="flex: 0 0 auto;">
-                  <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase mb-4"><%= page.eyebrow %></p>
-                  <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] font-bold tracking-tight" style="margin-bottom: 1.5rem;"><%= page.h1 %></h1>
+          <!-- Hero: title, dashboard screenshot shown at its natural resolution
+               (capped at native width so it is never upscaled/blurred), copy + CTAs. -->
+          <section class="bg-[#0E0E0E] border-b border-white/5 overflow-hidden" style="padding-top: clamp(2.5rem, 5vw, 4rem); padding-bottom: clamp(2.5rem, 5vw, 4rem);">
+            <div class="container">
+              <div class="max-w-5xl mx-auto text-center">
+                <p class="text-[#E8523A] text-sm sm:text-base font-semibold tracking-wide uppercase mb-4"><%= page.eyebrow %></p>
+                <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] font-bold tracking-tight" style="margin-bottom: 2rem;"><%= page.h1 %></h1>
+                <div class="rounded-xl border border-white/10 bg-[#111111] shadow-2xl shadow-black/40 overflow-hidden mx-auto" style="max-width: 1024px;">
+                  <img src="<%= page.image %>" alt="Land Caller CRM dashboard showing property market insights, lead counts, and analytics" title="Land Caller CRM Dashboard" class="block w-full h-auto" loading="lazy" decoding="async">
                 </div>
-
-                <!-- 2. Dashboard image fills the remaining vertical space -->
-                <div class="rounded-xl border border-white/10 bg-[#111111] shadow-2xl shadow-black/40 overflow-hidden" style="flex: 1 1 auto; min-height: 0;">
-                  <img src="<%= page.image %>" alt="Land Caller CRM dashboard showing property market insights, lead counts, and analytics" title="Land Caller CRM Dashboard" class="block" style="width: 100%; height: 100%; object-fit: cover; object-position: top;" loading="lazy" decoding="async">
-                </div>
-
-                <!-- 3. Wording + CTAs beneath the image -->
-                <div style="flex: 0 0 auto; margin-top: 1.5rem;">
-                  <p class="text-white/70 text-lg leading-relaxed max-w-3xl mx-auto" style="margin-bottom: 1.25rem;"><%= page.lede %></p>
-                  <div class="flex flex-wrap items-center justify-center gap-4">
-                    <%- include('partials/_button', { label: 'Book A Call', href: '/#book', variant: 'primary', size: 'lg' }) %>
-                    <%- include('partials/_button', { label: 'View Pricing', href: '/pricing', variant: 'outline', size: 'lg' }) %>
-                  </div>
+                <p class="text-white/70 text-lg leading-relaxed max-w-3xl mx-auto" style="margin-top: 2rem; margin-bottom: 1.5rem;"><%= page.lede %></p>
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                  <%- include('partials/_button', { label: 'Book A Call', href: '/#book', variant: 'primary', size: 'lg' }) %>
+                  <%- include('partials/_button', { label: 'View Pricing', href: '/pricing', variant: 'outline', size: 'lg' }) %>
                 </div>
               </div>
             </div>
