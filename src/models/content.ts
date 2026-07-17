@@ -21,7 +21,7 @@ export const hero = {
     "Land Caller is the done-for-you cold calling service built exclusively for land professionals. Now, we're evolving beyond the traditional agency model to deliver the Land Caller Ecosystem - a unified platform that brings lead generation, data, and deal management together in one command center.",
   note:
     "Purpose-built campaigns. Proven outcomes. Positioned for profit.",
-  image: "/assets/images/crm-dashboard.jpg",
+  image: "/assets/images/crm-dashboard.png",
   // Small trust signals rendered beneath the hero CTAs.
   trustBadges: [
     "Hundreds of campaigns run",

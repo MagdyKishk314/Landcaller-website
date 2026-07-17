@@ -25,7 +25,7 @@ export const crmPage = {
   eyebrow: "Data + CRM",
   h1: "Stop buying leads. Start building a pipeline.",
   // Same dashboard screenshot used in the home page hero.
-  image: "/assets/images/crm-dashboard.jpg",
+  image: "/assets/images/crm-dashboard.png",
   lede:
     "Land Caller is retiring the “Agency” model and delivering the Land Caller Ecosystem - unifying your data, dialing, and deal management under one command center.",
 };
