@@ -169,5 +169,5 @@ export const crmCta = {
 /** Bottom-of-page announcement that the CRM platform is still being built. */
 export const crmComingSoon = {
   heading: "The Land Caller CRM is coming soon.",
-  body: "We're evolving beyond the agency model into the Land Caller Ecosystem - bringing lead generation, data, and deal management together in one command center. The CRM is the next piece, and it's launching soon.",
+  body: "We're evolving beyond the agency model into the Land Caller Ecosystem, bringing lead generation, data, and deal management together in one command center. The CRM is the next piece, and it's launching soon.",
 };
