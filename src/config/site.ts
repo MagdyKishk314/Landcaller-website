@@ -35,7 +35,7 @@ export const site: SiteConfig = {
 export const navLinks: NavLink[] = [
   { label: "Home", href: "#" },
   { label: "About", href: "/about" },
-  { label: "CRM + Data", href: "/crm" },
+  { label: "Data + CRM", href: "/crm" },
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
   { label: "Affiliates", href: "/affiliate" },
@@ -43,7 +43,7 @@ export const navLinks: NavLink[] = [
 ];
 
 export const footerLinks: NavLink[] = [
-  { label: "CRM + Data", href: "/crm" },
+  { label: "Data + CRM", href: "/crm" },
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about" },
