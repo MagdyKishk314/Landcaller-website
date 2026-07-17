@@ -23,6 +23,7 @@ router.get("/cold-calling-vs-direct-mail", (_req, res) => res.redirect(301, "/")
 // Funnel spoke pages
 router.get("/pricing", renderPricing);
 router.get("/crm", renderCrm);
+// Legacy CRM URL preserved as a 301 to the canonical /crm.
 router.get("/crm-and-data", (_req, res) => res.redirect(301, "/crm"));
 router.get("/blog", asyncHandler(renderBlog));
 router.get("/blog/:slug", asyncHandler(renderBlogPost));
