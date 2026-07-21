@@ -358,3 +358,5 @@ This repo doubles as a template for cloning any site into TS-MVC:
   original (toast + reset). The `POST /contact` route exists only as a graceful
   no-JS fallback.
 - Analytics trackers from the source are deliberately not reproduced.
+
+Tiny edit: pushed on 2026-07-21.
