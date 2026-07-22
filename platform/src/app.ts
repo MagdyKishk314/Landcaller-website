@@ -1,9 +1,18 @@
 import express, { type Application, type Request, type Response, type NextFunction } from "express";
 import { logger } from "./logger.js";
+import { withAsyncErrors } from "./lib/asyncPatch.js";
 import healthRouter from "./routes/health.js";
 import oauthRouter from "./routes/oauth.js";
 import provisioningRouter from "./routes/provisioning.js";
 import activationRouter from "./routes/activation.js";
+import lookupsRouter from "./routes/lookups.js";
+import cronsRouter from "./routes/crons.js";
+import ssoRouter from "./routes/sso.js";
+import injectorsRouter from "./routes/injectors.js";
+import accesscheckRouter from "./routes/accesscheck.js";
+import customPopupRouter from "./routes/customPopup.js";
+import contactWebhookRouter from "./routes/contactWebhook.js";
+import scriptChecklistRouter from "./routes/scriptChecklist.js";
 import legacyRouter from "./routes/legacy.js";
 
 /**
@@ -31,13 +40,25 @@ export function createApp(): Application {
     next();
   });
 
-  app.use(healthRouter);
   // Implemented legacy-path routers mount BEFORE the stub inventory; Express
   // first-match wins, so anything not yet ported still answers 501 below.
-  app.use(oauthRouter);
-  app.use(provisioningRouter);
-  app.use(activationRouter);
-  app.use(legacyRouter);
+  // withAsyncErrors routes rejected promises into the JSON error handler.
+  const routers = [
+    healthRouter,
+    oauthRouter,
+    provisioningRouter,
+    activationRouter,
+    lookupsRouter,
+    cronsRouter,
+    ssoRouter,
+    injectorsRouter,
+    accesscheckRouter,
+    customPopupRouter,
+    contactWebhookRouter,
+    scriptChecklistRouter,
+    legacyRouter,
+  ];
+  for (const r of routers) app.use(withAsyncErrors(r));
 
   app.use((req, res) => {
     logger.warn("unknown path", { path: req.path, method: req.method });

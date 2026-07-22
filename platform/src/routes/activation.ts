@@ -28,6 +28,7 @@ router.use(
     "/data_only_webhook.php",
     "/contract_status.php",
     "/plan_renew_date_update.php",
+    "/webhooks/admin_hold_update_permission.php",
   ],
   requireWebhookSecret
 );
@@ -174,6 +175,31 @@ router.post("/data_only_webhook.php", async (req, res) => {
   } catch (err) {
     logger.error("data_only activation failed", { error: err instanceof Error ? err.message : String(err) });
     res.status(502).json({ status: "error", message: "activation failed" });
+  }
+});
+
+/**
+ * Admin hold - strips marketing/social/etc. permissions while keeping core
+ * CRM (the ADMIN_HOLD profile). As in legacy, this only APPLIES a hold;
+ * lifting one means re-running the matching activation webhook.
+ */
+router.post("/webhooks/admin_hold_update_permission.php", async (req, res) => {
+  const email = String(req.body?.email ?? "").trim();
+  if (!email) {
+    res.status(400).json({ status: "error", message: "email is required" });
+    return;
+  }
+  const row = await tenants.findByEmail(email);
+  if (!row?.ghl_user_id) {
+    res.status(404).json({ status: "error", message: "No account found for that email" });
+    return;
+  }
+  try {
+    await ghl.applyProfile(row.ghl_user_id, "ADMIN_HOLD");
+    res.json({ status: "success" });
+  } catch (err) {
+    logger.error("admin hold failed", { error: err instanceof Error ? err.message : String(err) });
+    res.status(502).json({ status: "error", message: "hold failed" });
   }
 });
 

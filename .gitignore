@@ -16,6 +16,7 @@ _discovery/
 .env
 .env.*
 !.env.example
+platform/keys/
 
 # SQLite blog database (local/VPS data; never commit)
 data/
