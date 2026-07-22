@@ -1,6 +1,9 @@
 import express, { type Application, type Request, type Response, type NextFunction } from "express";
 import { logger } from "./logger.js";
 import healthRouter from "./routes/health.js";
+import oauthRouter from "./routes/oauth.js";
+import provisioningRouter from "./routes/provisioning.js";
+import activationRouter from "./routes/activation.js";
 import legacyRouter from "./routes/legacy.js";
 
 /**
@@ -29,6 +32,11 @@ export function createApp(): Application {
   });
 
   app.use(healthRouter);
+  // Implemented legacy-path routers mount BEFORE the stub inventory; Express
+  // first-match wins, so anything not yet ported still answers 501 below.
+  app.use(oauthRouter);
+  app.use(provisioningRouter);
+  app.use(activationRouter);
   app.use(legacyRouter);
 
   app.use((req, res) => {

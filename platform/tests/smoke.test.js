@@ -27,25 +27,42 @@ test("healthz responds ok (db false without config)", async () => {
   });
 });
 
-test("legacy paths answer 501 not_migrated with phase tags", async () => {
+test("unported legacy paths answer 501 not_migrated with phase tags", async () => {
   await withServer(async (base) => {
-    const res = await fetch(`${base}/activate_basic_user.php`, {
+    const res = await fetch(`${base}/stripe_products/enterprise_webhook.php`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: "probe@example.com" }),
+      body: "{}",
     });
     assert.equal(res.status, 501);
     const body = await res.json();
     assert.equal(body.error, "not_migrated");
-    assert.equal(body.phase, "P2");
+    assert.equal(body.phase, "P3");
+  });
+});
 
-    const res2 = await fetch(`${base}/stripe_products/enterprise_webhook.php`, {
-      method: "POST",
-      body: "{}",
-    });
-    assert.equal(res2.status, 501);
-    const body2 = await res2.json();
-    assert.equal(body2.phase, "P3");
+test("activation webhooks reject requests without the shared secret", async () => {
+  await withServer(async (base) => {
+    for (const path of ["/activate_basic_user.php", "/create_location.php", "/contract_status.php"]) {
+      const res = await fetch(`${base}${path}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: "probe@example.com" }),
+      });
+      assert.equal(res.status, 401, `${path} should 401 without secret`);
+      const body = await res.json();
+      assert.equal(body.error, "unauthorized");
+    }
+  });
+});
+
+test("authorize.php redirects to the GHL marketplace with a state param", async () => {
+  await withServer(async (base) => {
+    const res = await fetch(`${base}/authorize.php`, { redirect: "manual" });
+    assert.equal(res.status, 302);
+    const loc = res.headers.get("location");
+    assert.ok(loc?.startsWith("https://marketplace.gohighlevel.com/oauth/chooselocation"));
+    assert.ok(loc?.includes("state="));
+    assert.ok(res.headers.get("set-cookie")?.includes("lc_oauth_state="));
   });
 });
 

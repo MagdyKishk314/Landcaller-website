@@ -361,6 +361,40 @@ export class GhlClient {
 
   // ---- Contacts ----
 
+  /**
+   * Set a custom field on a contact, resolving the field by (case-insensitive)
+   * name or fieldKey suffix - port of updatePaymentStatusByContactId, used to
+   * flip `payment_status` on the customer's contact in the master location.
+   * Returns false when the field doesn't exist (non-fatal, mirrors legacy).
+   */
+  async setContactCustomFieldByName(
+    locationId: string,
+    contactId: string,
+    fieldName: string,
+    value: string
+  ): Promise<boolean> {
+    const token = await this.getLocationToken(locationId);
+    if (!token) return false;
+    const data = await this.request<{
+      customFields?: Array<{ id: string; name?: string; fieldKey?: string }>;
+    }>("GET", `/locations/${locationId}/customFields`, undefined, { token });
+    const wanted = fieldName.toLowerCase();
+    const field = data.customFields?.find(
+      (f) => f.name?.toLowerCase() === wanted || f.fieldKey?.toLowerCase().endsWith(wanted)
+    );
+    if (!field) {
+      logger.warn("custom field not found on location", { locationId, fieldName });
+      return false;
+    }
+    await this.request(
+      "PUT",
+      `/contacts/${contactId}`,
+      { customFields: [{ id: field.id, value }] },
+      { token }
+    );
+    return true;
+  }
+
   /** Live contact count for a location (meta.total with limit=1). */
   async getContactCount(locationId: string): Promise<number | null> {
     const token = await this.getLocationToken(locationId);
