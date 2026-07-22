@@ -70,9 +70,13 @@ The new site serves nothing under `/app/`, so this collides with nothing.
 ## 6. Remaining checklist (needs your dashboards / access)
 
 1. **Stripe dashboard** (both accounts — "Land Caller" and "Land Caller LLC"): Developers → API keys (any live keys in use?) and → Webhooks (any live-mode endpoints?). Screenshot both.
-2. **GHL agency**: Settings → confirm how customer payments are actually collected on `my.landcaller.com` (GHL Payments provider? which account?). Also export/screenshot the workflow list that references `app.landcaller.com` URLs (the plan's cutover inventory).
-3. **Convoso dashboard**: find the configured postback/webhook URL (Settings → integrations/postbacks). If it's `landcaller.com/app/lcds/…`, apply the Nginx block in §4.
-4. **Old-server crontab** (hPanel → Advanced → Cron Jobs): screenshot — confirms which of the ~13 cron scripts are actually scheduled.
+2. **GHL agency**: ~~confirm how customer payments are collected~~ **Answered 2026-07-22:** GHL Payments → Transactions in the Land Caller LLC master account shows ~320 transactions, provider **Stripe** (connected account), source "Enterprise Onboarding Survey", $250 charges through Jun 2026. Recent rows are mostly test contacts — whether the charges are live-mode money is settled by checklist item 1. Still needed: export/screenshot the workflow list that references `app.landcaller.com` URLs (the plan's cutover inventory).
+3. **Convoso dashboard**: ~~find the configured postback/webhook URL~~ **Answered 2026-07-22: no postback configured anywhere** — campaign Dispositions (Standard + Quick), Apps → Adaptors, and Apps → Plugins are all empty of URLs. The old system received call results only via the hourly `sync-status` polling cron; nothing on Convoso's side points at any Landcaller URL, so nothing broke at the DNS move and nothing needs reconfiguring at cutover.
+4. **Old-server crontab**: ~~screenshot~~ **Answered 2026-07-22** (hPanel → landcaller.com → Advanced → Cron Jobs). 7 jobs, every one a `curl -s https://app.landcaller.com/...`:
+   - `* * * * *` (every minute): `stripe_products/send_scheduled_invoices.php`, `stripe_products/invoice_remainder_cron.php`, `stripe_products/pre_charge_reminder.php`, `cronjobunpaid.php`, `stripe_products/auto_resume.php`, `stripe_products/cron_auto_renew_terms.php`
+   - `0 0 * * *` (daily midnight): `stripe_products/payment_reminders.php`
+   - **Notable absences** (unless the list scrolls past 7 rows — unconfirmed): `leadcountcheck.php` (lead-count/cap enforcement apparently never cron-driven in production) and all three LCDS crons (`batch-processor`, `sync-status`, `refresh-dispositions` — so even the hourly Convoso polling backstop was never scheduled; combined with the no-postback finding, Convoso results ingestion appears to have been manual/never-live).
+   - 6 of 7 jobs belong to the Stripe billing engine, which §2 shows is test-only — they run every minute against test data.
 5. **Database snapshots** (hPanel → Databases → phpMyAdmin, or SSH):
    ```bash
    mysqldump -u <user> -p u353253270_Landcaller_ghl > landcaller_ghl_2026-07-22.sql

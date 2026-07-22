@@ -71,27 +71,49 @@ export async function findContactByEmail(email: string): Promise<string | null> 
   return data.contacts?.[0]?.contact_id ?? null;
 }
 
-export async function createContact(name: string, email: string): Promise<string> {
+export async function createContact(name: string, email: string, phone?: string): Promise<string> {
+  // Legacy split the display name into first/last for the contact person.
+  const display = name || email;
+  const spaceAt = display.indexOf(" ");
   const data = await zohoRequest<{ contact?: { contact_id: string } }>("POST", "/contacts", {
-    contact_name: name || email,
-    contact_persons: [{ email, is_primary_contact: true }],
+    contact_name: display,
+    contact_type: "customer",
+    contact_persons: [
+      {
+        first_name: spaceAt === -1 ? display : display.slice(0, spaceAt),
+        last_name: spaceAt === -1 ? "" : display.slice(spaceAt + 1),
+        email,
+        ...(phone ? { phone } : {}),
+        is_primary_contact: true,
+      },
+    ],
   });
   if (!data.contact) throw new ZohoApiError("Zoho contact create returned no contact", data);
   return data.contact.contact_id;
 }
 
-export async function findOrCreateContact(name: string, email: string): Promise<string> {
-  return (await findContactByEmail(email)) ?? (await createContact(name, email));
+export async function findOrCreateContact(name: string, email: string, phone?: string): Promise<string> {
+  return (await findContactByEmail(email)) ?? (await createContact(name, email, phone));
 }
 
 export async function createInvoice(
   contactId: string,
   amount: number,
-  description: string
+  description: string,
+  opts?: { referenceNumber?: string; notes?: string; lineDescription?: string }
 ): Promise<string> {
   const data = await zohoRequest<{ invoice?: { invoice_id: string } }>("POST", "/invoices", {
     customer_id: contactId,
-    line_items: [{ name: description.slice(0, 100), rate: amount, quantity: 1 }],
+    line_items: [
+      {
+        name: description.slice(0, 100),
+        ...(opts?.lineDescription ? { description: opts.lineDescription } : {}),
+        rate: amount,
+        quantity: 1,
+      },
+    ],
+    ...(opts?.referenceNumber ? { reference_number: opts.referenceNumber.slice(0, 49) } : {}),
+    ...(opts?.notes ? { notes: opts.notes } : {}),
   });
   if (!data.invoice) throw new ZohoApiError("Zoho invoice create returned no invoice", data);
   return data.invoice.invoice_id;
@@ -102,14 +124,16 @@ export async function recordPayment(
   invoiceId: string,
   amount: number,
   referenceNumber: string,
-  paymentMode = "stripe"
+  paymentMode = "stripe",
+  opts?: { description?: string }
 ): Promise<void> {
   await zohoRequest("POST", "/customerpayments", {
     customer_id: contactId,
     payment_mode: paymentMode.charAt(0).toUpperCase() + paymentMode.slice(1),
     amount,
     date: new Date().toISOString().slice(0, 10),
-    reference_number: referenceNumber,
+    reference_number: referenceNumber.slice(0, 49),
+    ...(opts?.description ? { description: opts.description } : {}),
     invoices: [{ invoice_id: invoiceId, amount_applied: amount }],
   });
 }

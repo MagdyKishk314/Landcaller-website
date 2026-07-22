@@ -13,6 +13,7 @@ import accesscheckRouter from "./routes/accesscheck.js";
 import customPopupRouter from "./routes/customPopup.js";
 import contactWebhookRouter from "./routes/contactWebhook.js";
 import scriptChecklistRouter from "./routes/scriptChecklist.js";
+import billingRouter from "./routes/billing.js";
 import legacyRouter from "./routes/legacy.js";
 
 /**
@@ -56,6 +57,7 @@ export function createApp(): Application {
     customPopupRouter,
     contactWebhookRouter,
     scriptChecklistRouter,
+    billingRouter,
     legacyRouter,
   ];
   for (const r of routers) app.use(withAsyncErrors(r));

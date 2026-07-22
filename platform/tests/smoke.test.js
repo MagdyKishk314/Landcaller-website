@@ -127,6 +127,55 @@ test("async handler DB failures return a JSON 500 instead of hanging", async () 
   });
 });
 
+test("ghl_product_purchase is secret-gated and validates its payload", async () => {
+  await withServer(async (base) => {
+    // Without the shared secret: rejected before any parsing.
+    const unauth = await fetch(`${base}/stripe_products/ghl_product_purchase.php`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: "C1", email: "a@b.c", total_price: 250 }),
+    });
+    assert.equal(unauth.status, 401);
+
+    // With the secret (config reads env lazily, so setting it here works):
+    process.env.GHL_WEBHOOK_SHARED_SECRET = "test-secret";
+    try {
+      const missing = await fetch(
+        `${base}/stripe_products/ghl_product_purchase.php?key=test-secret`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: "a@b.c" }),
+        }
+      );
+      assert.equal(missing.status, 400);
+      assert.match(await missing.text(), /missing id/);
+
+      const badAmount = await fetch(
+        `${base}/stripe_products/ghl_product_purchase.php?key=test-secret`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: "C1", email: "a@b.c", total_price: 0 }),
+        }
+      );
+      assert.equal(badAmount.status, 400);
+      assert.equal(await badAmount.text(), "Invalid amount");
+    } finally {
+      delete process.env.GHL_WEBHOOK_SHARED_SECRET;
+    }
+  });
+});
+
+test("retired billing stubs still answer 501 (soak detectors)", async () => {
+  await withServer(async (base) => {
+    const res = await fetch(`${base}/stripe-webhook.php`, { method: "POST", body: "{}" });
+    assert.equal(res.status, 501);
+    const body = await res.json();
+    assert.equal(body.error, "not_migrated");
+  });
+});
+
 test("unknown paths 404 as JSON", async () => {
   await withServer(async (base) => {
     const res = await fetch(`${base}/definitely-not-a-route`);

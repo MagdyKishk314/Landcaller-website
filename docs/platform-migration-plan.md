@@ -80,6 +80,15 @@ Fix deliberately during the port (each is a documented bug): duplicate-row inser
 
 ## 6. Phase 3 — Billing engine (~1.5–2 weeks, scope pending Phase-0 audit)
 
+> **Executed 2026-07-22 as option 3a** (see `docs/phase0-audit.md`): the audit
+> plus dashboard checks (GHL transactions run on GHL-native payments; no
+> Convoso postback exists; all 7 old-server crons are test-only billing jobs)
+> proved the engine never ran live. Only the GHL-purchase→Zoho bridge was
+> ported (`platform/src/routes/billing.ts`, secret-gated). Everything below
+> stays a 501 stub that logs hits as a soak-detector; the original scope is
+> kept for the record. Outstanding: eyes-on Stripe live-mode dashboard check
+> (both accounts) as a pre-cutover confirmation.
+
 Checkout creators (Basic + Connect split, Enterprise upfront/manual/subscription, CRM-only); both Stripe webhooks re-built on verified events with an idempotency table; `billing_schedules` engine as a service (cycle/term math is well documented — 4-week Mon–Fri blocks); pause/resume/hold controls; dunning + reminders + scheduled-invoice crons; Zoho Books via the single client.
 
 Explicitly **drop** (dead today): `auto_renew_on_off.php` (empty stub), `cron_auto_resume.php` (references nonexistent function/table), `check-leads.php` (mysqli on a PDO app), `payment_information.php` render path (unreachable). Fix: `auto_resume.php` one-per-run `die`, inverted `disable_late_fees` check, `blockaccess`-vs-`blocked` comparison in `cronjobunpaid`, `$testing` → env flag.

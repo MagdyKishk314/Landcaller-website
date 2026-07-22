@@ -62,10 +62,12 @@ export const legacyRoutes: LegacyRoute[] = [
   { method: "POST", path: "/script/script-checklist/api/save-selection.php", phase: "P2", note: "per-location toggles" },
   { method: "POST", path: "/script/script-checklist/api/admin.php", phase: "P2", note: "admin CRUD" },
 
-  // --- Billing (P3 - scope per phase0-audit; engine never ran live) ---
-  { method: "POST", path: "/stripe-webhook.php", phase: "P3", note: "bridge webhook (checkout.session.completed)" },
-  { method: "POST", path: "/stripe_products/enterprise_webhook.php", phase: "P3", note: "invoice lifecycle webhook" },
-  { method: "POST", path: "/stripe_products/ghl_product_purchase.php", phase: "P3", note: "GHL storefront -> Zoho (live flow)" },
+  // --- Billing (P3, executed as option 3a: only ghl_product_purchase went
+  // live-relevant; the rest of the engine was test-only and stays stubbed
+  // forever as soak-detectors - a hit here means the audit missed something) ---
+  { method: "POST", path: "/stripe-webhook.php", phase: "P3", note: "bridge webhook - retired (test-only engine)" },
+  { method: "POST", path: "/stripe_products/enterprise_webhook.php", phase: "P3", note: "invoice lifecycle webhook - retired (test-only engine)" },
+  { method: "POST", path: "/stripe_products/ghl_product_purchase.php", phase: "P3", note: "implemented in routes/billing.ts (shadowed)" },
   { method: "GET", path: "/stripe_products/create-checkout.php", phase: "P3", note: "Basic checkout (Connect split)" },
   { method: "GET", path: "/stripe_products/create-enterprice-checkout.php", phase: "P3", note: "enterprise one-time (legacy spelling)" },
   { method: "GET", path: "/stripe_products/create-enterprice-subscription-checkout.php", phase: "P3", note: "enterprise contract engine" },

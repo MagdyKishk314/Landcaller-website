@@ -81,6 +81,21 @@ repoint DNS → `certbot --nginx -d app.landcaller.com` → watch
 production caller reaching a not-yet-migrated route — there should be none by
 then).
 
+At cutover, every GHL workflow webhook URL pointing at this host needs
+`?key=<GHL_WEBHOOK_SHARED_SECRET>` appended — including the storefront
+purchase workflow that fires `/stripe_products/ghl_product_purchase.php`
+(the Phase 3 GHL-purchase→Zoho bridge; needs the `ZOHO_*` env vars set).
+
+## Phase 3 scope note
+
+Only `/stripe_products/ghl_product_purchase.php` was ported (option 3a,
+`docs/phase0-audit.md`): Phase 0 proved the rest of the Stripe billing
+engine — checkout creators, both Stripe webhooks, the `billing_schedules`
+cycle engine, and all 7 of the old server's billing crons — only ever ran in
+test mode. Those paths remain 501 stubs that log any hit; do NOT schedule the
+old billing crons on the VPS. If a stub logs real traffic during the
+pre-cutover soak, the audit missed something — investigate before Phase 4.
+
 ## Security posture vs. the legacy system
 
 - No secrets in code; `.env` only, all values rotated (legacy values are
