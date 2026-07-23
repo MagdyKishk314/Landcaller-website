@@ -171,3 +171,32 @@ after DNS is back).
    the legacy set lived in plaintext in the old webroot.
 5. Then Phase 5 (LCDS decision) and Phase 6 (portal retirement → cancel the
    old hosting).
+
+---
+
+## Appendix A — Building the GHL workflow inventory (prerequisite 5)
+
+In the GHL **agency** account: Automation → Workflows → open each workflow →
+look for **Webhook** actions. Every URL containing `app.landcaller.com` goes
+on the list. These are the endpoints the legacy code expects workflows to
+call — search for each of these paths so none is missed (several may appear
+in more than one workflow):
+
+| # | Endpoint the workflow POSTs to | Fires when |
+|---|---|---|
+| 1 | `/create_location.php` | new tenant purchased → create sub-account + user |
+| 2 | `/createUser.php` | additional seat under an existing location |
+| 3 | `/activate_basic_user.php` | Basic plan activation / lead top-up |
+| 4 | `/activate_enterprise_user.php` | Enterprise activation |
+| 5 | `/activate_only_crm_user.php` | CRM-only activation |
+| 6 | `/data_only_webhook.php` | data-only plan activation |
+| 7 | `/contract_status.php` | contract signed |
+| 8 | `/plan_renew_date_update.php` | renewal date changed |
+| 9 | `/webhooks/admin_hold_update_permission.php` | admin hold toggled |
+| 10 | `/webhooks/create-contact.php` | contact/opportunity ingestion |
+| 11 | `/stripe_products/ghl_product_purchase.php` | storefront purchase → Zoho bookkeeping |
+
+For each URL found: note the workflow name + the exact URL. At cutover step 7,
+each gets `?key=<secret>` appended. Any `app.landcaller.com` URL found that is
+NOT in this table — flag it before cutover; it may be a caller the port
+doesn't cover.
