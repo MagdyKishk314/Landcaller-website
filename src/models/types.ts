@@ -106,6 +106,8 @@ export interface ComparisonRow {
   feature: string;
   landCaller: string;
   everyoneElse: string;
+  /** Optional hover/focus tooltip explaining the Land Caller value. */
+  landCallerTooltip?: string;
 }
 
 export interface PackageFeature {

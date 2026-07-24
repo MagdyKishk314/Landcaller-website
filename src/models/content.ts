@@ -247,7 +247,9 @@ export const comparisonRows: ComparisonRow[] = [
   },
   {
     feature: "Caller-to-client ratio?",
-    landCaller: "1:1 dedicated caller per campaign",
+    landCaller: "1-3 callers per campaign",
+    landCallerTooltip:
+      "We put 1-3 callers on each campaign so owners are approached from different angles - varied voices and styles connect with more sellers than any single caller can.",
     everyoneElse: "5-20 clients stacked on one caller",
   },
   {

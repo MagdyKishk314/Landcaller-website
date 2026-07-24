@@ -576,3 +576,59 @@ html { scroll-behavior: smooth; }
   .lc-soon-flag,
   .lc-soon-flag__dot { animation: none; }
 }
+
+/* Inline info tooltip (hover/focus), e.g. the home comparison table. */
+.lc-tip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.35rem;
+  color: rgba(232, 82, 58, 0.75);
+  cursor: help;
+  vertical-align: middle;
+  outline: none;
+}
+.lc-tip:hover,
+.lc-tip:focus-visible { color: #e8523a; }
+.lc-tip > svg { width: 0.95rem; height: 0.95rem; flex: 0 0 auto; }
+.lc-tip__bubble {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translate(-50%, 4px);
+  width: max-content;
+  max-width: 240px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: #1c1c1e;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: left;
+  white-space: normal;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 30;
+}
+.lc-tip__bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1c1c1e;
+}
+.lc-tip:hover .lc-tip__bubble,
+.lc-tip:focus .lc-tip__bubble,
+.lc-tip:focus-within .lc-tip__bubble {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lc-tip__bubble { transition: none; }
+}
