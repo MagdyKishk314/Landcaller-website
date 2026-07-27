@@ -40,19 +40,19 @@ export const problem = {
     "Most investors think they need callers. In reality, they need recruiting, training, dialer software, scripts, compliance, quality assurance, performance management, and consistent oversight - all working together to generate reliable, qualified leads.",
   painPoints: [
     {
-      icon: "phone",
-      title: "Building your own call team is a grind",
-      body: "Hiring, training, dialer software, scripts, QA, and TCPA compliance - it's a full-time job before you ever talk to a seller.",
+      icon: "users",
+      title: "Hiring & Retention",
+      body: "Finding, training, and keeping quality callers is an ongoing challenge - not a one-time task.",
+    },
+    {
+      icon: "shield-check",
+      title: "Technology & Compliance",
+      body: "Dialer configuration/management, caller IDs, scripts, CRM integration, TCPA compliance, and quality assurance all require constant attention.",
     },
     {
       icon: "trending-up",
-      title: "Direct mail keeps getting more expensive",
-      body: "Rising postage and mailbox saturation are crushing response rates. You pay more per deal while owners ignore another yellow letter.",
-    },
-    {
-      icon: "clock",
-      title: "Inconsistent leads kill your pipeline",
-      body: "Feast-or-famine deal flow makes it impossible to forecast, hire, or scale. One slow month and everything stalls.",
+      title: "Management & Performance",
+      body: "Tracking KPIs, coaching callers, replacing underperformers, and maintaining consistency takes daily oversight.",
     },
   ] as PainPoint[],
 };
