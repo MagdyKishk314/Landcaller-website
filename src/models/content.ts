@@ -246,11 +246,10 @@ export const comparisonRows: ComparisonRow[] = [
     everyoneElse: "Only 1 number - missed opportunities everywhere",
   },
   {
-    feature: "Caller-to-client ratio?",
-    landCaller: "1-3 callers per campaign",
-    landCallerTooltip:
-      "We put 1-3 callers on each campaign so owners are approached from different angles - varied voices and styles connect with more sellers than any single caller can.",
-    everyoneElse: "5-20 clients stacked on one caller",
+    feature: "Campaign management?",
+    landCaller:
+      "QA oversight + lead verification, dedicated Slack support, and continuous optimization",
+    everyoneElse: "Launch your campaign and hope for the best",
   },
   {
     feature: "Script customization?",
