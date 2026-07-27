@@ -34,10 +34,10 @@ export const hero = {
 };
 
 export const problem = {
-  eyebrow: "The Hard Truth",
-  heading: "Most land lead channels are breaking.",
+  eyebrow: "The Challenge",
+  heading: "What's really required to build a successful cold calling operation?",
   intro:
-    "You already know off-market deals are won on the phone. But getting consistent seller conversations is brutal - and the old playbook costs more every month for less.",
+    "Most investors think they need callers. In reality, they need recruiting, training, dialer software, scripts, compliance, quality assurance, performance management, and consistent oversight - all working together to generate reliable, qualified leads.",
   painPoints: [
     {
       icon: "phone",
