@@ -28,7 +28,7 @@ test("home route renders the full landing page", async () => {
     // Every major funnel section is present, in story order.
     for (const needle of [
       "The Land Investing Ecosystem", // hero
-      "The Hard Truth", // problem
+      "The Challenge", // problem
       "Built by land investors", // guide teaser
       "Stop imagining a warm lead", // call samples
       "Your Next Land Deal Starts Here", // how it works
