@@ -65,6 +65,11 @@ const p = plan;
 </div>
 <% } %>
 
-<div class="text-center mt-10">
-  <%- include('_button', { label: 'Get Started', href: '/#book', variant: 'primary', size: 'lg' }) %>
+<div class="text-center mt-10 flex flex-wrap items-center justify-center gap-4">
+  <% if (p.signupUrl) { %>
+    <%- include('_button', { label: 'Sign Up', href: p.signupUrl, variant: 'primary', size: 'lg', external: true }) %>
+    <%- include('_button', { label: 'Book A Call', href: '/#book', variant: 'outline', size: 'lg' }) %>
+  <% } else { %>
+    <%- include('_button', { label: 'Get Started', href: '/#book', variant: 'primary', size: 'lg' }) %>
+  <% } %>
 </div>

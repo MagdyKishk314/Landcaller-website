@@ -173,6 +173,8 @@ export interface PricingPlan {
   includesNote?: string;
   /** Badge text on the featured tier (defaults to "Best Value"). */
   featuredBadge?: string;
+  /** External signup/onboarding form URL, surfaced as a CTA below the plan. */
+  signupUrl?: string;
 }
 
 export interface FeatureMatrixRow {

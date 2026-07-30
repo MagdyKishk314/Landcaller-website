@@ -67,6 +67,8 @@ export const enterprisePlan: PricingPlan = {
   ],
   includesNote: "5% discount on monthly prices if paid up-front.",
   startingAt: { price: "$2,350", per: "/ 4 weeks" },
+  signupUrl:
+    "https://forms.zohopublic.com/landcaller/form/LandCallerClientOnBoardingForm4/formperma/KfVuMUsYgMP7fTpgoF3P-l-r5kqe3N2DocoeelcQ8OU",
   // Condensed copy for the home pricing teaser card (does not affect /pricing).
   teaserTagline: "Designed for full-time land operators",
   teaserHighlights: [
