@@ -88,10 +88,9 @@ function initFaqAccordion(): void {
     const panel = item.querySelector<HTMLElement>("[data-faq-panel]");
     if (!trigger || !panel) return;
     trigger.addEventListener("click", () => {
-      const isOpen = !panel.hidden;
-      // type="single" collapsible: close everything, then open the clicked one if it was closed.
-      items.forEach(close);
-      if (!isOpen) open(item);
+      // type="multiple" collapsible: toggle only the clicked item, leaving others open.
+      if (panel.hidden) open(item);
+      else close(item);
     });
   });
 }
