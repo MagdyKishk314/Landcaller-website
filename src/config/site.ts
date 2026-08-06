@@ -24,7 +24,7 @@ export const site: SiteConfig = {
   twitterHandle: "@Land_Caller",
   externalLinks: {
     bookACall: "https://calendly.com/landcaller",
-    crmLogin: "https://landcaller.com/client-portal/",
+    crmLogin: "https://client-portal.landcaller.com",
     facebook: "https://www.facebook.com/landcaller",
     twitter: "https://twitter.com/Land_Caller",
     affiliateSignup:
