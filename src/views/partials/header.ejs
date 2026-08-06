@@ -15,7 +15,7 @@ const isActive = (h) => h === '#' ? curPath === '/' : (curPath === h || curPath.
     </a>
     <nav class="hidden lg:flex items-center gap-7">
       <% navLinks.forEach(function(link){ const active = isActive(link.href); %>
-      <a href="<%= resolve(link.href) %>" class="text-sm font-medium <%= active ? 'text-[#E8523A]' : 'text-white/70' %> hover:text-[#E8523A] transition-colors duration-200 whitespace-nowrap"<%- active ? ' aria-current="page"' : '' %>><%= link.label %></a>
+      <a href="<%= resolve(link.href) %>" class="text-base font-medium <%= active ? 'text-[#E8523A]' : 'text-white/70' %> hover:text-[#E8523A] transition-colors duration-200 whitespace-nowrap"<%- active ? ' aria-current="page"' : '' %>><%= link.label %></a>
       <% }); %>
     </nav>
     <div class="hidden lg:flex items-center gap-3">
