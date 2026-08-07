@@ -143,8 +143,11 @@ export interface PriceTier {
   price: string;
   /** Billing suffix for recurring plans, e.g. "/ 4 weeks". Omitted = flat fee. */
   per?: string;
-  /** Per-tier bullets (Basic tiers: records, guaranteed leads, CRM access). */
-  highlights?: string[];
+  /**
+   * Per-tier bullets (Basic tiers: records, guaranteed leads, CRM access).
+   * A bullet may carry an optional pill badge (e.g. "Coming Soon").
+   */
+  highlights?: (string | { label: string; badge?: string })[];
   /** Visually emphasize this tier as the recommended option. */
   featured?: boolean;
 }
@@ -161,6 +164,8 @@ export interface PricingPlan {
   tiers: PriceTier[];
   /** "All [plan] packages include" bullets. */
   includes?: string[];
+  /** Prominent note shown above the small-print footnotes under the tiers. */
+  fulfillmentNote?: string;
   /** Small print under the tiers (discounts, disclaimers). */
   footnotes?: string[];
   /** Lowest price, surfaced on the home pricing teaser. */

@@ -111,36 +111,38 @@ export const basicPlan: PricingPlan = {
   tiers: [
     {
       name: "Tier 1",
-      term: "Up to 2 Weeks of Calling",
+      term: "",
       price: "$1,100",
       highlights: [
         "5,000 records pulled, skipped, scrubbed & dialed",
         "Guaranteed 20 leads",
-        "Land Caller CRM (Basic Access)",
+        { label: "Land Caller CRM (Basic Access)", badge: "Coming Soon" },
       ],
     },
     {
       name: "Tier 2",
-      term: "Up to 3 Weeks of Calling",
+      term: "",
       price: "$1,890",
       featured: true,
       highlights: [
         "8,000 records pulled, skipped, scrubbed & dialed",
         "Guaranteed 35 leads",
-        "Land Caller CRM (Basic Access)",
+        { label: "Land Caller CRM (Basic Access)", badge: "Coming Soon" },
       ],
     },
     {
       name: "Tier 3",
-      term: "Up to 4 Weeks of Calling",
+      term: "",
       price: "$2,650",
       highlights: [
         "10,000 records pulled, skipped, scrubbed & dialed",
         "Guaranteed 50 leads",
-        "Land Caller CRM (Basic Access)",
+        { label: "Land Caller CRM (Basic Access)", badge: "Coming Soon" },
       ],
     },
   ],
+  fulfillmentNote:
+    "Basic Package campaigns are fulfilled based on the guaranteed number of leads. Estimated completion times are estimates and may vary from campaign to campaign.",
   footnotes: [
     "Litigator Protection & DNC scrub included on every tier.",
     "Land Caller CRM full-access upgrades available for expanded automation and multichannel features.",
