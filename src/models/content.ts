@@ -30,7 +30,7 @@ export const hero = {
   ],
   primaryCta: { label: "Book A Call", href: "#book" },
   // Scrolls down to the live call recordings - the "hear it for yourself" moment.
-  secondaryCta: { label: "Hear a real lead", href: "#call-samples" },
+  secondaryCta: { label: "Hear a Real Lead", href: "#call-samples" },
 };
 
 export const problem = {
