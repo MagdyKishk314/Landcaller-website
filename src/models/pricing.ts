@@ -148,6 +148,8 @@ export const basicPlan: PricingPlan = {
     "Land Caller CRM full-access upgrades available for expanded automation and multichannel features.",
   ],
   startingAt: { price: "$1,100" },
+  signupUrl:
+    "https://forms.zohopublic.com/landcaller/form/LandCallerClientOnBoardingForm4/formperma/KfVuMUsYgMP7fTpgoF3P-l-r5kqe3N2DocoeelcQ8OU",
   // Condensed checkmarks for the home pricing teaser card (does not affect /pricing).
   teaserHighlights: [
     "Guaranteed Lead Counts",
