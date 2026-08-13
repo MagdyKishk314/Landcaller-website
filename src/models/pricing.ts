@@ -149,7 +149,7 @@ export const basicPlan: PricingPlan = {
   ],
   startingAt: { price: "$1,100" },
   signupUrl:
-    "https://forms.zohopublic.com/landcaller/form/LandCallerClientOnBoardingForm4/formperma/KfVuMUsYgMP7fTpgoF3P-l-r5kqe3N2DocoeelcQ8OU",
+    "https://forms.zohopublic.com/landcaller/form/LandCallerClientOnBoardingForm20/formperma/svpeKCbwVEOI8akLLXd9stYFS8xgg4uHEOXcQRBlU4A",
   // Condensed checkmarks for the home pricing teaser card (does not affect /pricing).
   teaserHighlights: [
     "Guaranteed Lead Counts",
