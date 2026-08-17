@@ -51,7 +51,7 @@ export const enterprisePlan: PricingPlan = {
   tiers: [
     { name: "3 Months", term: "12 weeks of calling", price: "$2,850", per: "/ 4 weeks" },
     { name: "6 Months", term: "24 weeks of calling", price: "$2,595", per: "/ 4 weeks", featured: true },
-    { name: "Annual", term: "48 weeks of calling", price: "$2,350", per: "/ 4 weeks" },
+    { name: "Annual", term: "52 weeks of calling", price: "$2,350", per: "/ 4 weeks" },
   ],
   includes: [
     "40hrs/week dial time with professional land cold caller(s)",
