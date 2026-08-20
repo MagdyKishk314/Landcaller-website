@@ -61,6 +61,7 @@ export interface SiteConfig {
     facebook: string;
     twitter: string;
     affiliateSignup: string;
+    affiliateLogin: string;
   };
 }
 

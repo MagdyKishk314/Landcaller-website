@@ -29,6 +29,7 @@ export const site: SiteConfig = {
     twitter: "https://twitter.com/Land_Caller",
     affiliateSignup:
       "https://landcaller.zohothrive.com/thrive/publicpages/affiliate-registration/landcaller/49c5985f1dc09761f5484e9331f929b6de9e51db8989f4d62bead81b772118e1",
+    affiliateLogin: "https://landcaller.zohothrive.com/affiliateportal/landcaller/login",
   },
 };
 

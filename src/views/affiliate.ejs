@@ -18,6 +18,7 @@
               <p class="text-white/60 leading-relaxed mb-8"><%= page.sub %></p>
               <div class="flex flex-wrap items-center justify-center gap-4">
                 <%- include('partials/_button', { label: page.ctaLabel, href: site.externalLinks.affiliateSignup, variant: 'primary', size: 'lg', external: true }) %>
+                <%- include('partials/_button', { label: 'Login', href: site.externalLinks.affiliateLogin, variant: 'outline', size: 'lg', external: true }) %>
                 <%- include('partials/_button', { label: 'View Pricing', href: '/pricing', variant: 'outline', size: 'lg' }) %>
               </div>
             </div>
@@ -88,7 +89,10 @@
             <div class="container max-w-3xl text-center">
               <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-5 leading-tight"><%= page.ctaHeading %></h2>
               <p class="text-white/60 leading-relaxed text-lg mb-8"><%= page.ctaBody %></p>
-              <%- include('partials/_button', { label: page.ctaLabel, href: site.externalLinks.affiliateSignup, variant: 'primary', size: 'lg', external: true }) %>
+              <div class="flex flex-wrap items-center justify-center gap-4">
+                <%- include('partials/_button', { label: page.ctaLabel, href: site.externalLinks.affiliateSignup, variant: 'primary', size: 'lg', external: true }) %>
+                <%- include('partials/_button', { label: 'Login', href: site.externalLinks.affiliateLogin, variant: 'outline', size: 'lg', external: true }) %>
+              </div>
             </div>
           </section>
 
