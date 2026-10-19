@@ -5,10 +5,10 @@ import assert from "node:assert/strict";
 import { createApp } from "../dist/app.js";
 
 // These tests cover the public marketing site and its no-database fallback
-// (static seed posts, noindex placeholders, no post URLs in the sitemap). We
-// disable the SQLite layer so the suite is deterministic and never touches a
-// real database file. The DB layer reads this flag live, so setting it here
-// forces the fallback path. The CMS/admin is exercised separately with the DB on.
+// (static testimonials from the content model). We disable the SQLite layer so
+// the suite is deterministic and never touches a real database file. The DB
+// layer reads this flag live, so setting it here forces the fallback path. The
+// CMS/admin is exercised separately with the DB on.
 process.env.BLOG_DB = "off";
 
 function listen(app) {
@@ -35,7 +35,6 @@ test("home route renders the full landing page", async () => {
       "We proved that we can do it.", // testimonials slider
       "Why Land Caller Wins", // why us
       "Find The Right Fit For Your Business", // pricing teaser
-      "From the Blog", // blog teaser
       "Let's dial in your deal flow.", // booking climax (FAQ presence asserted via answer text below)
     ]) {
       assert.ok(html.includes(needle), `missing section: ${needle}`);
@@ -56,14 +55,13 @@ test("home route renders the full landing page", async () => {
   }
 });
 
-test("pricing and blog pages render with one H1 each", async () => {
+test("pricing page renders with one H1", async () => {
   const app = createApp();
   const server = await listen(app);
   const { port } = server.address();
   try {
     for (const [path, needle] of [
       ["/pricing", "Land Caller Service Pricing"],
-      ["/blog", "Insights on Cold Calling &amp; Land Acquisition"],
     ]) {
       const res = await fetch(`http://127.0.0.1:${port}${path}`);
       assert.equal(res.status, 200, `page failed: ${path}`);
@@ -81,16 +79,16 @@ test("pricing and blog pages render with one H1 each", async () => {
   }
 });
 
-test("blog post renders for a known slug and 404s for an unknown one", async () => {
+test("retired /blog URLs 301 to home", async () => {
   const app = createApp();
   const server = await listen(app);
   const { port } = server.address();
   try {
-    const ok = await fetch(`http://127.0.0.1:${port}/blog/what-makes-a-warm-land-seller-lead`);
-    assert.equal(ok.status, 200);
-    assert.ok((await ok.text()).includes("What Actually Makes a Land Seller Lead"));
-    const missing = await fetch(`http://127.0.0.1:${port}/blog/not-a-real-post`, { redirect: "manual" });
-    assert.equal(missing.status, 404);
+    for (const path of ["/blog", "/blog/some-old-post"]) {
+      const res = await fetch(`http://127.0.0.1:${port}${path}`, { redirect: "manual" });
+      assert.equal(res.status, 301, `${path} should redirect`);
+      assert.equal(res.headers.get("location"), "/");
+    }
   } finally {
     server.close();
   }
@@ -158,7 +156,6 @@ test("SEO landing pages render with one H1 each", async () => {
   try {
     for (const [path, needle] of [
       ["/pricing", "Land Caller Service Pricing"],
-      ["/blog", "Insights on Cold Calling"],
       ["/crm", "Stop buying leads. Start building a pipeline."],
     ]) {
       const res = await fetch(`http://127.0.0.1:${port}${path}`);
@@ -207,9 +204,7 @@ test("sitemap.xml lists canonical URLs", async () => {
     assert.ok(xml.includes("/about"), "sitemap missing /about");
     assert.ok(xml.includes("/crm"), "sitemap missing /crm");
     assert.ok(xml.includes("/pricing"), "sitemap missing /pricing");
-    assert.ok(xml.includes("<loc>https://landcaller.com/blog</loc>"), "sitemap missing /blog");
-    // Placeholder blog posts must stay out of the sitemap until real content ships.
-    assert.ok(!xml.includes("/blog/"), "sitemap should not list individual blog posts yet");
+    assert.ok(!xml.includes("/blog"), "sitemap should not list the retired blog");
   } finally {
     server.close();
   }
@@ -238,20 +233,6 @@ test("non-production host gets X-Robots-Tag noindex", async () => {
     // 127.0.0.1 is not the canonical production host -> must be noindexed.
     const res = await fetch(`http://127.0.0.1:${port}/`);
     assert.match(res.headers.get("x-robots-tag") || "", /noindex/);
-  } finally {
-    server.close();
-  }
-});
-
-test("placeholder blog posts are marked noindex", async () => {
-  const app = createApp();
-  const server = await listen(app);
-  const { port } = server.address();
-  try {
-    const res = await fetch(`http://127.0.0.1:${port}/blog/cold-calling-vs-direct-mail-for-land`);
-    assert.equal(res.status, 200);
-    const html = await res.text();
-    assert.match(html, /<meta name="robots" content="noindex/);
   } finally {
     server.close();
   }

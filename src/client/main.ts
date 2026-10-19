@@ -289,7 +289,7 @@ function initAudioPlayers(): void {
   });
 }
 
-/* --- Carousels (testimonials, blog teaser, …) ------------------------------ */
+/* --- Carousels (testimonials, …) ------------------------------------------- */
 
 function initSliders(): void {
   document.querySelectorAll<HTMLElement>("[data-slider]").forEach(initSlider);

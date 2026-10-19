@@ -3,7 +3,7 @@ const onHome = (typeof isHome === 'undefined') ? true : isHome;
 const resolve = (h) => h.charAt(0) === '#' ? (onHome ? h : '/' + (h === '#' ? '' : h)) : h;
 // Normalised current path (no trailing slash) so the navbar can flag the page
 // you're on. Home ('#') matches '/'; page links match exactly or as a prefix
-// (e.g. /blog stays active on /blog/a-post).
+// (e.g. /crm stays active on /crm/anything).
 let curPath = (typeof currentPath === 'undefined' || !currentPath) ? '/' : currentPath;
 if (curPath.length > 1) curPath = curPath.replace(/\/+$/, '');
 const isActive = (h) => h === '#' ? curPath === '/' : (curPath === h || curPath.indexOf(h + '/') === 0);

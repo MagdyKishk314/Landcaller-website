@@ -5,10 +5,7 @@ import { submitContact } from "../controllers/contactController.js";
 import {
   renderPricing,
   renderCrm,
-  renderJoinUs,
   renderAffiliate,
-  renderBlog,
-  renderBlogPost,
 } from "../controllers/pagesController.js";
 import { renderSitemap } from "../controllers/seoController.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
@@ -21,29 +18,26 @@ router.get("/", asyncHandler(renderHome));
 // Retired service pages - 301 to home to preserve any inbound link equity.
 router.get("/land-investor-cold-calling", (_req, res) => res.redirect(301, "/"));
 router.get("/cold-calling-vs-direct-mail", (_req, res) => res.redirect(301, "/"));
+// The blog was retired - send any indexed /blog URLs home as well.
+router.get(["/blog", "/blog/:slug"], (_req, res) => res.redirect(301, "/"));
 
 // Funnel spoke pages
 router.get("/pricing", renderPricing);
 router.get("/crm", renderCrm);
 router.get("/crm-and-data", (_req, res) => res.redirect(301, "/crm"));
-router.get("/blog", asyncHandler(renderBlog));
-router.get("/blog/:slug", asyncHandler(renderBlogPost));
 
 router.get("/about", renderAbout);
 router.get("/about-us", (_req, res) => res.redirect(301, "/about"));
-
-// Placeholder - content to be built out later.
-router.get("/join-us", renderJoinUs);
 
 // Affiliate program. /become-an-affiliate (the legacy slug) 301s to /affiliate.
 router.get("/affiliate", renderAffiliate);
 router.get("/become-an-affiliate", (_req, res) => res.redirect(301, "/affiliate"));
 
-// Blog admin / CMS
+// Admin (testimonials CMS)
 router.use("/admin", adminRouter);
 
 // SEO infrastructure
-router.get("/sitemap.xml", asyncHandler(renderSitemap));
+router.get("/sitemap.xml", renderSitemap);
 
 router.post("/contact", submitContact);
 

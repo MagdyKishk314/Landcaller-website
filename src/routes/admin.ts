@@ -4,7 +4,6 @@ import { env } from "../config/env.js";
 import { site, navLinks, footerLinks } from "../config/site.js";
 import { requireAuth, verifyCsrf } from "../middleware/auth.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
-import { uploadCover } from "../middleware/upload.js";
 import * as admin from "../controllers/adminController.js";
 import * as testimonials from "../controllers/adminTestimonialController.js";
 
@@ -49,15 +48,10 @@ adminRouter.post("/logout", verifyCsrf, admin.logout);
 // Everything below requires a valid session.
 adminRouter.use(requireAuth);
 
-adminRouter.get("/", asyncHandler(admin.renderPostList));
-adminRouter.get("/posts/new", asyncHandler(admin.renderNewPost));
-adminRouter.post("/posts", uploadCover, verifyCsrf, asyncHandler(admin.createPostAction));
-adminRouter.get("/posts/:id/edit", asyncHandler(admin.renderEditPost));
-adminRouter.post("/posts/:id", uploadCover, verifyCsrf, asyncHandler(admin.updatePostAction));
-adminRouter.post("/posts/:id/delete", verifyCsrf, asyncHandler(admin.deletePostAction));
-adminRouter.post("/posts/:id/publish", verifyCsrf, asyncHandler(admin.togglePublishAction));
+// The dashboard landing page is the testimonials list.
+adminRouter.get("/", (_req, res) => res.redirect("/admin/testimonials"));
 
-// Testimonials CRUD (no file uploads, so no multer middleware).
+// Testimonials CRUD.
 adminRouter.get("/testimonials", asyncHandler(testimonials.renderList));
 adminRouter.get("/testimonials/new", testimonials.renderNew);
 adminRouter.post("/testimonials", verifyCsrf, asyncHandler(testimonials.createAction));

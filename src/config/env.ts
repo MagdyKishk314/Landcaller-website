@@ -11,7 +11,7 @@ if (!process.env.VERCEL) {
  * they reflect `process.env` at call time.
  */
 export const env = {
-  /** Shared password gating the /admin blog dashboard. */
+  /** Shared password gating the /admin dashboard. */
   get adminPassword(): string {
     return process.env.ADMIN_PASSWORD || "";
   },

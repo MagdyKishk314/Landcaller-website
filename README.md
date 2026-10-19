@@ -10,9 +10,9 @@ guaranteed visual parity, locally hosted assets, and a small framework-free
 TypeScript client bundle for the interactive pieces. The cloned marketing site
 uses **no database or persistence layer** — the source site persists nothing (its
 contact form shows a toast and resets), so neither do we. The one addition beyond
-the 1:1 clone is an optional **blog CMS** (`/admin`) backed by file-based SQLite
-(Node’s built-in `node:sqlite`, no third-party database); it’s entirely opt-in and
-the site runs without it (see §5).
+the 1:1 clone is an optional **testimonials CMS** (`/admin`) backed by file-based
+SQLite (Node’s built-in `node:sqlite`, no third-party database); it’s entirely
+opt-in and the site runs without it (see §5).
 
 Verified parity: full-page rendered height matches the original **to the pixel**
 at desktop (9708px) and mobile (13541px), confirmed via headless-Chrome
@@ -133,10 +133,10 @@ serverless function and static assets from `public/`.
    - **Build Command:** `npm run build`
    - **Install Command:** `npm install`
    - **Output:** static files from `public/` + serverless `api/`
-4. Deploy. The marketing site needs **no environment variables**. The blog CMS
-   (`/admin`) needs `ADMIN_PASSWORD` and `SESSION_SECRET` (set them in **Project →
-   Settings → Environment Variables**). Note: on Vercel the SQLite store is a
-   read-only demo — host on a VPS for a persistent editable blog (see §5).
+4. Deploy. The marketing site needs **no environment variables**. The testimonials
+   CMS (`/admin`) needs `ADMIN_PASSWORD` and `SESSION_SECRET` (set them in
+   **Project → Settings → Environment Variables**). Note: on Vercel the SQLite
+   store is a read-only demo — host on a VPS for persistent edits (see §5).
 
 **CLI (optional)**
 
@@ -251,30 +251,28 @@ that renders an icon → `_icons.ejs`.
 
 ---
 
-## 5. Blog CMS / Admin
+## 5. Testimonials CMS / Admin
 
-The blog is backed by a small CMS so posts can be written and published from the
-browser — no code edits or redeploys. It’s an addition on top of the 1:1 clone;
-the rest of the marketing site is unchanged and still database-free.
+The home-page testimonials are backed by a small CMS so they can be added, edited,
+reordered, and hidden from the browser — no code edits or redeploys. It’s an
+addition on top of the 1:1 clone; the rest of the marketing site is unchanged and
+still database-free.
 
 ### How it works
 
-- **Storage:** a single `posts` table in **SQLite**, via Node’s built-in
+- **Storage:** a single `testimonials` table in **SQLite**, via Node’s built-in
   [`node:sqlite`](https://nodejs.org/api/sqlite.html) — **no third-party database,
   driver, or account.** The database is one file on disk (`./data/blog.db` by
   default; override with `SQLITE_PATH`). A brand-new database is auto-seeded with
-  three starter articles.
+  the static testimonials from `src/models/content.ts`.
 - **Auth:** one shared password (`ADMIN_PASSWORD`) gates `/admin`. The session is
   a signed, stateless cookie (`cookie-session`). All admin POSTs are
   CSRF-protected; `/admin` is `noindex`/`no-store`.
-- **Authoring:** posts are written in **Markdown**, rendered to sanitized HTML
-  (`marked` + `sanitize-html`) at request time. Reading time is auto-computed.
-- **Publishing:** a post is public only when **Published** is checked. Published
-  posts appear on `/blog`, the home teaser, and the sitemap, and are indexable.
-  Drafts are hidden from the public site.
+- **Publishing:** a testimonial is shown on the site only when **Published** is
+  checked; `sort order` controls its position in the slider.
 - **Graceful fallback:** if SQLite can’t be opened (an older runtime, or a
-  read-only path), the public blog falls back to the static seed in
-  `src/models/blog.ts` (body-less, `noindex`) so the site still renders.
+  read-only path), the public site falls back to the static testimonials in
+  `src/models/content.ts` so it still renders.
 
 > **Requirements:** Node **≥ 22.5** (`node:sqlite`). The reference VPS / your
 > local Node 26 are fine.
@@ -287,8 +285,8 @@ the rest of the marketing site is unchanged and still database-free.
   once. This is the intended home for the CMS.
 - **Vercel / serverless:** the filesystem is **ephemeral**, so writes don’t
   persist between cold starts. The app defaults to `/tmp/blog.db` and re-seeds the
-  starter posts on each cold start — fine for a **read-only demo** (the public blog
-  renders), but published edits won’t survive. Use a VPS for the live editable blog.
+  starter testimonials on each cold start — fine for a **read-only demo**, but
+  edits won’t survive. Use a VPS for live editing.
 
 ### One-time setup
 
@@ -297,9 +295,9 @@ the rest of the marketing site is unchanged and still database-free.
    - `SESSION_SECRET` — a long random string
      (`node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`)
    - `SQLITE_PATH` — optional; defaults to `./data/blog.db`
-2. Create the database (and seed the starter articles):
+2. Create the database (and seed the starter testimonials):
    ```bash
-   npm run db:seed        # create ./data/blog.db + insert starter posts
+   npm run db:seed        # create ./data/blog.db + insert the starter testimonials
    #   or: npm run db:init  (create the file/schema only; still auto-seeds if brand-new)
    ```
 3. Run the app and visit **`/admin`**:
@@ -310,16 +308,10 @@ the rest of the marketing site is unchanged and still database-free.
 ### Using the admin
 
 - `GET /admin/login` — sign in with `ADMIN_PASSWORD`.
-- `GET /admin` — list every post (drafts included); create, edit, publish/
-  unpublish, or delete.
-- New/Edit form fields: title, slug (auto-derived from the title), excerpt,
-  category, **cover image** (upload via the *Browse* button, or expand “use an
-  image path / URL” to reuse an `/assets/images/...` file or paste a URL),
-  publish date, **Published** toggle, and the Markdown body.
-- **Image uploads** are written to `public/uploads/` (served at `/uploads`),
-  size-limited to 8 MB and restricted to JPG/PNG/WebP/GIF/AVIF. Override the
-  location with `UPLOADS_DIR`. On a read-only serverless host the upload is
-  rejected gracefully — paste an image URL there instead.
+- `GET /admin` — redirects to `/admin/testimonials`: list every testimonial
+  (hidden ones included); create, edit, show/hide, reorder, or delete.
+- New/Edit form fields: quote, name, company, rating (1–5), sort order, and the
+  **Published** toggle.
 
 ### Files
 
@@ -327,14 +319,13 @@ the rest of the marketing site is unchanged and still database-free.
 | ---- | ------- |
 | `src/config/env.ts` | Lazily-read env (dotenv locally; platform vars on Vercel) |
 | `src/db/sqlite.ts` | `node:sqlite` handle, schema, auto-seed, fallback |
-| `src/db/starterPosts.ts` | Starter articles (seeded into a fresh database) |
-| `src/repositories/postRepository.ts` | Post reads/writes + no-DB fallback |
-| `src/lib/markdown.ts` | Markdown → sanitized HTML, slugify, reading time |
+| `src/repositories/testimonialRepository.ts` | Testimonial reads/writes + no-DB fallback |
 | `src/middleware/auth.ts` | Session guard, password check, CSRF |
-| `src/controllers/adminController.ts` | Login + post CRUD handlers |
+| `src/controllers/adminController.ts` | Login / logout handlers |
+| `src/controllers/adminTestimonialController.ts` | Testimonial CRUD handlers |
 | `src/routes/admin.ts` | `/admin` router (cookie-session, CSRF, auth) |
 | `src/views/admin/*.ejs` | Login, list, and edit screens (self-contained styles) |
-| `scripts/init-db.ts` | `db:init` / `db:seed` schema + starter content (via tsx) |
+| `scripts/init-db.ts` | `db:init` / `db:seed` schema + starter content |
 
 ## Reusable duplication methodology
 

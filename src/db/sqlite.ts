@@ -2,7 +2,6 @@ import { DatabaseSync } from "node:sqlite";
 import fs from "node:fs";
 import path from "node:path";
 import "../config/env.js"; // ensure .env is loaded before we read SQLITE_PATH
-import { starterPosts } from "./starterPosts.js";
 import { testimonials as starterTestimonials } from "../models/content.js";
 
 /**
@@ -13,25 +12,10 @@ import { testimonials as starterTestimonials } from "../models/content.js";
  *
  * If SQLite can't be opened (e.g. an older runtime without node:sqlite, or a
  * read-only path), getDb() returns null and the app falls back to the static
- * seed in src/models/blog.ts so the public site still renders.
+ * testimonials in src/models/content.ts so the public site still renders.
  */
 
 const SCHEMA = `
-  CREATE TABLE IF NOT EXISTS posts (
-    id           INTEGER PRIMARY KEY AUTOINCREMENT,
-    slug         TEXT UNIQUE NOT NULL,
-    title        TEXT NOT NULL,
-    excerpt      TEXT NOT NULL DEFAULT '',
-    body         TEXT NOT NULL DEFAULT '',
-    category     TEXT NOT NULL DEFAULT 'General',
-    image        TEXT NOT NULL DEFAULT '/assets/images/laptop-mockup-square.webp',
-    published    INTEGER NOT NULL DEFAULT 0,
-    published_at TEXT,
-    created_at   TEXT NOT NULL DEFAULT (datetime('now')),
-    updated_at   TEXT NOT NULL DEFAULT (datetime('now'))
-  );
-  CREATE INDEX IF NOT EXISTS posts_published_idx ON posts (published, published_at);
-
   CREATE TABLE IF NOT EXISTS testimonials (
     id         INTEGER PRIMARY KEY AUTOINCREMENT,
     quote      TEXT NOT NULL,
@@ -60,17 +44,6 @@ export function resolveDbPath(): string {
   return path.resolve(process.cwd(), "data", "blog.db");
 }
 
-/** Insert the starter posts, ignoring any whose slug already exists. */
-function seed(handle: DatabaseSync): void {
-  const stmt = handle.prepare(
-    `INSERT OR IGNORE INTO posts (slug, title, excerpt, body, category, image, published, published_at)
-     VALUES (?, ?, ?, ?, ?, ?, 1, ?)`
-  );
-  for (const p of starterPosts) {
-    stmt.run(p.slug, p.title, p.excerpt, p.body, p.category, p.image, p.date);
-  }
-}
-
 /** Insert the starter testimonials (the static set that ships with the site). */
 function seedTestimonials(handle: DatabaseSync): void {
   const stmt = handle.prepare(
@@ -93,8 +66,8 @@ function tableExists(handle: DatabaseSync, name: string): boolean {
 
 /**
  * Open (once) and return the SQLite handle, or null if the database is disabled
- * or can't be opened. A brand-new database is seeded with the starter posts; an
- * existing one is left untouched.
+ * or can't be opened. A brand-new database is seeded with the starter
+ * testimonials; an existing one is left untouched.
  */
 export function getDb(): DatabaseSync | null {
   if (!isDbEnabled()) return null;
@@ -106,13 +79,11 @@ export function getDb(): DatabaseSync | null {
     const handle = new DatabaseSync(file);
     handle.exec("PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;");
 
-    // Check each table *before* applying the schema so we only seed the ones
-    // that didn't already exist - this lets an older database (posts only) gain
-    // a freshly-seeded testimonials table without touching its posts.
-    const postsExisted = tableExists(handle, "posts");
+    // Check the table *before* applying the schema so we only seed a table that
+    // didn't already exist. (A legacy `posts` table from the retired blog is
+    // left untouched if present.)
     const testimonialsExisted = tableExists(handle, "testimonials");
     handle.exec(SCHEMA);
-    if (!postsExisted) seed(handle); // fresh database -> starter content
     if (!testimonialsExisted) seedTestimonials(handle);
 
     db = handle;
@@ -125,7 +96,7 @@ export function getDb(): DatabaseSync | null {
 }
 
 /**
- * Ensure the schema exists and optionally force-(re)seed the starter posts.
+ * Ensure the schema exists and optionally seed the starter testimonials.
  * Used by the `db:init` / `db:seed` setup scripts.
  */
 export function setupDatabase(forceSeed = false): { path: string; count: number } {
@@ -136,7 +107,6 @@ export function setupDatabase(forceSeed = false): { path: string; count: number 
     );
   }
   if (forceSeed) {
-    seed(handle);
     // Testimonials have no natural unique key, so only seed when empty to avoid
     // duplicating the starter set on repeated `db:seed` runs.
     const existing = handle
@@ -144,6 +114,8 @@ export function setupDatabase(forceSeed = false): { path: string; count: number 
       .get() as { c: number };
     if (existing.c === 0) seedTestimonials(handle);
   }
-  const row = handle.prepare("SELECT count(*) AS c FROM posts").get() as { c: number };
+  const row = handle
+    .prepare("SELECT count(*) AS c FROM testimonials")
+    .get() as { c: number };
   return { path: resolveDbPath(), count: row.c };
 }

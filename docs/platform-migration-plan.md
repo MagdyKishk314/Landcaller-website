@@ -27,7 +27,7 @@ Also in the folder, and **not** transferable work: WordPress core + stock plugin
 ### 2.1 Where the code lives
 A **second Express service in this repo** (e.g. `platform/` with its own `src/`, or an npm workspace), running as its own PM2 process on the VPS, served by Nginx at `app.landcaller.com`.
 
-- Keeps money-path code out of the marketing site's process and deploy cycle (a bad blog deploy must never take down Stripe webhooks).
+- Keeps money-path code out of the marketing site's process and deploy cycle (a bad marketing-site deploy must never take down Stripe webhooks).
 - Same stack conventions as this repo (TS, ESM, Express, EJS for any UI) — one mental model.
 - Express happily routes literal legacy paths like `/activate_basic_user.php`, so URL compatibility is trivial.
 

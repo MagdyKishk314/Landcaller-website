@@ -1,18 +1,12 @@
 import type { Request, Response, NextFunction } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
-import { pricingPage, blogPage } from "../models/pages.js";
-import { listPublishedPostsForSitemap } from "../repositories/postRepository.js";
+import { pricingPage } from "../models/pages.js";
 
-/**
- * Canonical, crawlable URLs for the XML sitemap. Individual blog posts are
- * intentionally omitted while they hold placeholder content (they're also
- * marked noindex); add them back once real articles ship.
- */
+/** Canonical, crawlable URLs for the XML sitemap. */
 const ROUTES: { path: string; changefreq: string; priority: string }[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/crm", changefreq: "monthly", priority: "0.8" },
   { path: pricingPage.path, changefreq: "monthly", priority: "0.8" },
-  { path: blogPage.path, changefreq: "weekly", priority: "0.7" },
   { path: "/about", changefreq: "monthly", priority: "0.6" },
 ];
 
@@ -23,26 +17,10 @@ const ROUTES: { path: string; changefreq: string; priority: string }[] = [
  */
 const LASTMOD = (process.env.SITE_BUILD_DATE || new Date().toISOString().slice(0, 10));
 
-/** GET /sitemap.xml - canonical routes plus every published blog post. */
-export async function renderSitemap(_req: Request, res: Response): Promise<void> {
+/** GET /sitemap.xml - the canonical routes above. */
+export function renderSitemap(_req: Request, res: Response): void {
   const lastmod = LASTMOD;
-  const routes = [...ROUTES];
-
-  // Published posts (none without a configured DB) become indexable URLs.
-  try {
-    const posts = await listPublishedPostsForSitemap();
-    for (const post of posts) {
-      routes.push({
-        path: `${blogPage.path}/${post.slug}`,
-        changefreq: "monthly",
-        priority: "0.6",
-      });
-    }
-  } catch (err) {
-    console.error("[sitemap] failed to load posts:", err);
-  }
-
-  const urls = routes
+  const urls = ROUTES
     .map(
       (r) =>
         `  <url>\n    <loc>${site.url}${r.path}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${r.changefreq}</changefreq>\n    <priority>${r.priority}</priority>\n  </url>`

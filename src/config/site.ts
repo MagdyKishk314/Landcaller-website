@@ -38,15 +38,12 @@ export const navLinks: NavLink[] = [
   { label: "About", href: "/about" },
   { label: "Data + CRM", href: "/crm" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Blog", href: "/blog" },
   { label: "Affiliates", href: "/affiliate" },
-  { label: "Join Us", href: "/join-us" },
 ];
 
 export const footerLinks: NavLink[] = [
   { label: "Data + CRM", href: "/crm" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about" },
   { label: "Affiliates", href: "/affiliate" },
   { label: "FAQs", href: "#faq" },
