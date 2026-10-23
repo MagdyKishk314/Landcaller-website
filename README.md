@@ -227,8 +227,8 @@ that renders an icon → `_icons.ejs`.
 
 ### External dependencies & third-party links (kept as in source)
 - Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`).
-- Outbound links: Calendly (`calendly.com/landcaller`), CRM
-  (`my.landcaller.com`), Facebook, X/Twitter.
+- Outbound links: Calendly (`calendly.com/landcaller`), Lead Portal
+  (`landcaller.com/client-portal`), Facebook, X/Twitter.
 - **Omitted intentionally:** Plausible & Manus analytics trackers (third-party
   telemetry, not part of the visual/functional surface).
 

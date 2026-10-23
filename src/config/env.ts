@@ -19,6 +19,16 @@ export const env = {
   get sessionSecret(): string {
     return process.env.SESSION_SECRET || "dev-insecure-session-secret-change-me";
   },
+  /**
+   * Origin of the legacy server that still hosts pages this site doesn't have
+   * (e.g. the old Hostinger box). Unknown GET requests are redirected there,
+   * same path and query. Set to an empty string to disable and serve a real 404.
+   */
+  get fallbackOrigin(): string {
+    const raw = process.env.FALLBACK_ORIGIN;
+    const origin = raw === undefined ? "http://82.180.172.113" : raw.trim();
+    return origin.replace(/\/+$/, "");
+  },
   /** True in production (Vercel or NODE_ENV=production). */
   get isProd(): boolean {
     return !!process.env.VERCEL || process.env.NODE_ENV === "production";

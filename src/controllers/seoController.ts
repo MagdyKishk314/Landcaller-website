@@ -1,11 +1,13 @@
 import type { Request, Response, NextFunction } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
+import { env } from "../config/env.js";
 import { pricingPage } from "../models/pages.js";
+import { dataPage } from "../models/data.js";
 
 /** Canonical, crawlable URLs for the XML sitemap. */
 const ROUTES: { path: string; changefreq: string; priority: string }[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
-  { path: "/crm", changefreq: "monthly", priority: "0.8" },
+  { path: dataPage.path, changefreq: "monthly", priority: "0.8" },
   { path: pricingPage.path, changefreq: "monthly", priority: "0.8" },
   { path: "/about", changefreq: "monthly", priority: "0.6" },
 ];
@@ -31,8 +33,28 @@ export function renderSitemap(_req: Request, res: Response): void {
   res.send(xml);
 }
 
-/** 404 handler - renders a real Not Found page with a 404 status (no soft redirect). */
-export function renderNotFound(_req: Request, res: Response): void {
+/**
+ * Unknown route handler. Pages this site doesn't serve may still exist on the
+ * legacy server, so GET/HEAD requests are redirected there with the same path
+ * and query string (302, so nothing is cached if the page is later added here).
+ * Everything else - other methods, no fallback configured, or a request that
+ * is already on the fallback host (would loop) - gets a real 404 page.
+ */
+export function renderNotFound(req: Request, res: Response): void {
+  const origin = env.fallbackOrigin;
+  if (origin && (req.method === "GET" || req.method === "HEAD")) {
+    let fallbackHost = "";
+    try {
+      fallbackHost = new URL(origin).hostname.toLowerCase();
+    } catch {
+      /* malformed FALLBACK_ORIGIN - fall through to the 404 page */
+    }
+    const here = (req.hostname || "").toLowerCase();
+    if (fallbackHost && here !== fallbackHost) {
+      res.redirect(302, `${origin}${req.originalUrl}`);
+      return;
+    }
+  }
   res.status(404).render("404", {
     site,
     navLinks,

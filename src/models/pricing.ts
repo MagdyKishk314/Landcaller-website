@@ -18,9 +18,9 @@ export const enterprisePlan: PricingPlan = {
         "Choose from our script options or bring your own, tailored to your exact strategy. Your dedicated caller becomes an extension of your team - not a generic call center rep. *Land Caller may rotate callers, add support callers, or use additional dialing strategies to optimize performance.",
     },
     {
-      label: "Advanced CRM Integration",
+      label: "CRM Integration + Campaign Reporting",
       detail:
-        "A fully custom Land Caller CRM with deal-flow management, script modifications, campaign KPIs & reporting, automation, and more - or integrate directly into your existing CRM.",
+        "Integrate lead delivery directly into your existing CRM, with script modifications, call dispositions, and campaign KPIs & reporting included.",
     },
     {
       label: "Call Disposition Report (Multi-Channel Layering)",
@@ -57,7 +57,7 @@ export const enterprisePlan: PricingPlan = {
     "40hrs/week dial time with professional land cold caller(s)",
     "Dialer software + phone infrastructure",
     "Same-day lead delivery, appointment setting",
-    "Land Caller CRM access (or your CRM integration)",
+    "Integration into your existing CRM",
     "Data Dashboard access at volume waterfall discount rates",
     "Full script customization & Call Disposition Report",
     "Dedicated Slack channel for your team",
@@ -73,7 +73,7 @@ export const enterprisePlan: PricingPlan = {
   teaserTagline: "Designed for full-time land operators",
   teaserHighlights: [
     "Custom Script + 40hrs/week Dial Time",
-    "Advanced CRM Integration + Appointment Setting",
+    "CRM Integration + Appointment Setting",
     "Call Disposition Report (Multi-Channel Layering)",
     "Dedicated Slack Channel",
     "Top 3 Skip Traced Numbers Dialed",
@@ -116,7 +116,7 @@ export const basicPlan: PricingPlan = {
       highlights: [
         "5,000 records pulled, skipped, scrubbed & dialed",
         "Guaranteed 20 leads",
-        { label: "Land Caller CRM (Basic Access)", badge: "Coming Soon" },
+        "Same-day lead delivery",
       ],
     },
     {
@@ -127,7 +127,7 @@ export const basicPlan: PricingPlan = {
       highlights: [
         "8,000 records pulled, skipped, scrubbed & dialed",
         "Guaranteed 35 leads",
-        { label: "Land Caller CRM (Basic Access)", badge: "Coming Soon" },
+        "Same-day lead delivery",
       ],
     },
     {
@@ -137,7 +137,7 @@ export const basicPlan: PricingPlan = {
       highlights: [
         "10,000 records pulled, skipped, scrubbed & dialed",
         "Guaranteed 50 leads",
-        { label: "Land Caller CRM (Basic Access)", badge: "Coming Soon" },
+        "Same-day lead delivery",
       ],
     },
   ],
@@ -145,7 +145,6 @@ export const basicPlan: PricingPlan = {
     "Basic Package campaigns are fulfilled based on the guaranteed number of leads. Estimated completion times are estimates and may vary from campaign to campaign.",
   footnotes: [
     "Litigator Protection & DNC scrub included on every tier.",
-    "Land Caller CRM full-access upgrades available for expanded automation and multichannel features.",
   ],
   startingAt: { price: "$1,100" },
   signupUrl:

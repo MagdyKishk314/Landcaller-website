@@ -15,10 +15,10 @@ import type {
 } from "./types.js";
 
 export const hero = {
-  eyebrow: "Cold Calling Lead Gen | CRM + Data",
-  heading: "The Land Investing Ecosystem: Lead Gen, Data & Deal Management",
+  eyebrow: "Cold Calling Lead Gen",
+  heading: "Done-For-You Cold Calling for Land Investors",
   subtext:
-    "Land Caller is the done-for-you cold calling service built exclusively for land professionals. Now, we're evolving beyond the traditional agency model to deliver the Land Caller Ecosystem - a unified platform that brings lead generation, data, and deal management together in one command center.",
+    "Land Caller is the done-for-you cold calling service built exclusively for land professionals. Land-trained callers work your market, our QA team verifies every lead, and warm, off-market seller leads are delivered to you the same day.",
   note:
     "Purpose-built campaigns. Proven outcomes. Positioned for profit.",
   image: "/assets/images/crm-dashboard.png",
@@ -47,7 +47,7 @@ export const problem = {
     {
       icon: "shield-check",
       title: "Technology & Compliance",
-      body: "Dialer configuration/management, caller IDs, scripts, CRM integration, TCPA compliance, and quality assurance all require constant attention.",
+      body: "Dialer configuration/management, caller IDs, scripts, lead delivery, TCPA compliance, and quality assurance all require constant attention.",
     },
     {
       icon: "trending-up",
@@ -80,9 +80,9 @@ export const howItWorks = {
     },
     {
       number: "03",
-      title: "CRM Integration + Lead Delivery",
+      title: "Same-Day Lead Delivery",
       points: [
-        "We'll integrate lead delivery directly into your Land Caller CRM or your existing CRM - and can even handle appointment setting on your behalf.",
+        "Leads are delivered directly to you - or integrated straight into your existing CRM - and we can even handle appointment setting on your behalf.",
         "Qualified, off-market seller leads are delivered the same day, complete with call dispositions and daily KPI reporting, giving you full visibility into your campaign's performance.",
       ],
     },
@@ -159,9 +159,9 @@ export const whoWeAre: InfoCard[] = [
 
 export const whatSetsApart = {
   heading: "What Sets Land Caller Apart?",
-  ecosystemTitle: "The Land Caller Ecosystem",
-  ecosystemBody:
-    'We killed the "agency" model. Land Caller now delivers a fully unified acquisition platform - data, dialing, and deal management in one command center. Custom campaigns. Zero guesswork. Maximum deal flow.',
+  leadTitle: "Done-For-You Lead Generation",
+  leadBody:
+    "We run the callers, the data, the compliance, and the QA. You get warm, verified land seller leads delivered the same day. Custom campaigns. Zero guesswork. Maximum deal flow.",
   items: [
     {
       number: "01",
@@ -258,7 +258,7 @@ export const comparisonRows: ComparisonRow[] = [
   },
   {
     feature: "Lead delivery?",
-    landCaller: "Land Caller CRM or your CRM of choice",
+    landCaller: "Same day, straight to you or your CRM of choice",
     everyoneElse: "Emailed spreadsheets",
   },
   {
@@ -295,9 +295,9 @@ export const packages: PricingPackage[] = [
           "Your script. Your strategy. Your dedicated caller becomes an extension of your team, not a generic call center rep.",
       },
       {
-        label: "Full CRM Integration",
+        label: "CRM Integration + Reporting",
         detail:
-          "Custom Land Caller CRM with deal flow management, campaign KPIs, automation, and reporting. Or plug directly into your existing CRM.",
+          "Plug lead delivery directly into your existing CRM, with call dispositions, campaign KPIs, and daily reporting included.",
       },
       {
         label: "Call Disposition Reports",
@@ -370,7 +370,7 @@ export const packages: PricingPackage[] = [
       { label: "Zero commitments" },
     ],
     ctas: [
-      { label: "CRM + Data", href: "#features", primary: true },
+      { label: "Compare Features", href: "#features", primary: true },
       { label: "View Pricing", href: "#features", primary: false },
     ],
   },
@@ -389,7 +389,6 @@ export const featureMatrix: FeatureMatrixRow[] = [
   { feature: "Personal CRM Integration", enterprise: true, basic: false },
   { feature: "Call Disposition Reports", enterprise: true, basic: false },
   { feature: "Call Recording Requests", enterprise: true, basic: false },
-  { feature: "Land Caller CRM Access (Coming Soon)", enterprise: true, basic: true },
   { feature: "Land Caller Data Dashboard", enterprise: true, basic: true },
   { feature: "Callers Trained on Vacant Land", enterprise: true, basic: true },
   { feature: "Litigator Scrubbing Protection", enterprise: true, basic: true },

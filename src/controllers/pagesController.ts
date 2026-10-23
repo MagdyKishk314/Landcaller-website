@@ -2,14 +2,12 @@ import type { Request, Response } from "express";
 import { site, navLinks, footerLinks } from "../config/site.js";
 import { pricingPage, affiliatePage } from "../models/pages.js";
 import {
-  crmPage,
-  crmIntro,
-  crmPerformance,
-  crmIntegration,
-  crmDataDashboard,
-  crmCta,
-  crmComingSoon,
-} from "../models/crm.js";
+  dataPage,
+  dataDashboard,
+  dataDelivery,
+  dataPerformance,
+  dataCta,
+} from "../models/data.js";
 import { featureMatrix, featureMatrixDisclaimer, affiliateTiers } from "../models/content.js";
 import { enterprisePlan, basicPlan, dataCostsNote } from "../models/pricing.js";
 
@@ -37,28 +35,23 @@ export function renderPricing(_req: Request, res: Response): void {
   });
 }
 
-/**
- * "/crm" - the CRM + Data showcase. The Data dashboard is live; the CRM sections
- * carry a "coming soon" button (wired in crm.ejs) while the CRM is being built.
- */
-export function renderCrm(_req: Request, res: Response): void {
-  res.render("crm", {
+/** "/data" - the Data Dashboard showcase (Smart Estimates, lead delivery, QA). */
+export function renderData(_req: Request, res: Response): void {
+  res.render("data", {
     site,
     navLinks,
     footerLinks,
-    page: crmPage,
-    crmIntro,
-    crmPerformance,
-    crmIntegration,
-    crmDataDashboard,
-    crmCta,
-    crmComingSoon,
-    pageTitle: crmPage.title,
-    pageDescription: crmPage.description,
-    canonical: `${site.url}${crmPage.path}`,
+    page: dataPage,
+    dataDashboard,
+    dataDelivery,
+    dataPerformance,
+    dataCta,
+    pageTitle: dataPage.title,
+    pageDescription: dataPage.description,
+    canonical: `${site.url}${dataPage.path}`,
     breadcrumbs: [
       { name: "Home", path: "/" },
-      { name: "Data + CRM", path: crmPage.path },
+      { name: "Data", path: dataPage.path },
     ],
     isHome: false,
     year: new Date().getFullYear(),

@@ -4,7 +4,7 @@ import { renderAbout } from "../controllers/aboutController.js";
 import { submitContact } from "../controllers/contactController.js";
 import {
   renderPricing,
-  renderCrm,
+  renderData,
   renderAffiliate,
 } from "../controllers/pagesController.js";
 import { renderSitemap } from "../controllers/seoController.js";
@@ -23,8 +23,9 @@ router.get(["/blog", "/blog/:slug"], (_req, res) => res.redirect(301, "/"));
 
 // Funnel spoke pages
 router.get("/pricing", renderPricing);
-router.get("/crm", renderCrm);
-router.get("/crm-and-data", (_req, res) => res.redirect(301, "/crm"));
+router.get("/data", renderData);
+// Legacy "CRM + Data" slugs - the CRM was dropped; 301 to the Data page.
+router.get(["/crm", "/crm-and-data"], (_req, res) => res.redirect(301, "/data"));
 
 router.get("/about", renderAbout);
 router.get("/about-us", (_req, res) => res.redirect(301, "/about"));

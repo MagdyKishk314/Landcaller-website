@@ -27,7 +27,7 @@ test("home route renders the full landing page", async () => {
     const html = await res.text();
     // Every major funnel section is present, in story order.
     for (const needle of [
-      "The Land Investing Ecosystem", // hero
+      "Done-For-You Cold Calling for Land Investors", // hero
       "The Challenge", // problem
       "Built by land investors", // guide teaser
       "Stop imagining a warm lead", // call samples
@@ -156,7 +156,7 @@ test("SEO landing pages render with one H1 each", async () => {
   try {
     for (const [path, needle] of [
       ["/pricing", "Land Caller Service Pricing"],
-      ["/crm", "Stop buying leads. Start building a pipeline."],
+      ["/data", "Stop buying blind."],
     ]) {
       const res = await fetch(`http://127.0.0.1:${port}${path}`);
       assert.equal(res.status, 200, `page failed: ${path}`);
@@ -164,10 +164,17 @@ test("SEO landing pages render with one H1 each", async () => {
       assert.ok(html.includes(needle), `missing H1 on ${path}`);
       assert.equal((html.match(/<h1/g) || []).length, 1, `${path} should have exactly one <h1>`);
     }
-    // CRM page surfaces its key content sections.
-    const crm = await (await fetch(`http://127.0.0.1:${port}/crm`)).text();
-    for (const n of ["Land Caller CRM", "Undeniable performance", "Smart Estimates", "Every lead, instantly in your CRM"]) {
-      assert.ok(crm.includes(n), `crm page missing: ${n}`);
+    // Data page surfaces its key content sections and no CRM messaging.
+    const data = await (await fetch(`http://127.0.0.1:${port}/data`)).text();
+    for (const n of ["Smart Estimates", "Every lead, delivered the same day.", "Undeniable performance"]) {
+      assert.ok(data.includes(n), `data page missing: ${n}`);
+    }
+    assert.ok(!/Land Caller CRM|CRM is coming soon/.test(data), "data page still carries CRM messaging");
+    // The retired CRM slugs 301 to the Data page.
+    for (const path of ["/crm", "/crm-and-data"]) {
+      const res = await fetch(`http://127.0.0.1:${port}${path}`, { redirect: "manual" });
+      assert.equal(res.status, 301, `${path} should redirect`);
+      assert.equal(res.headers.get("location"), "/data");
     }
   } finally {
     server.close();
@@ -202,7 +209,8 @@ test("sitemap.xml lists canonical URLs", async () => {
     const xml = await res.text();
     assert.match(res.headers.get("content-type") || "", /xml/);
     assert.ok(xml.includes("/about"), "sitemap missing /about");
-    assert.ok(xml.includes("/crm"), "sitemap missing /crm");
+    assert.ok(xml.includes("/data"), "sitemap missing /data");
+    assert.ok(!xml.includes("/crm"), "sitemap should not list the retired /crm page");
     assert.ok(xml.includes("/pricing"), "sitemap missing /pricing");
     assert.ok(!xml.includes("/blog"), "sitemap should not list the retired blog");
   } finally {
@@ -238,7 +246,24 @@ test("non-production host gets X-Robots-Tag noindex", async () => {
   }
 });
 
-test("unknown route returns a real 404 (no soft redirect)", async () => {
+test("unknown route redirects to the legacy server, same path and query", async () => {
+  const app = createApp();
+  const server = await listen(app);
+  const { port } = server.address();
+  try {
+    const res = await fetch(`http://127.0.0.1:${port}/app/lcds/index.php?x=1`, { redirect: "manual" });
+    assert.equal(res.status, 302);
+    assert.equal(res.headers.get("location"), "http://82.180.172.113/app/lcds/index.php?x=1");
+    // Non-GET requests are not forwarded.
+    const post = await fetch(`http://127.0.0.1:${port}/nope`, { method: "POST", redirect: "manual" });
+    assert.equal(post.status, 404);
+  } finally {
+    server.close();
+  }
+});
+
+test("unknown route returns a real 404 when the fallback is disabled", async () => {
+  process.env.FALLBACK_ORIGIN = "";
   const app = createApp();
   const server = await listen(app);
   const { port } = server.address();
@@ -246,6 +271,7 @@ test("unknown route returns a real 404 (no soft redirect)", async () => {
     const res = await fetch(`http://127.0.0.1:${port}/this-page-does-not-exist`, { redirect: "manual" });
     assert.equal(res.status, 404);
   } finally {
+    delete process.env.FALLBACK_ORIGIN;
     server.close();
   }
 });

@@ -1,5 +1,6 @@
 /**
- * Content models for the funnel spoke pages (Pricing, Affiliate, CRM).
+ * Content models for the funnel spoke pages (Pricing, Affiliate). The Data
+ * page model lives in models/data.ts.
  * Copy targets commercial "hire a land cold calling service" search
  * intent, national US.
  */
@@ -8,7 +9,7 @@ export const pricingPage = {
   title:
     "Land Caller Pricing | Cold Calling for Land Investors",
   description:
-    "Compare Land Caller's land cold calling packages - Enterprise dedicated callers or guaranteed-lead Basic plans, with full CRM integration and unlimited dials.",
+    "Compare Land Caller's land cold calling packages - Enterprise dedicated callers or guaranteed-lead Basic plans, with same-day lead delivery and unlimited dials.",
   path: "/pricing",
   eyebrow: "Pricing & Packages",
   h1: "Land Caller Service Pricing",
@@ -42,17 +43,4 @@ export const affiliatePage = {
   ctaBody:
     "Start growing your land investing business today with Land Caller's lead generation services. It'll be the best business decision you've ever made.",
   ctaLabel: "Sign Up Now",
-};
-
-// The /crm route is temporarily served as a "coming soon" page. The full CRM +
-// Data page is preserved (views/crm.ejs + models/crm.ts) and can be switched
-// back on in pagesController (see renderCrm).
-export const crmComingSoonPage = {
-  title: "Land Caller CRM + Data - Coming Soon",
-  description:
-    "The Land Caller CRM + Data platform is coming soon. Book a call to learn more, or check back shortly.",
-  path: "/crm",
-  eyebrow: "Coming Soon",
-  h1: "Land Caller CRM + Data.",
-  lede: "We're putting the finishing touches on our unified CRM + Data platform. It's coming soon - book a call to get the details, or check back shortly.",
 };

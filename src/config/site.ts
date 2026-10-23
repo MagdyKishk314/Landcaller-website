@@ -12,7 +12,7 @@ export const site: SiteConfig = {
   // Primary keyword up front; brand second. Targets the hire-intent buyer.
   title: "Land Lead Generation & Cold Calling for Land Investors | Land Caller",
   description:
-    "Done-for-you cold calling built exclusively for vacant land investors. We deliver warm, off-market land seller leads straight to your CRM. Book a call.",
+    "Done-for-you cold calling built exclusively for vacant land investors. We deliver warm, off-market land seller leads straight to your pipeline. Book a call.",
   keywords:
     "land investor cold calling, land seller leads, cold calling service, land lead generation, vacant land leads, off-market land deals, real estate cold calling, skip tracing, land acquisition, land investing, motivated seller leads, done-for-you cold calling",
   author: "Land Caller",
@@ -24,7 +24,7 @@ export const site: SiteConfig = {
   twitterHandle: "@Land_Caller",
   externalLinks: {
     bookACall: "https://calendly.com/landcaller",
-    crmLogin: "https://landcaller.com/client-portal",
+    leadPortal: "https://landcaller.com/client-portal",
     facebook: "https://www.facebook.com/landcaller",
     twitter: "https://twitter.com/Land_Caller",
     affiliateSignup:
@@ -36,13 +36,13 @@ export const site: SiteConfig = {
 export const navLinks: NavLink[] = [
   { label: "Home", href: "#" },
   { label: "About", href: "/about" },
-  { label: "Data + CRM", href: "/crm" },
+  { label: "Data", href: "/data" },
   { label: "Pricing", href: "/pricing" },
   { label: "Affiliates", href: "/affiliate" },
 ];
 
 export const footerLinks: NavLink[] = [
-  { label: "Data + CRM", href: "/crm" },
+  { label: "Data", href: "/data" },
   { label: "Pricing", href: "/pricing" },
   { label: "About Us", href: "/about" },
   { label: "Affiliates", href: "/affiliate" },

@@ -57,7 +57,7 @@ export interface SiteConfig {
   twitterHandle: string;
   externalLinks: {
     bookACall: string;
-    crmLogin: string;
+    leadPortal: string;
     facebook: string;
     twitter: string;
     affiliateSignup: string;
@@ -145,7 +145,7 @@ export interface PriceTier {
   /** Billing suffix for recurring plans, e.g. "/ 4 weeks". Omitted = flat fee. */
   per?: string;
   /**
-   * Per-tier bullets (Basic tiers: records, guaranteed leads, CRM access).
+   * Per-tier bullets (Basic tiers: records, guaranteed leads, delivery).
    * A bullet may carry an optional pill badge (e.g. "Coming Soon").
    */
   highlights?: (string | { label: string; badge?: string })[];
