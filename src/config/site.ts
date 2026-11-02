@@ -25,6 +25,7 @@ export const site: SiteConfig = {
   externalLinks: {
     bookACall: "https://calendly.com/landcaller",
     leadPortal: "https://landcaller.com/client-portal",
+    dataDashboard: "https://data.landcaller.com/",
     facebook: "https://www.facebook.com/landcaller",
     twitter: "https://twitter.com/Land_Caller",
     affiliateSignup:

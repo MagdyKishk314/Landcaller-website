@@ -563,3 +563,31 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   .lc-tip__bubble { transition: none; }
 }
+
+/* Enterprise Data section on /pricing. */
+.lc-data { max-width: 56rem; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; color: rgba(255, 255, 255, 0.65); line-height: 1.6; }
+.lc-data p { margin: 0 0 0.85rem; }
+.lc-data-options { display: grid; gap: 1.5rem; }
+@media (min-width: 768px) { .lc-data-options { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.lc-data-card, .lc-data-block { background: #141414; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; padding: clamp(1.25rem, 3vw, 2rem); min-width: 0; }
+.lc-data-block { scroll-margin-top: 6rem; }
+.lc-data-block--accent { border-color: rgba(232, 82, 58, 0.5); }
+.lc-data-card__name, .lc-data-block h3 { color: #fff; font-size: 1.25rem; font-weight: 700; margin: 0 0 0.5rem; }
+.lc-data-card__price { color: #e8523a; font-weight: 700; }
+.lc-data-card__best { color: rgba(255, 255, 255, 0.8); }
+.lc-data-card__best strong { color: #fff; }
+.lc-data-note { font-size: 0.8125rem; color: rgba(255, 255, 255, 0.45); }
+.lc-data-table-wrap { overflow-x: auto; }
+.lc-data-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+.lc-data-table th, .lc-data-table td { padding: 0.6rem 0.75rem; text-align: left; font-weight: 400; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.lc-data-table thead th { color: #fff; font-weight: 600; font-size: 0.8125rem; }
+.lc-data-table .lc-num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.lc-data-table .lc-strong td { color: #fff; font-weight: 700; }
+.lc-data-details { margin-top: 1rem; }
+.lc-data-details > summary { color: #e8523a; font-weight: 600; cursor: pointer; }
+.lc-data-details > summary:hover { text-decoration: underline; }
+.lc-data-details[open] > summary { margin-bottom: 0.75rem; }
+.lc-data-note--after { margin: 0.75rem 0 0 !important; }
+.lc-data-table-wrap--spaced { margin-top: 1rem; }
+.lc-data-table--rates { margin-bottom: 0.85rem; font-size: 0.875rem; }
+.lc-data-cta { text-align: center; }

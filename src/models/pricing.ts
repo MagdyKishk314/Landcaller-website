@@ -158,6 +158,3 @@ export const basicPlan: PricingPlan = {
     "No Contracts or Long-Term Commitments",
   ],
 };
-
-export const dataCostsNote =
-  "Billed at volume waterfall discount rates through the Land Caller Data Dashboard. Client must provide enough geographic coverage.";

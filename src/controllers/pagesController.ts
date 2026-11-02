@@ -9,7 +9,8 @@ import {
   dataCta,
 } from "../models/data.js";
 import { featureMatrix, featureMatrixDisclaimer, affiliateTiers } from "../models/content.js";
-import { enterprisePlan, basicPlan, dataCostsNote } from "../models/pricing.js";
+import { enterprisePlan, basicPlan } from "../models/pricing.js";
+import { enterpriseData, creditPackages, processingRates } from "../models/enterpriseData.js";
 
 /** "/pricing" - full packages + feature matrix (moved off the home funnel). */
 export function renderPricing(_req: Request, res: Response): void {
@@ -20,7 +21,9 @@ export function renderPricing(_req: Request, res: Response): void {
     page: pricingPage,
     enterprise: enterprisePlan,
     basic: basicPlan,
-    dataCostsNote,
+    enterpriseData,
+    creditPackages,
+    processingRates,
     featureMatrix,
     featureMatrixDisclaimer,
     pageTitle: pricingPage.title,

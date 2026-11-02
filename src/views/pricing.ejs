@@ -24,9 +24,12 @@
           <!-- Enterprise -->
           <section class="py-24 lg:py-32 bg-[#0D0D0D] border-b border-white/5">
             <div class="container">
-              <%- include('partials/_pricing-plan', { plan: enterprise, dataCosts: dataCostsNote }) %>
+              <%- include('partials/_pricing-plan', { plan: enterprise }) %>
             </div>
           </section>
+
+          <!-- Enterprise data options -->
+          <%- include('partials/_enterprise-data') %>
 
           <!-- Basic -->
           <section class="py-24 lg:py-32 bg-[#0E0E0E] border-b border-white/5">

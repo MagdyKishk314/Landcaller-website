@@ -65,13 +65,6 @@ const p = plan;
 </div>
 <% } %>
 
-<% if (typeof dataCosts !== 'undefined' && dataCosts) { %>
-<div class="max-w-3xl mx-auto mt-6 bg-[#0E0E0E] border border-white/10 rounded-lg p-5">
-  <p class="text-xs font-bold mb-2"><span class="uppercase tracking-wider text-[#E8523A]">Data Costs</span> <span class="text-white/40">(Enterprise only)</span></p>
-  <p class="text-sm text-white/55 leading-relaxed"><%= dataCosts %></p>
-</div>
-<% } %>
-
 <div class="text-center mt-10 flex flex-wrap items-center justify-center gap-4">
   <% if (p.signupUrl) { %>
     <%- include('_button', { label: 'Sign Up', href: p.signupUrl, variant: 'primary', size: 'lg', external: true }) %>

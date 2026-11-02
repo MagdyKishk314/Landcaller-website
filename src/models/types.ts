@@ -58,6 +58,7 @@ export interface SiteConfig {
   externalLinks: {
     bookACall: string;
     leadPortal: string;
+    dataDashboard: string;
     facebook: string;
     twitter: string;
     affiliateSignup: string;

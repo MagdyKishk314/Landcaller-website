@@ -74,6 +74,11 @@ test("pricing page renders with one H1", async () => {
     for (const n of ["Land Caller Enterprise Package", "Land Caller Basic Package", "$2,850", "$1,100", "Key Features Comparison"]) {
       assert.ok(pricing.includes(n), `pricing missing: ${n}`);
     }
+    // Enterprise Data section: options, packages, corrected customer figures.
+    for (const n of ["Choose Your Data Option", "Additional $1,100/month", "You Don&#39;t Pay for DNC Records", "$0.1150", "14,430", "3.38¢", "$290.40", "https://data.landcaller.com/"]) {
+      assert.ok(pricing.includes(n), `enterprise data missing: ${n}`);
+    }
+    assert.ok(!pricing.includes("200,000"), "the largest credit packages should stay off the page");
   } finally {
     server.close();
   }

@@ -1,0 +1,93 @@
+<%
+/* Enterprise Data section of /pricing. Params from page locals: enterpriseData,
+   creditPackages, processingRates, site. */
+const d = enterpriseData;
+const num = (n) => n.toLocaleString('en-US');
+%>
+<section id="enterprise-data" class="py-24 lg:py-32 bg-[#0E0E0E] border-b border-white/5">
+  <div class="container">
+    <div class="max-w-3xl mx-auto text-center mb-12">
+      <p class="text-[#E8523A] text-sm font-semibold tracking-wide uppercase mb-4"><%= d.eyebrow %></p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-white leading-tight"><%= d.heading %></h2>
+    </div>
+
+    <div class="lc-data">
+      <!-- The two options, side by side -->
+      <div class="lc-data-options">
+        <div class="lc-data-card">
+          <h3 class="lc-data-card__name"><%= d.allInclusive.name %></h3>
+          <p class="lc-data-card__price"><%= d.allInclusive.price %></p>
+          <p><%= d.allInclusive.body %></p>
+          <p class="lc-data-card__best"><strong>Best for:</strong> <%= d.allInclusive.bestFor %></p>
+          <p class="lc-data-note"><%= d.allInclusive.note %></p>
+        </div>
+        <div class="lc-data-card">
+          <h3 class="lc-data-card__name"><%= d.byod.name %></h3>
+          <p class="lc-data-card__price"><%= d.byod.price %></p>
+          <p><%= d.byod.body %></p>
+          <table class="lc-data-table lc-data-table--rates">
+            <tbody>
+              <% processingRates.forEach(function(r){ %>
+              <tr><td><%= r.label %></td><td class="lc-num"><%= r.credits.toFixed(2) %> credits</td></tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <p class="lc-data-card__best"><strong>Best for:</strong> <%= d.byod.bestFor %></p>
+        </div>
+      </div>
+
+      <!-- Free DNC records -->
+      <div class="lc-data-block lc-data-block--accent">
+        <h3><%= d.dnc.heading %></h3>
+        <p><%= d.dnc.body %></p>
+      </div>
+
+      <!-- Credit packages + customer example -->
+      <div class="lc-data-block">
+        <h3><%= d.packages.heading %></h3>
+        <div class="lc-data-table-wrap">
+          <table class="lc-data-table">
+            <thead><tr><th scope="col">Credits</th><th scope="col" class="lc-num">Price</th><th scope="col" class="lc-num">Cost Per Credit</th></tr></thead>
+            <tbody>
+              <% creditPackages.forEach(function(p){ %>
+              <tr><td><%= num(p.credits) %></td><td class="lc-num">$<%= num(p.price) %></td><td class="lc-num">$<%= (p.price / p.credits).toFixed(4) %></td></tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+        <p class="lc-data-note lc-data-note--after"><%= d.packages.larger %></p>
+
+        <details class="lc-data-details">
+          <summary><%= d.example.expand %></summary>
+          <p><%= d.example.basis %></p>
+          <div class="lc-data-table-wrap">
+            <table class="lc-data-table">
+              <tbody>
+                <% d.example.records.forEach(function(r){ %>
+                <tr class="<%= r.strong ? 'lc-strong' : '' %>"><td><%= r.label %></td><td class="lc-num"><%= r.value %></td></tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+          <div class="lc-data-table-wrap lc-data-table-wrap--spaced">
+            <table class="lc-data-table">
+              <thead><tr><td></td><th scope="col" class="lc-num">Skip + Scrub</th><th scope="col" class="lc-num">Scrub Only</th></tr></thead>
+              <tbody>
+                <% d.example.costs.forEach(function(r){ %>
+                <tr class="<%= r.strong ? 'lc-strong' : '' %>"><td><%= r.label %></td><td class="lc-num"><%= r.skip %></td><td class="lc-num"><%= r.scrub %></td></tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+          <p class="lc-data-note lc-data-note--after"><%= d.example.note %></p>
+        </details>
+      </div>
+
+      <!-- Data Dashboard access -->
+      <div class="lc-data-cta">
+        <%- include('_button', { label: d.dashboard.cta, href: site.externalLinks.dataDashboard, variant: 'primary', size: 'lg', icon: 'arrow-right', external: true }) %>
+        <p class="lc-data-note lc-data-note--after"><%= d.dashboard.note %></p>
+      </div>
+    </div>
+  </div>
+</section>
