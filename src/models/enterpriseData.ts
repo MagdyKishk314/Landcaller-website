@@ -31,7 +31,7 @@ export const enterpriseData = {
   heading: "Choose Your Data Option",
   allInclusive: {
     name: "All-Inclusive Data",
-    price: "Additional $1,100/month",
+    price: "$1,100/month",
     body:
       "We pull, skip trace, and scrub your records, delivering approximately 10,000-12,000 dial-ready records per month.",
     bestFor: "A fully managed solution with no credits to buy or manage.",

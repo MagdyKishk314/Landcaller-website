@@ -75,7 +75,7 @@ test("pricing page renders with one H1", async () => {
       assert.ok(pricing.includes(n), `pricing missing: ${n}`);
     }
     // Enterprise Data section: options, packages, corrected customer figures.
-    for (const n of ["Choose Your Data Option", "Additional $1,100/month", "You Don&#39;t Pay for DNC Records", "$0.1150", "14,430", "3.38¢", "$290.40", "https://data.landcaller.com/"]) {
+    for (const n of ["Choose Your Data Option", "$1,100/month", "You Don&#39;t Pay for DNC Records", "$0.1150", "14,430", "3.38¢", "$290.40", "https://data.landcaller.com/"]) {
       assert.ok(pricing.includes(n), `enterprise data missing: ${n}`);
     }
     assert.ok(!pricing.includes("200,000"), "the largest credit packages should stay off the page");
